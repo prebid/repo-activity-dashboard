@@ -4,6 +4,7 @@ import { pendingTableQuery } from '@/lib/presentation/table-controller';
 import type { RepositoryPageNavigation } from '@/models/repository-page';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { repositoryTimelineEntry } from '@/lib/presentation/timeline-navigation';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
 import { defaultRepositoryFilters } from '@/lib/presentation/repository-page-query';
 import type { RepositoryLinkPresentation } from '@/lib/presentation/repository-url';
 import { writeBoundTableQuery, type TableFields } from '@/lib/presentation/url/table-binding';
@@ -61,6 +62,7 @@ export function RepositoryInsightsScreen({
     kind: insight.kind === 'authors' ? insight.recordKind : ('prs' as const),
   };
   const filters = defaultRepositoryFilters(scope.kind);
+  const saved = useSavedTimelinePresentation('timeline.repository', 'repository');
   /** This insight's own address with its table state written in, as a Timeline's parent. */
   const origin = (query: string, table: Partial<TableQuery>) => {
     const written = writeBoundTableQuery(fields, query, table);
@@ -76,13 +78,18 @@ export function RepositoryInsightsScreen({
         scope,
         filters,
         origin(search, pendingTableQuery(controller)),
+        saved,
+        insight.asOf,
       )}
       onTimeline={(event) =>
         followCaptured(
           event,
           () => {
             const parent = origin(window.location.search, controller.flushSearch());
-            return { origin: parent, href: repositoryTimelineEntry(scope, filters, parent) };
+            return {
+              origin: parent,
+              href: repositoryTimelineEntry(scope, filters, parent, saved, insight.asOf),
+            };
           },
           (href) => pendingNavigation.push(href, 'timeline'),
         )

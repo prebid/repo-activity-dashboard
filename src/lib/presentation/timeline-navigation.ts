@@ -12,6 +12,7 @@ import {
   repositoryTimelineMetricScope,
 } from '@/models/repository-timeline';
 import { childViewHref, viewOf, type UrlView } from './url/back';
+import { savedTimelineLink } from './url/legacy/timeline-state';
 import { urlHref } from './url/codec';
 import { instantIso, rangeValues } from './url/period';
 import type { UrlValue } from './url/registry';
@@ -46,6 +47,9 @@ export function repositoryTimelineEntry(
   },
   filters: RepositoryPageFilters,
   currentHref: string,
+  /** The viewer's saved repository Timeline presentation (decision C3). */
+  saved: string | null = null,
+  asOf = '',
 ): string | null {
   const parent = viewOf(currentHref);
   if (
@@ -76,17 +80,20 @@ export function repositoryTimelineEntry(
       : undefined;
   // Event ranges do not carry over, so no filter resolves against this instant.
   const at = (period && instantIso(period.at)) ?? '';
+  const values = defined({
+    timeline: true,
+    view: source.kind === 'issues' ? 'issues' : undefined,
+    ...period,
+    metric,
+    ...repositoryFilterFields(next, at),
+    omitted: omitted || undefined,
+  });
+  // The list names the Timeline's records, family and period; its other presentation is saved.
+  const explicit = ['view', 'family', 'period', ...(metric ? ['metric'] : [])];
   const child: UrlView = {
     route,
     segments: { slug: [source.repository.slug] },
-    values: defined({
-      timeline: true,
-      view: source.kind === 'issues' ? 'issues' : undefined,
-      ...period,
-      metric,
-      ...repositoryFilterFields(next, at),
-      omitted: omitted || undefined,
-    }),
+    values: savedTimelineLink(route, values, explicit, saved, asOf),
   };
   return childViewHref(parent, child);
 }
@@ -96,30 +103,35 @@ export function repositoryTimelineEntry(
  * as the Timeline's parent. Null when the link cannot fit.
  */
 export function matrixRepositoryTimelineHref(
-  context: Pick<TimelineControlContext, 'view'>,
+  context: Pick<TimelineControlContext, 'view'> & { asOf?: string },
   slug: string,
   currentHref: string,
   metric = context.view.metric,
+  /** The viewer's saved repository Timeline presentation (decision C3). */
+  saved: string | null = null,
 ) {
   const matrix = viewOf(currentHref);
   if (!matrix || matrix.route !== '/repos') return null;
   const selected = repositoryTimelineMetricSchema.parse(metric),
     scope = repositoryTimelineMetricScope(selected);
   const { values } = matrix;
+  const own = defined({
+    timeline: true,
+    view: scope.recordKind,
+    sample: values.sample,
+    gap: values.gap,
+    period: values.period,
+    at: values.at,
+    family: scope.family,
+    metric: selected,
+    group: values.group,
+  });
+  // The matrix names the metric, its period and grouping; chart and columns may be saved.
+  const explicit = ['view', 'family', 'metric', 'period', 'group', 'sort', 'page'];
   const child: UrlView = {
     route,
     segments: { slug: [slug] },
-    values: defined({
-      timeline: true,
-      view: scope.recordKind,
-      sample: values.sample,
-      gap: values.gap,
-      period: values.period,
-      at: values.at,
-      family: scope.family,
-      metric: selected,
-      group: values.group,
-    }),
+    values: savedTimelineLink(route, own, explicit, saved, context.asOf ?? ''),
   };
   return childViewHref(matrix, child);
 }

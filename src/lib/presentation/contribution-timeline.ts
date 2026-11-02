@@ -25,7 +25,8 @@ import type { ContributionArea } from '@/models/contribution-page';
 import type { ContributionSettings } from '@/models/contribution-settings';
 import { contributionScopeValues, omitValues } from './contribution-url';
 import { childViewHref, viewHref, viewOf, type UrlView } from './url/back';
-import { screenOf } from './url/registry';
+import { screenOf, type UrlValues } from './url/registry';
+import { savedTimelineLink } from './url/legacy/timeline-state';
 
 /** Partition supplied once-attributed facts; no GitHub history or client-side report calculation. */
 export function selectContributionTimeline(
@@ -144,15 +145,24 @@ const overTimeScope = ['sample', 'lens', 'period', 'repo', 'type', 'account', 'c
 export function contributionTimelineHref(
   view: UrlView,
   settings: ContributionSettings,
+  /** The viewer's saved Over time presentation for this report (decision C3). */
+  saved: string | null = null,
+  asOf = '',
 ): string | null {
   const screen = screenOf(view.route, view.values);
   if (screen !== 'contributionOverview' && screen !== 'contributionDetail') return null;
   const scoped = Object.fromEntries(
     Object.entries(view.values).filter(([name]) => overTimeScope.includes(name)),
   );
+  const own: UrlValues = {
+    ...scoped,
+    ...contributionScopeValues(settings),
+    timeline: true,
+    v: '1',
+  };
   const child: UrlView = {
     ...view,
-    values: { ...scoped, ...contributionScopeValues(settings), timeline: true, v: '1' },
+    values: savedTimelineLink(view.route, own, ['period'], saved, asOf),
   };
   return childViewHref(view, child);
 }

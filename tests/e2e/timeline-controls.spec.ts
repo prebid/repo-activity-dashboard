@@ -9,7 +9,7 @@ async function login(page: Page, email?: string) {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
-test('restoration preserves a valid near-limit incoming link when canonical defaults would exceed its budget', async ({
+test('a near-limit legacy Timeline link is answered with its short canonical address', async ({
   page,
 }) => {
   await login(page);
@@ -17,22 +17,16 @@ test('restoration preserves a valid near-limit incoming link when canonical defa
   params.set('summary', '/repos?x=');
   const padding = 7498 - new TextEncoder().encode('/repos?' + params.toString()).length;
   params.set('summary', '/repos?x=' + 'a'.repeat(padding));
-  const href = '/repos?' + params.toString();
-  await page.goto(href);
+  await page.goto('/repos?' + params.toString());
   await expect(page.getByRole('heading', { name: 'All repositories', exact: true })).toBeVisible();
-  await expect(
-    page.getByText(
-      'Saved Timeline preferences do not fit this report. The requested view is unchanged.',
-      { exact: true },
-    ),
-  ).toBeVisible();
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
-  await expect(page).toHaveURL('http://127.0.0.1:3100' + href);
+  // The Summary it named is no view, so no return frame is kept.
+  await expect(page).toHaveURL('http://127.0.0.1:3100/repos?timeline');
 });
 async function ready(page: Page) {
   await expect(page.getByLabel('Group by', { exact: true })).toBeEnabled();
 }
-test('canonical presentation restoration does not fetch the Timeline data again', async ({
+test('an entry opens at its canonical address without fetching the Timeline data again', async ({
   page,
 }) => {
   await login(page);
@@ -41,14 +35,14 @@ test('canonical presentation restoration does not fetch the Timeline data again'
     const url = new URL(request.url());
     if (
       url.pathname === '/repos' &&
-      url.searchParams.get('timeline') === '1' &&
+      url.searchParams.has('timeline') &&
       url.searchParams.has('_rsc')
     )
       requests.push(request.url());
   });
   await page.goto('/repos?timeline=1');
   await ready(page);
-  await expect(page).toHaveURL(/timeline\.state=1/);
+  await expect(page).toHaveURL(/\/repos\?timeline$/);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(18);
   expect(requests).toEqual([]);
 });
@@ -156,7 +150,7 @@ test('saved matrix scope and presentation remain isolated from explicit links an
   await page.goto('/repos?timeline=1');
   await ready(page);
   await expect(page.getByLabel('Group by', { exact: true })).toHaveValue('quarter');
-  expect(new URL(page.url()).searchParams.getAll('timeline.metric')).toEqual(['prsMerged']);
+  expect(listParam(page.url(), 'metric')).toEqual(['prsMerged']);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
   await page.goto('/repos?timeline=1&timeline.state=1&timeline.group=week&repo=repo-prebidserver');
   await ready(page);
@@ -225,8 +219,8 @@ test('repository entry retains title filters and exact activity dates, with revi
   await page.getByRole('link', { name: 'Timeline', exact: true }).click();
   await ready(page);
   await expect(page.getByText(/Current backlog constraints remain/)).toBeVisible();
-  expect(new URL(page.url()).searchParams.get('prs.q')).toBe('Sample');
-  expect(new URL(page.url()).searchParams.has('prs.filter.approvals')).toBe(false);
+  expect(new URL(page.url()).searchParams.get('q')).toBe('Sample');
+  expect(new URL(page.url()).searchParams.has('approvals')).toBe(false);
   // The list was answered with its canonical form, which the Timeline returns to.
   await page.getByRole('link', { name: /Previous repository view$/ }).click();
   await expect(page).toHaveURL(/[?&]approvals=1/);
@@ -237,8 +231,9 @@ test('repository entry retains title filters and exact activity dates, with revi
   await page.getByRole('link', { name: 'Timeline', exact: true }).click();
   await ready(page);
   const q = new URL(page.url()).searchParams;
-  expect(q.get('timeline.from')).toBe('2026-10-01T00:00:00.000Z');
-  expect(q.get('timeline.to')).toBe('2026-10-08T00:00:00.000Z');
+  // The exact interval is its period with the interval's end as the snapshot.
+  expect(q.get('period')).toBe('2026-10-01..2026-10-07');
+  expect(q.get('at')).toBe('2026-10-08');
   await page.getByLabel('Group by', { exact: true }).selectOption('day');
   await ready(page);
   await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(7);
@@ -294,10 +289,10 @@ test('repository record filters remain independent of table pages and snapshot f
   await dialog.getByRole('button', { name: 'Apply filters', exact: true }).click();
   await ready(page);
   await expect(page.getByText('Page 1 of 6', { exact: true })).toBeVisible();
-  expect(new URL(page.url()).searchParams.getAll('prs.filter.authors')).toEqual(['sample-alice']);
+  expect(listParam(page.url(), 'authors')).toEqual(['sample-alice']);
   await page.getByLabel('Measure', { exact: true }).selectOption('snapshot');
   await ready(page);
-  expect(new URL(page.url()).searchParams.has('prs.filter.authors')).toBe(false);
+  expect(new URL(page.url()).searchParams.has('authors')).toBe(false);
   await expect(page.getByRole('heading', { name: 'Backlog over time', exact: true })).toBeVisible();
   await page.getByLabel('Records', { exact: true }).selectOption('issues');
   await ready(page);
@@ -371,10 +366,11 @@ test('issue-author insight entry inherits its metric and exact period without tu
   await page.getByRole('link', { name: 'Timeline', exact: true }).click();
   await ready(page);
   const q = new URL(page.url()).searchParams;
-  expect(q.get('timeline.kind')).toBe('issues');
-  expect(q.get('timeline.metric')).toBe('issueAuthors');
-  expect(q.get('timeline.to')).toBe('2026-10-08T00:00:00.000Z');
-  expect(q.has('issues.q')).toBe(false);
+  expect(q.get('view')).toBe('issues');
+  expect(q.get('metric')).toBe('issueAuthors');
+  expect(q.get('at')).toBe('2026-10-08');
+  // The author table's search is not a record title search.
+  expect(q.has('q')).toBe(false);
   await page.getByRole('link', { name: /Previous repository view$/ }).click();
   await expect(page).toHaveURL(/[?&]q=alice/);
   await expect(page.getByRole('heading', { name: 'Issue authors', exact: true })).toBeVisible();

@@ -251,7 +251,7 @@ test('Over time area tabs open the other area’s Over time, whose Report tab st
     .getByRole('link', { name: 'Over time', exact: true })
     .click();
   await expect(page).toHaveURL(
-    (url) => url.pathname === '/contributors' && url.searchParams.get('timeline') === '1',
+    (url) => url.pathname === '/contributors' && url.searchParams.has('timeline'),
   );
   await page
     .getByRole('navigation', { name: 'Contribution reports', exact: true })
@@ -259,7 +259,7 @@ test('Over time area tabs open the other area’s Over time, whose Report tab st
     .click();
   await expect(page.getByRole('heading', { name: 'Companies', level: 1 })).toBeVisible();
   await expect(page).toHaveURL(
-    (url) => url.pathname === '/companies' && url.searchParams.get('timeline') === '1',
+    (url) => url.pathname === '/companies' && url.searchParams.has('timeline'),
   );
   const views = page.getByRole('navigation', { name: 'Report view', exact: true });
   await expect(views.getByRole('link', { name: 'Over time', exact: true })).toHaveAttribute(
@@ -324,7 +324,8 @@ test('old links and a differing bare entry are answered with one 307; exports ne
     ],
     [
       '/companies/id/company-acme?view=repositories&scope=1&period=this-year',
-      '/companies/id/company-acme?view=repositories',
+      // The old explicit-state marker pins the defaults, so no saved view replaces them.
+      '/companies/id/company-acme?view=repositories&v=1',
     ],
   ])
     expect(await answer(legacy), legacy).toEqual([307, canonical]);

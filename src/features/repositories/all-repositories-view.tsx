@@ -15,6 +15,7 @@ import {
 import type { OverviewSettings, OverviewSettingsControl } from '@/models/overview-settings';
 import { AllRepositoriesHeading, AllRepositoriesTabs } from './all-repositories-header';
 import { repositoryMatrixEntryHref } from '@/lib/presentation/repository-timeline-matrix-entry';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
 import {
   activityCellMeasurement,
   activityColumns,
@@ -108,6 +109,7 @@ export function AllRepositoriesView({
     () => overviewLegend(activityRows, activity, activityVisibility, activityCellMeasurement),
     [activityRows, activity, activityVisibility],
   );
+  const savedMatrix = useSavedTimelinePresentation('timeline.matrix', 'matrix');
   return (
     <>
       <AllRepositoriesHeading asOf={data.asOf} />
@@ -118,6 +120,7 @@ export function AllRepositoriesView({
           repositories.filter((row) => settings.value.repositoryIds.includes(row.id)),
           returnTo,
           data,
+          savedMatrix,
         )}
         sections={rows.length ? summarySections : undefined}
       />

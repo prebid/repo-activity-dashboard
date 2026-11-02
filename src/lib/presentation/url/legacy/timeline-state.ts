@@ -26,10 +26,14 @@ import { contributionUrlFits } from '../../contribution-return';
 import { canonicalRoutePath } from '../../navigation';
 import { readRepositoryFilterValues, writeRepositoryFilters } from './repository';
 import { validateRepositoryTimelineFilters } from '../../repository-timeline';
-import { parseQuery } from '../codec';
-import { isEntry } from '../codec';
+import { isEntry, parseQuery, withoutDefaults } from '../codec';
 import { matchRoute } from '../registry';
 import { timelineQuery } from '../timeline';
+import { defaultValue } from '../defaults';
+import { periodSelection } from '../period';
+import { timelineScreen, type UrlRoute, type UrlValue, type UrlValues } from '../registry';
+import { timelineStateValues } from './decode';
+import { repositoryCatalog } from '@/config/repositories';
 
 import { assertMatrixCellLimit, matrixRepositoryIds } from '../../repository-timeline-matrix';
 export { timelineViewKeys };
@@ -675,4 +679,63 @@ export function rememberedTimelinePreferences(
 export function storedTimelinePreferences(raw: string | null, area: TimelineArea): unknown {
   const stored = readTimelinePreferences(raw, area);
   return stored && (JSON.parse(serializeTimelinePreferences(stored, area)) as unknown);
+}
+
+const linkRepositories = repositoryCatalog
+  .filter((row) => row.enabled)
+  .map((row) => ({
+    id: row.id,
+    slug: row.slug,
+    name: row.displayName,
+    primaryBranch: row.primaryBranch === 'main' ? ('main' as const) : ('master' as const),
+  }));
+/**
+ * A link into a Timeline with the viewer's saved presentation (decision C3): the values its entry
+ * would open at, as the Timeline resolves an entry (explicit fields win per domain, and a saved
+ * choice that does not fit is left out). `explicit` names the fields the link sets even at their
+ * v1 defaults, so a saved value never replaces them; such a link is pinned with `v`, since one
+ * left with only selectors would be an entry the Timeline resolves again. Without a saved section,
+ * or when the link's view cannot take it, the link's own values.
+ */
+export function savedTimelineLink(
+  route: UrlRoute,
+  values: UrlValues,
+  explicit: readonly string[],
+  saved: string | null,
+  asOf: string,
+): UrlValues {
+  if (!saved) return values;
+  const pin: UrlValues = explicit.length ? { v: '1' } : {};
+  const pinned: Record<string, UrlValue> = { ...values };
+  for (const name of explicit)
+    if (pinned[name] === undefined) {
+      const fallback = defaultValue(route, name, values);
+      if (fallback !== undefined) pinned[name] = fallback;
+    }
+  const query = timelineQuery(route, pinned, asOf);
+  const period = periodSelection(typeof pinned.period === 'string' ? pinned.period : 'this-year');
+  if (query === null || !period) return { ...values, ...pin };
+  const entry = new URLSearchParams(query);
+  entry.delete('timeline.state');
+  const screen = timelineScreen(route);
+  const area: TimelineArea =
+    screen === 'matrix'
+      ? 'matrix'
+      : screen === 'repositoryTimeline'
+        ? 'repository'
+        : 'contribution';
+  const context = {
+    area,
+    path: '/',
+    asOf,
+    period,
+    repositories: linkRepositories,
+  } as unknown as TimelineControlContext;
+  const resolved = resolveTimelineEntry(entry.toString(), context, { presentation: saved });
+  const target =
+    resolved.kind === 'redirect' &&
+    timelineStateValues(route, resolved.search, asOf, { repositories: linkRepositories });
+  if (!target) return { ...values, ...pin };
+  const back: UrlValues = values.back === undefined ? {} : { back: values.back };
+  return { ...withoutDefaults(route, target), ...back, ...pin };
 }

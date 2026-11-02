@@ -291,7 +291,8 @@ function matrixValues(
   if (!timelineValues(timeline, values)) return false;
   const { view } = timeline;
   values.metric = view.selectedMetrics ?? [view.metric];
-  values.rank = view.metric;
+  // An empty selection has no ranking metric, as the Timeline query writes it.
+  if (values.metric.length) values.rank = view.metric;
   // The last window is the default; it moves with the period, so only another window is kept.
   const withoutWindow = new URLSearchParams(params);
   withoutWindow.delete('timeline.window');

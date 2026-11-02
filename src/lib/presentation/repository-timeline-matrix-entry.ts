@@ -1,6 +1,8 @@
 // The Summary's Timeline tab: the matrix for the Summary's repositories, with the Summary as its
 // parent. From a Summary at v1 defaults the link is `/repos?timeline`.
 import { childViewHref, viewOf, type UrlView } from './url/back';
+import { savedTimelineLink } from './url/legacy/timeline-state';
+import type { UrlValues } from './url/registry';
 import { allRepositorySlugs } from './url/defaults';
 import { matrixRepositoryTimelineHref } from './timeline-navigation';
 import { timelineSupportHref } from './timeline-support-query';
@@ -17,15 +19,22 @@ export function repositoryMatrixEntryHref(
   repositories: readonly { id: string; slug: string }[],
   summaryHref: string,
   source: TimelineSourceIdentity,
+  /** The viewer's saved matrix view (decision C3); the Summary's repositories stay explicit. */
+  saved: string | null = null,
 ): string | null {
   const summary = viewOf(summaryHref);
   if (summary?.route !== '/repos') return null;
   const all = allRepositorySlugs();
   const slugs = all.filter((slug) => repositories.some((row) => row.slug === slug));
+  const own: UrlValues = {
+    timeline: true,
+    ...(slugs.length === all.length ? {} : { repo: slugs }),
+  };
   const matrix: UrlView = {
     route: '/repos',
     segments: {},
-    values: { timeline: true, ...(slugs.length === all.length ? {} : { repo: slugs }) },
+    // An entry (all repositories) takes the saved view where it opens; a narrower link carries it.
+    values: own.repo ? savedTimelineLink('/repos', own, [], saved, source.asOf) : own,
   };
   const href = childViewHref(summary, matrix);
   return href !== null && childLinksFit(href, repositories, source) ? href : null;

@@ -186,7 +186,7 @@ test('a shared v1 bookmark is answered with back frames that restore its frozen 
   // The 307 translates the trail into frames: the company page, then its derived Companies.
   expect(new URL(page.url()).search).toBe(
     '?sample=large&back=/companies/id/company-acme~sort:-name~page:2' +
-      '~cols:-actorType,-authoredPrsMerged,-issuesAuthored',
+      '~cols:-actorType,-authoredPrsMerged,-issuesAuthored&v=1',
   );
   await page.getByRole('link', { name: 'Back to report', exact: true }).click();
   await expect(
@@ -216,7 +216,7 @@ test('malformed compact context leaves Back to report unavailable while the repo
     '/contributors/account-alice?scope=1&period=this-year&nav=' + nav,
   );
   expect(response?.status()).toBe(200);
-  expect(new URL(page.url()).search).toBe('?back=!');
+  expect(new URL(page.url()).search).toBe('?back=!&v=1');
   await expect(page.getByRole('table', { name: 'By repository', exact: true })).toBeVisible();
   const trail = page.getByRole('navigation', { name: 'Contribution breadcrumb' });
   await expect(trail.getByRole('link')).toHaveCount(0);

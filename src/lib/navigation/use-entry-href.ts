@@ -12,7 +12,7 @@ import { usePreferenceBinding } from './preference-binding';
  * A save in this window dispatches the change event. Cookies fire no event across tabs, so the
  * cookie is also read again when this window regains focus or becomes visible.
  */
-function subscribe(notify: () => void) {
+export function subscribePreferences(notify: () => void) {
   window.addEventListener(preferenceChangeEvent, notify);
   window.addEventListener('focus', notify);
   document.addEventListener('visibilitychange', notify);
@@ -61,5 +61,5 @@ export function useEntryHref(
     const href = urlHref(route, segments, entryValues(route, selectors, values));
     return contributionUrlFits(href) ? href : null;
   }, [binding, viewerId, saved, route, segments, selectors]);
-  return useSyncExternalStore(subscribe, snapshot, serverSnapshot) ?? bare;
+  return useSyncExternalStore(subscribePreferences, snapshot, serverSnapshot) ?? bare;
 }

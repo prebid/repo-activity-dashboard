@@ -352,6 +352,36 @@ it.each([
     expect(await csv()).toBe(withoutCookie);
   },
 );
+it('exports the same file for an old link with its trail and the canonical link with or without return context', async () => {
+  const legacy =
+    '/repos/prebidjs?timeline=1&timeline.sort=prsOpened&timeline.dir=desc' +
+    '&timelineParent=' +
+    encodeURIComponent('/repos/prebidjs?prs.q=Sample') +
+    '&returnTo=' +
+    encodeURIComponent('/repos');
+  const canonical = canonicalHref(
+    '/repos/prebidjs?timeline=1&timeline.sort=prsOpened&timeline.dir=desc',
+  );
+  const returning = edited(canonical, { back: ['/repos/prebidjs~q:Sample'] });
+  expect(returning).toContain('back=');
+  const loaded = await loadTimelineReport(canonical);
+  if (loaded.status !== 'ready' || loaded.category === 'matrix') throw Error('Expected report');
+  const file = async (href: string) => {
+    const response = await timelineExportResponse(
+      download({
+        href,
+        revision: loaded.report.source.scenarioId,
+        asOf: loaded.report.source.asOf,
+        columns: ['period', 'prsOpened'],
+      }),
+    );
+    expect(response.status).toBe(200);
+    return response.text();
+  };
+  const expected = await file(canonical);
+  expect(await file(legacy)).toBe(expected);
+  expect(await file(returning)).toBe(expected);
+});
 it('exports matrix values, units and coverage by repository and period', async () => {
   const csv = await exportCsv(
     '/repos?timeline=1&repo=repo-prebidjs&timeline.metric=prsOpened&timeline.metric=prsMerged&timeline.metric=medianMergeDays',

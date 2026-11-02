@@ -207,9 +207,7 @@ test('mixed coverage, durations, snapshots and empty selections retain their mea
   await ready();
   await expect(page.getByRole('heading', { name: 'No repositories selected' })).toBeVisible();
   await expect(table).toHaveCount(0);
-  await page.goto(
-    '/repos?timeline=1&timeline.group=day&period=custom&from=2020-01-01&through=2026-10-24',
-  );
+  await page.goto('/repos?timeline&group=day&period=2020-01-01..2026-10-24');
   await expect(page.getByRole('heading', { name: 'Invalid timeline view' })).toBeVisible();
   // The page keeps its one title above the error.
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);

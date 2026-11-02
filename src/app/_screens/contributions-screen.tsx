@@ -1,4 +1,6 @@
 'use client';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
+import type { PreferenceSectionKey } from '@/models/preferences';
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import Link from 'next/link';
 import { useMemo, type MouseEvent, type ComponentProps } from 'react';
@@ -81,6 +83,12 @@ export function ContributionsScreen({
 }) {
   const options = useMemo(() => contributionOptionsClient(page.sample), [page.sample]);
   const pendingNavigation = usePendingNavigation();
+  const asOf = page.report.context.asOf;
+  // Over time opens this report's Timeline with the viewer's saved presentation (decision C3).
+  const savedTimeline = useSavedTimelinePresentation(
+    ('timeline.' + page.area + '.' + page.report.context.focus.kind) as PreferenceSectionKey,
+    'contribution',
+  );
   const table = page.details ? 'details' : page.report.table!.kind;
   const columnIds =
     page.details && page.details.basis !== 'comments' ? creditDetailColumnIds : ids[table];
@@ -180,10 +188,14 @@ export function ContributionsScreen({
             ),
           ),
         currentHref: controls.returnHref,
-        timelineHref: contributionTimelineHref(current, controls.value),
+        timelineHref: contributionTimelineHref(current, controls.value, savedTimeline, asOf),
         pendingTarget: pendingNavigation.pendingKey,
         onTimeline: (event) =>
-          navigate(event, () => contributionTimelineHref(atAddress(), controls.value), 'timeline'),
+          navigate(
+            event,
+            () => contributionTimelineHref(atAddress(), controls.value, savedTimeline, asOf),
+            'timeline',
+          ),
         onAreaFollow: (event, area) =>
           navigate(
             event,

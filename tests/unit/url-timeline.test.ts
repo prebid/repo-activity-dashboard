@@ -158,6 +158,12 @@ describe('Timeline values in the Timeline query form (decision C9)', () => {
     }
     expect(timelineStateValues('/repos', 'timeline=1&timeline.group=decade', asOf)).toBeNull();
   });
+  it('reads an empty matrix selection without a ranking metric, which it could not sort by', () => {
+    const empty = timelineStateValues('/repos', 'timeline=1&timeline.metric=', asOf);
+    expect(empty).toMatchObject({ metric: [] });
+    expect(empty).not.toHaveProperty('rank');
+    expect(timelineQuery('/repos', empty!, asOf)).not.toContain('timeline.rank');
+  });
 });
 
 describe('supporting view links', () => {

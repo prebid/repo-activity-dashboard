@@ -247,9 +247,9 @@ test('an oversized Apply preserves its draft, current URL and preferences', asyn
   page,
 }, info) => {
   await login(page);
-  // An old link's return trail on a top-level report is dropped by the 307.
+  // The 307 drops an old link's return trail on a top-level report; `scope=1` becomes `v=1`.
   await page.goto('/contributors?scope=1&period=this-year&nav=' + 'a'.repeat(7200));
-  await expect(page).toHaveURL(/\/contributors$/);
+  await expect(page).toHaveURL(/\/contributors\?v=1$/);
   // A bounded incoming URL can leave too little room for a new scope.
   await page.goto('/contributors?back=~q:' + 'a'.repeat(7460));
   const before = page.url();

@@ -206,7 +206,7 @@ for (const width of [1440, 390])
         .getByRole('navigation', { name: 'Report view', exact: true })
         .getByRole('link', { name: 'Over time', exact: true })
         .click();
-      await expect(page).toHaveURL((url) => url.searchParams.get('timeline') === '1');
+      await expect(page).toHaveURL((url) => url.searchParams.has('timeline'));
       await expect(page.getByRole('region', { name: 'Timeline scope', exact: true })).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
       expect(Math.abs((await top('Timeline scope')) - report), path).toBeLessThanOrEqual(1);

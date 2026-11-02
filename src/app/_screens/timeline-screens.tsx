@@ -10,6 +10,7 @@ import { Callout } from '@/components/feedback/callout';
 import { timelineCsvDownload } from '@/components/reporting/timeline-csv-download';
 import { timelineSupportHref } from '@/lib/presentation/timeline-support-query';
 import { useTimelineControls } from '@/lib/navigation/use-timeline-controls';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
 import {
   timelineRecordFilterNote,
   timelineSettingsGroup,
@@ -66,6 +67,7 @@ export function RepositoryTimelineMatrixScreen({
 }) {
   const control = useTimelineControls(viewerId, context, {});
   const entry = useRepositoriesEntryHref(context.asOf, viewerId);
+  const savedRepository = useSavedTimelinePresentation('timeline.repository', 'repository');
   const matrixMetrics = repositoryTimelineMatrixMetricDefinitions(matrix.scope.metrics);
   const csv = timelineCsvDownload(control.href, matrix.source);
   return (
@@ -100,7 +102,13 @@ export function RepositoryTimelineMatrixScreen({
         table: control.table,
         window: { page: control.view.window, onChange: (window) => control.changeView({ window }) },
         repositoryHref: (slug) =>
-          matrixRepositoryTimelineHref({ ...context, view: control.view }, slug, control.href),
+          matrixRepositoryTimelineHref(
+            { ...context, view: control.view },
+            slug,
+            control.href,
+            undefined,
+            savedRepository,
+          ),
         detailHref: (row, interval) => {
           if (control.pending) return null;
           const href = matrixRepositoryTimelineHref(

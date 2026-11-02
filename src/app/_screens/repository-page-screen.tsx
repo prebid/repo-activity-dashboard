@@ -1,4 +1,5 @@
 'use client';
+import { useSavedTimelinePresentation } from '@/lib/navigation/use-saved-timeline';
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import { useMemo } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -61,6 +62,7 @@ export function RepositoryPageScreen({
   preferences?: RepositoryPagePreferences;
 }) {
   const pendingNavigation = usePendingNavigation();
+  const savedTimeline = useSavedTimelinePresentation('timeline.repository', 'repository');
   const pathname = usePathname(),
     search = useSearchParams().toString();
   const route = recordListRoute(source);
@@ -130,6 +132,8 @@ export function RepositoryPageScreen({
           source,
           { ...settings.filters, search: controller.draftSearch },
           origin(search, pendingTableQuery(controller)),
+          savedTimeline,
+          source.asOf,
         ),
         onTimeline: (event) =>
           followCaptured(
@@ -143,6 +147,8 @@ export function RepositoryPageScreen({
                   source,
                   { ...settings.filters!, search: captured.search },
                   parent,
+                  savedTimeline,
+                  source.asOf,
                 ),
               };
             },
