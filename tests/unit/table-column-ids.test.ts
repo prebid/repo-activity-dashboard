@@ -17,6 +17,8 @@ import {
   mergedPrColumnIds,
   overviewActivityColumnIds,
   overviewBacklogColumnIds,
+  overviewDefaultActivityColumnIds,
+  overviewDefaultBacklogColumnIds,
   recordIssueColumnIds,
   recordPrColumnIds,
 } from '@/models/table-columns';
@@ -45,4 +47,6 @@ it('keeps every contribution table list equal to its table definition', () => {
 it('keeps the All repositories lists equal to the settings definition', () => {
   expect(overviewBacklogColumnIds).toEqual(overviewSettingsColumns.backlogColumns);
   expect(overviewActivityColumnIds).toEqual(overviewSettingsColumns.activityColumns);
+  expect(overviewDefaultBacklogColumnIds).toEqual(overviewSettingsColumns.defaultBacklogColumns);
+  expect(overviewDefaultActivityColumnIds).toEqual(overviewSettingsColumns.defaultActivityColumns);
 });

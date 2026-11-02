@@ -1,9 +1,9 @@
+export { companyFocus, readContributionLayoutQuery } from './url/legacy/contribution';
 import type { ContributionContext } from '@/models/contributions';
 import type { ReportMetric } from '@/models/contribution-metrics';
 import type { ContributionSettings } from '@/models/contribution-settings';
 import { writeContributionSettings } from './contribution-settings';
 import {
-  contributionSampleScenarios,
   type ContributionArea,
   type ContributionSampleScenario,
   type CompanyBreakdown,
@@ -20,15 +20,6 @@ export function contributionPath(
     ? '/companies/unmapped'
     : '/companies/id/' + encodeURIComponent(target.companyId);
 }
-export function companyFocus(
-  segments: string[],
-): Extract<ContributionFocus, { kind: 'company' }> | null {
-  if (segments.length === 1 && segments[0] === 'unmapped')
-    return { kind: 'company', companyId: null };
-  if (segments.length === 2 && segments[0] === 'id' && segments[1])
-    return { kind: 'company', companyId: segments[1] };
-  return null;
-}
 export function contributionHref(
   target: Parameters<typeof contributionPath>[0],
   sample: ContributionSampleScenario,
@@ -41,22 +32,6 @@ export function contributionHref(
     ? writeContributionSettings(params.toString(), settings)
     : params.toString();
   return withContributionReturn(contributionPath(target) + (search ? '?' + search : ''), returnTo);
-}
-export function readContributionLayoutQuery(params: URLSearchParams): {
-  sample: ContributionSampleScenario;
-  breakdown: CompanyBreakdown;
-} | null {
-  const sample = params.get('sample') ?? 'reference',
-    view = params.get('view') ?? 'members';
-  if (
-    !contributionSampleScenarios.some((value) => value === sample) ||
-    !['members', 'repositories'].includes(view)
-  )
-    return null;
-  return {
-    sample: sample as ContributionSampleScenario,
-    breakdown: view as CompanyBreakdown,
-  };
 }
 export const companyBreakdownLabels: Record<CompanyBreakdown, string> = {
   members: 'By contributor',

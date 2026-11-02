@@ -104,3 +104,24 @@ export const overviewActivityColumnIds = [
   'botFeedbackCredits',
   'botApprovalCredits',
 ] as const;
+/** The All repositories columns shown before a viewer chooses. */
+export const overviewDefaultBacklogColumnIds = [
+  'name',
+  'totalOpenPrs',
+  'draftPrs',
+  'nonDraftPrs',
+  'openIssues',
+  'humanApprovals0',
+  'humanApprovals1',
+  'humanApprovals2',
+] as const;
+export const overviewDefaultActivityColumnIds = [
+  'name',
+  'prsOpened',
+  'prsMerged',
+  'issuesOpened',
+  'issuesClosed',
+  'prAuthors',
+  'issueAuthors',
+  'medianMergeDays',
+] as const;

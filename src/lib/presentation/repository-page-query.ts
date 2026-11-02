@@ -1,3 +1,5 @@
+import { readRepositoryFilterValues } from './url/legacy/repository';
+export { readRepositoryFilterValues };
 import {
   repositoryPageFiltersSchema,
   type RepositoryPageFilters,
@@ -6,25 +8,6 @@ import {
 import { repositoryFilterError } from './repository-page-rules';
 import { dateRangeSchema } from '@/models/reporting-period';
 
-const arrayFields = [
-  'labels',
-  'authors',
-  'authorTypes',
-  'states',
-  'latestActors',
-  'branches',
-  'assignees',
-] as const;
-const scalarFields = [
-  'draft',
-  'assignment',
-  'ageBand',
-  'reviewers',
-  'approvals',
-  'agentReviewer',
-  'botReviewer',
-] as const;
-const rangeFields = ['eventFrom', 'eventTo', 'eventInclusive'] as const;
 export function defaultRepositoryFilters(
   kind: RepositoryPageSource['kind'],
 ): RepositoryPageFilters {
@@ -38,47 +21,6 @@ export function readRepositoryFilters(
 ): RepositoryPageFilters | null {
   const filters = readRepositoryFilterValues(search, source.kind);
   return filters && !repositoryFilterError(filters, source.drilldown.selection) ? filters : null;
-}
-/** Shared syntax decoder; each consumer applies its own current/historical compatibility rule. */
-export function readRepositoryFilterValues(
-  search: string,
-  kind: 'prs' | 'issues',
-): RepositoryPageFilters | null {
-  const params = new URLSearchParams(search),
-    prefix = kind + '.filter.';
-  if (params.getAll(kind + '.q').length > 1) return null;
-  const input: Record<string, unknown> = {
-    kind,
-    search: params.get(kind + '.q') ?? '',
-  };
-  for (const key of params.keys())
-    if (
-      key.startsWith(prefix) &&
-      ![...arrayFields, ...scalarFields, ...rangeFields].some((field) => key === prefix + field)
-    )
-      return null;
-  for (const field of arrayFields)
-    if (params.has(prefix + field)) input[field] = params.getAll(prefix + field);
-  for (const field of scalarFields)
-    if (params.has(prefix + field)) {
-      if (params.getAll(prefix + field).length !== 1) return null;
-      if (field === 'ageBand' && !/^(0|30|60|90|120|180|360)$/.test(params.get(prefix + field)!))
-        return null;
-      input[field] =
-        field === 'ageBand' ? Number(params.get(prefix + field)) : params.get(prefix + field);
-    }
-  if (rangeFields.some((field) => params.has(prefix + field))) {
-    if (rangeFields.some((field) => params.getAll(prefix + field).length !== 1)) return null;
-    const inclusive = params.get(prefix + 'eventInclusive');
-    input.eventRange = {
-      start: params.get(prefix + 'eventFrom'),
-      end: params.get(prefix + 'eventTo'),
-      endInclusive: inclusive === '1' ? true : inclusive === '0' ? false : undefined,
-    };
-  }
-  const parsed = repositoryPageFiltersSchema.safeParse(input);
-  if (!parsed.success) return null;
-  return parsed.data;
 }
 
 /** The filter fields that differ from their defaults: the ones a URL writes. */

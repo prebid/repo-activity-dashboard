@@ -1,26 +1,11 @@
+export { authorListQuery, readAuthorAccountSegment } from './url/legacy/repository';
 import type { DrilldownSelection, RepositoryDrilldown } from '@/models/repository-drilldown';
 import type { OverviewRepository } from '@/models/repository-overview';
 import type { RecordSelection } from '@/models/repository-records';
-import {
-  authorAccountSchema,
-  authorTableColumnIds,
-  type AuthorSelection,
-} from '@/models/repository-insights';
+import { authorAccountSchema, type AuthorSelection } from '@/models/repository-insights';
 import { repositoryDrilldownHref } from './repository-drilldown';
-import { readTableQuery, writeTableQuery } from './table-query';
+import { writeTableQuery } from './table-query';
 import { type TableQuery } from '@/models/table-query';
-
-/** Decode the route segment once; keep logical account validation strict and shared. */
-export function readAuthorAccountSegment(segment: string): string | null {
-  let decoded: string;
-  try {
-    decoded = decodeURIComponent(segment);
-  } catch {
-    return null;
-  }
-  const account = authorAccountSchema.safeParse(decoded);
-  return account.success ? account.data : null;
-}
 
 export function isAuthorSelection(selection: DrilldownSelection): selection is AuthorSelection {
   return (
@@ -53,7 +38,4 @@ export function repositoryAuthorRecordsHref(
 ): string {
   const [path, search] = repositoryAuthorsHref(repo, drilldown, query).split('?');
   return path + '/authors/' + encodeURIComponent(authorAccountSchema.parse(account)) + '?' + search;
-}
-export function authorListQuery(params: URLSearchParams): TableQuery {
-  return readTableQuery(params.toString(), 'authors', authorTableColumnIds);
 }

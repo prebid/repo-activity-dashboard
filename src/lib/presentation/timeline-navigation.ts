@@ -1,4 +1,6 @@
-import { safeReturnPath } from './navigation';
+import { safeTimelineParent } from './url/legacy/timeline';
+export { safeTimelineParent };
+
 import { customPeriodForRange } from './reporting-period';
 import { repositoryMatrixSummaryHref } from './repository-matrix-summary';
 
@@ -113,20 +115,6 @@ export function repositoryTimelineReturnTo(parent: string | null | undefined): s
       ? repositoryMatrixSummaryHref(url.searchParams.get('summary'))
       : url.searchParams.get('returnTo');
   return overviewReturnPathSchema.safeParse(origin).success ? origin! : '/repos';
-}
-export function safeTimelineParent(value: string | null, path: string): string | null {
-  if (!value) return null;
-  if (!contributionUrlFits(value) || safeReturnPath(value) !== value) return null;
-  const url = new URL(value, 'https://dashboard.invalid');
-  if (url.searchParams.has('timelineParent')) return null;
-  const author = url.pathname.startsWith(path + '/authors/')
-    ? url.pathname.slice(path.length + '/authors/'.length)
-    : null;
-  return url.pathname === '/repos' ||
-    url.pathname === path ||
-    (author !== null && author !== '' && !author.includes('/'))
-    ? value
-    : null;
 }
 export function repositoryTimelineEntry(
   source: Pick<RepositoryPageSource, 'repository' | 'kind' | 'author'> & {
