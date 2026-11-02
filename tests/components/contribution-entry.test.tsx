@@ -1,144 +1,165 @@
 import { act, renderHook } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
-import { afterEach, beforeEach, expect, it, vi } from 'vitest';
+import type { ReactNode } from 'react';
+import { expect, it, vi } from 'vitest';
+import { useContributionEntry } from '@/lib/navigation/use-contribution-entry';
 import {
-  useContributionEntry,
-  contributionPreferencesChanged,
-} from '@/lib/navigation/use-contribution-entry';
+  PreferenceBindingProvider,
+  usePreferenceBinding,
+} from '@/lib/navigation/preference-binding';
+import { writePreference } from '@/lib/navigation/use-preference-cookie';
 import {
-  contributionPreferenceKey,
   defaultContributionSettings,
   serializeContributionPreferences,
 } from '@/lib/presentation/contribution-settings';
+import type { ContributionSettings } from '@/models/contribution-settings';
+import type { PreferenceBinding } from '@/models/preferences';
 import { contributionSample } from '@/mocks/contributions';
-beforeEach(() => localStorage.clear());
-afterEach(() => vi.restoreAllMocks());
+import { alice, seedPreferences } from '../support/preference-cookies';
+
 const directory = contributionSample();
 const settings = defaultContributionSettings(directory);
-it('renders an ordinary server link and resolves saved scope before client navigation', () => {
+function saved(change: (value: ContributionSettings) => void) {
+  const value = structuredClone(settings);
+  change(value);
+  return JSON.parse(serializeContributionPreferences(value)) as unknown;
+}
+function session(binding: PreferenceBinding | null) {
+  return function Session({ children }: { children: ReactNode }) {
+    return binding ? (
+      <PreferenceBindingProvider binding={binding}>{children}</PreferenceBindingProvider>
+    ) : (
+      children
+    );
+  };
+}
+function entry(
+  viewerId: string | undefined = 'alice',
+  binding: PreferenceBinding | null = alice,
+  repositories = directory.repositories,
+) {
+  return renderHook(() => useContributionEntry(viewerId, repositories), {
+    wrapper: session(binding),
+  });
+}
+const query = (href: string) => new URL(href, 'https://dashboard.test').searchParams;
+
+it('gives the session binding inside the dashboard frame and none outside it', () => {
+  expect(renderHook(() => usePreferenceBinding()).result.current).toBeNull();
+  expect(
+    renderHook(() => usePreferenceBinding(), { wrapper: session(alice) }).result.current,
+  ).toEqual(alice);
+});
+
+it('renders an ordinary server link and resolves a saved scope before client navigation', () => {
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'last-month' }),
+    ),
+  });
   function Entry() {
     return <a href={useContributionEntry('alice', directory.repositories)}>Contributions</a>;
   }
-  const saved = { ...settings, period: { kind: 'preset' as const, preset: 'last-month' as const } };
-  const key = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(key, serializeContributionPreferences(saved));
-  expect(renderToString(<Entry />)).toContain('href="/contributors"');
-  const { result, rerender, unmount } = renderHook<string, { viewer: string | undefined }>(
-    ({ viewer }: { viewer: string | undefined }) =>
-      useContributionEntry(viewer, directory.repositories),
-    {
-      initialProps: { viewer: 'alice' },
-    },
-  );
-  expect(new URL(result.current, 'https://dashboard.test').searchParams.get('period')).toBe(
-    'last-month',
-  );
+  expect(
+    renderToString(
+      <PreferenceBindingProvider binding={alice}>
+        <Entry />
+      </PreferenceBindingProvider>,
+    ),
+  ).toContain('href="/contributors"');
+  const { result } = entry();
+  expect(query(result.current).get('period')).toBe('last-month');
+  // A saved change anywhere on the page updates the link.
   act(() => {
-    localStorage.setItem(
-      key,
-      serializeContributionPreferences({
-        ...saved,
-        selection: { ...saved.selection, actorTypes: ['bot'] },
-      }),
+    writePreference(
+      alice,
+      'contributions.scope',
+      saved((value) => (value.selection.actorTypes = ['bot'])),
     );
-    window.dispatchEvent(new Event(contributionPreferencesChanged));
   });
-  expect(new URL(result.current, 'https://dashboard.test').searchParams.getAll('type')).toEqual([
-    'bot',
-  ]);
+  expect(query(result.current).getAll('type')).toEqual(['bot']);
   act(() => {
-    localStorage.removeItem(key);
-    window.dispatchEvent(new StorageEvent('storage'));
+    writePreference(alice, 'contributions.scope', null);
   });
   expect(result.current).toBe('/contributors');
-  rerender({ viewer: 'bob' });
-  expect(result.current).toBe('/contributors');
-  rerender({ viewer: undefined });
-  expect(result.current).toBe('/contributors');
-  unmount();
 });
-it('uses a safe entry when browser preferences are malformed, oversized or inaccessible', () => {
-  const key = contributionPreferenceKey('alice', 'reference');
-  localStorage.setItem(key, '{invalid');
-  const { result } = renderHook(() => useContributionEntry('alice', directory.repositories));
-  expect(result.current).toBe('/contributors');
-  act(() => {
-    localStorage.setItem(
-      key,
-      serializeContributionPreferences({
-        ...settings,
-        selection: {
-          ...settings.selection,
-          population: {
-            kind: 'selected',
-            companyIds: [],
-            accountIds: Array.from({ length: 1000 }, (_, i) => 'account-' + i),
-          },
-        },
-      }),
-    );
-    window.dispatchEvent(new StorageEvent('storage'));
+
+it('ignores a scope saved for another account or authentication revision', () => {
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'last-month' }),
+    ),
   });
-  expect(result.current).toBe('/contributors');
-  const read = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-    throw Error('blocked');
+  expect(entry('alice', { ...alice, authVersion: 1 }).result.current).toBe('/contributors');
+  expect(entry('bob', { accountId: 'bob', authVersion: 0 }).result.current).toBe('/contributors');
+  // The binding must name the signed-in viewer, and a page outside the frame has none.
+  expect(entry('bob', alice).result.current).toBe('/contributors');
+  expect(entry('alice', null).result.current).toBe('/contributors');
+  const signedOut = renderHook(() => useContributionEntry(undefined, directory.repositories), {
+    wrapper: session(alice),
   });
-  act(() => {
-    window.dispatchEvent(new StorageEvent('storage'));
+  expect(signedOut.result.current).toBe('/contributors');
+});
+
+it('uses the bare entry when the cookie is malformed or unreadable', () => {
+  window.document.cookie = 'dashboard-contributions=not-a-document; Path=/';
+  expect(entry().result.current).toBe('/contributors');
+  seedPreferences(alice, { 'contributions.scope': { version: 1, settings: 'invalid' } });
+  expect(entry().result.current).toBe('/contributors');
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'last-month' }),
+    ),
   });
-  expect(result.current).toBe('/contributors');
-  read.mockRestore();
+  vi.spyOn(Document.prototype, 'cookie', 'get').mockImplementation(() => {
+    throw new DOMException('Cookies are blocked', 'SecurityError');
+  });
+  expect(entry().result.current).toBe('/contributors');
 });
 
 it.each(['repository', 'account', 'company', 'custom'] as const)(
-  'uses validated restoration for saved %s scope',
+  'leaves a saved %s scope to the server, which validates it',
   (kind) => {
-    const saved = structuredClone(settings);
-    if (kind === 'repository')
-      saved.selection.repositoryIds = ['repo-prebidjs', 'repo-retired-example'];
-    if (kind === 'account') saved.selection.excludedAccountIds = ['account-alice'];
-    if (kind === 'company')
-      saved.selection.population = {
-        kind: 'selected',
-        accountIds: [],
-        companyIds: ['company-acme'],
-      };
-    if (kind === 'custom')
-      saved.period = { kind: 'custom', from: '2027-01-01', through: '2027-01-02' };
-    const key = contributionPreferenceKey('alice', 'reference'),
-      raw = serializeContributionPreferences(saved);
-    localStorage.setItem(key, raw);
-    const { result } = renderHook(() => useContributionEntry('alice', directory.repositories));
-    expect(result.current).toBe('/contributors');
-    expect(localStorage.getItem(key)).toBe(raw);
+    seedPreferences(alice, {
+      'contributions.scope': saved((value) => {
+        if (kind === 'repository')
+          value.selection.repositoryIds = ['repo-prebidjs', 'repo-retired'];
+        if (kind === 'account') value.selection.excludedAccountIds = ['account-alice'];
+        if (kind === 'company')
+          value.selection.population = {
+            kind: 'selected',
+            accountIds: [],
+            companyIds: ['company-acme'],
+          };
+        if (kind === 'custom')
+          value.period = { kind: 'custom', from: '2027-01-01', through: '2027-01-02' };
+      }),
+    });
+    expect(entry().result.current).toBe('/contributors');
   },
 );
+
 it('keeps an explicit empty saved population empty in its entry link', () => {
-  const saved = structuredClone(settings);
-  saved.selection.repositoryIds = [];
-  saved.selection.population = { kind: 'selected', accountIds: [], companyIds: [] };
-  localStorage.setItem(
-    contributionPreferenceKey('alice', 'reference'),
-    serializeContributionPreferences(saved),
-  );
-  const { result } = renderHook(() => useContributionEntry('alice', directory.repositories));
-  const query = new URL(result.current, 'https://dashboard.test').searchParams;
-  expect(query.get('repo')).toBe('');
-  expect(query.get('population')).toBe('selected');
+  seedPreferences(alice, {
+    'contributions.scope': saved((value) => {
+      value.selection.repositoryIds = [];
+      value.selection.population = { kind: 'selected', accountIds: [], companyIds: [] };
+    }),
+  });
+  const params = query(entry().result.current);
+  expect(params.get('repo')).toBe('');
+  expect(params.get('population')).toBe('selected');
 });
 
 it('uses only enabled repositories supplied by the header', () => {
-  const saved = structuredClone(settings);
-  saved.selection.repositoryIds = ['repo-prebidjs'];
-  localStorage.setItem(
-    contributionPreferenceKey('alice', 'reference'),
-    serializeContributionPreferences(saved),
-  );
-  const { result } = renderHook(() =>
-    useContributionEntry(
+  seedPreferences(alice, {
+    'contributions.scope': saved((value) => (value.selection.repositoryIds = ['repo-prebidjs'])),
+  });
+  expect(
+    entry(
       'alice',
+      alice,
       directory.repositories.filter((repo) => repo.id !== 'repo-prebidjs'),
-    ),
-  );
-  expect(result.current).toBe('/contributors');
+    ).result.current,
+  ).toBe('/contributors');
 });

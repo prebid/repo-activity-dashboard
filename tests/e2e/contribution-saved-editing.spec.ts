@@ -3,60 +3,172 @@ import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { contributionSample } from '../../src/mocks/contributions';
 import {
-  contributionPreferenceKey,
   defaultContributionSettings,
   serializeContributionPreferences,
 } from '../../src/lib/presentation/contribution-settings';
-const key = contributionPreferenceKey('preview-alice', 'reference');
+import type { ContributionSettings } from '../../src/models/contribution-settings';
+import {
+  contributionPreferences,
+  seedContributionPreferences,
+} from '../support/browser-preferences';
 const defaults = defaultContributionSettings(contributionSample());
+const stored = (value: ContributionSettings): unknown =>
+  JSON.parse(serializeContributionPreferences(value));
 async function login(page: Page) {
   await page.goto('/auth/login');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/repos$/);
 }
+async function saveScope(page: Page, baseURL: string, value: ContributionSettings) {
+  await seedContributionPreferences(page.context(), baseURL, {
+    'contributions.scope': stored(value),
+  });
+}
+/**
+ * Records, from the next document load on, every history entry the page adds and every address it
+ * rewrites. The router's own bookkeeping write of the unchanged address is not a rewrite.
+ */
+async function recordHistoryWrites(page: Page) {
+  await page.addInitScript(() => {
+    const writes: string[] = [];
+    (window as unknown as { historyWrites: string[] }).historyWrites = writes;
+    for (const method of ['pushState', 'replaceState'] as const) {
+      const native = history[method].bind(history);
+      history[method] = (...args: Parameters<History['pushState']>) => {
+        const before = location.href;
+        native(...args);
+        if (method === 'pushState' || location.href !== before)
+          writes.push(method + ' ' + location.href);
+      };
+    }
+  });
+  return () =>
+    page.evaluate(() => (window as unknown as { historyWrites: string[] }).historyWrites);
+}
+const entry = (page: Page) =>
+  page
+    .getByRole('navigation', { name: 'Main navigation' })
+    .getByRole('link', { name: 'Contributions', exact: true });
+const period = (page: Page) => page.getByRole('combobox', { name: 'Reporting period preset' });
+const lastMonth = (): ContributionSettings => ({
+  ...structuredClone(defaults),
+  period: { kind: 'preset', preset: 'last-month' },
+});
+
+test('the first render shows the saved view, with no rewrite after load', async ({
+  page,
+  browser,
+  baseURL,
+}) => {
+  await login(page);
+  await seedContributionPreferences(page.context(), baseURL!, {
+    'contributions.scope': stored(lastMonth()),
+    'contributions.contributors.columns': {
+      version: 1,
+      columns: { issuesAuthored: false },
+      hideZeroMembers: false,
+    },
+    'contributions.contributors.sort': { sort: 'name', descending: false },
+  });
+  // Without JavaScript the server's response already is the saved view: the entry is answered
+  // with a redirect to its explicit-scope URL, rendered with the saved columns and sort.
+  const plain = await browser.newContext({
+    javaScriptEnabled: false,
+    storageState: await page.context().storageState(),
+  });
+  try {
+    const html = await plain.newPage();
+    const response = await html.goto('/contributors');
+    expect(new URL(response!.request().redirectedFrom()!.url()).pathname).toBe('/contributors');
+    expect(new URL(response!.request().redirectedFrom()!.url()).search).toBe('');
+    expect(new URL(html.url()).searchParams.get('period')).toBe('last-month');
+    await expect(period(html)).toHaveValue('last-month');
+    await expect(
+      html.getByRole('columnheader', { name: 'Issues authored', exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      html
+        .getByRole('table', { name: 'Contributors', exact: true })
+        .getByRole('columnheader', { name: 'Contributor', exact: true }),
+    ).toHaveAttribute('aria-sort', 'ascending');
+  } finally {
+    await plain.close();
+  }
+  // With JavaScript the hydrated page keeps that view and its address, and writes no history.
+  const writes = await recordHistoryWrites(page);
+  await page.goto('/contributors');
+  const address = page.url();
+  expect(new URL(address).searchParams.get('period')).toBe('last-month');
+  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await expect(period(page)).toHaveValue('last-month');
+  await expect(
+    page.getByRole('columnheader', { name: 'Issues authored', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page
+      .getByRole('table', { name: 'Contributors', exact: true })
+      .getByRole('columnheader', { name: 'Contributor', exact: true }),
+  ).toHaveAttribute('aria-sort', 'ascending');
+  expect(page.url()).toBe(address);
+  expect(await writes()).toEqual([]);
+});
+
+test('a cookie saved for another account is ignored', async ({ page, baseURL }) => {
+  await login(page);
+  await seedContributionPreferences(
+    page.context(),
+    baseURL!,
+    { 'contributions.scope': stored(lastMonth()) },
+    { accountId: 'preview-bob', authVersion: 0 },
+  );
+  await page.goto('/contributors');
+  await expect(page.getByRole('button', { name: 'Columns', exact: true })).toBeEnabled();
+  await expect(page).toHaveURL(/\/contributors$/);
+  await expect(period(page)).toHaveValue('this-year');
+  await expect(page.getByText(/^Saved filters/)).toHaveCount(0);
+  // The hydrated masthead link ignores it too.
+  await expect(entry(page)).toHaveAttribute('href', '/contributors');
+});
+
 for (const stale of ['repository', 'exclusion', 'custom dates'] as const)
-  test('main navigation recovers a stale saved ' + stale, async ({ page }) => {
+  test('main navigation recovers a stale saved ' + stale, async ({ page, baseURL }) => {
     await login(page);
     const saved = structuredClone(defaults);
     if (stale === 'repository') saved.selection.repositoryIds = ['repo-prebidjs', 'retired'];
     else if (stale === 'exclusion') saved.selection.excludedAccountIds = ['removed'];
     else saved.period = { kind: 'custom', from: '2027-01-01', through: '2027-01-02' };
-    await page.evaluate(
-      ([key, raw]) => localStorage.setItem(key, raw),
-      [key, serializeContributionPreferences(saved)],
-    );
+    await saveScope(page, baseURL!, saved);
     await page.goto('/repos');
-    const entry = page
-      .getByRole('navigation', { name: 'Main navigation' })
-      .getByRole('link', { name: 'Contributions', exact: true });
-    await expect(entry).toHaveAttribute('href', '/contributors');
-    await entry.click();
+    await expect(entry(page)).toHaveAttribute('href', '/contributors');
+    await entry(page).click();
     await expect(
       page.getByRole('table', { name: 'Contributors', exact: true }).locator('tbody tr').first(),
     ).toBeVisible();
+    await expect(page).toHaveURL(/\/contributors$/);
     await expect(page.getByRole('status')).toContainText('Saved filters could not be restored');
-    await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), key)).toBeNull();
-    await expect(entry).toHaveAttribute('href', '/contributors');
+    // After hydration the rejected section is deleted, so the next visit shows no notice.
+    await expect
+      .poll(async () => (await contributionPreferences(page.context())) ?? {})
+      .toEqual({});
+    await expect(entry(page)).toHaveAttribute('href', '/contributors');
     await page.reload();
     await expect(page.getByRole('table').locator('tbody tr').first()).toBeVisible();
     await expect(page.getByRole('status')).not.toContainText('Saved filters could not be restored');
   });
 test('main entry validates and restores saved custom dates and exclusions without rewriting them', async ({
   page,
+  baseURL,
 }) => {
   await login(page);
   const saved = structuredClone(defaults);
   saved.selection.repositoryIds = ['repo-prebidjs'];
   saved.selection.excludedAccountIds = ['account-alice'];
   saved.period = { kind: 'custom', from: '2026-09-01', through: '2026-09-30' };
-  const raw = serializeContributionPreferences(saved);
-  await page.evaluate(([key, raw]) => localStorage.setItem(key, raw), [key, raw]);
+  await saveScope(page, baseURL!, saved);
+  const before = await contributionPreferences(page.context());
   await page.goto('/repos');
-  const entry = page
-    .getByRole('navigation', { name: 'Main navigation' })
-    .getByRole('link', { name: 'Contributions', exact: true });
-  await expect(entry).toHaveAttribute('href', '/contributors');
-  await entry.click();
+  await expect(entry(page)).toHaveAttribute('href', '/contributors');
+  await entry(page).click();
   await expect(page).toHaveURL(/exclude=account-alice/);
   expect(new URL(page.url()).searchParams.get('period')).toBe('custom');
   expect(new URL(page.url()).searchParams.get('from')).toBe('2026-09-01');
@@ -67,21 +179,15 @@ test('main entry validates and restores saved custom dates and exclusions withou
       .getByRole('table')
       .getByRole('link', { name: 'Alice — view contribution report', exact: true }),
   ).toHaveCount(0);
-  expect(await page.evaluate((key) => localStorage.getItem(key), key)).toBe(raw);
+  expect(await contributionPreferences(page.context())).toEqual(before);
 });
-test('an explicitly empty saved population stays empty', async ({ page }) => {
+test('an explicitly empty saved population stays empty', async ({ page, baseURL }) => {
   await login(page);
   const saved = structuredClone(defaults);
   saved.selection.population = { kind: 'selected', accountIds: [], companyIds: [] };
-  await page.evaluate(
-    ([key, raw]) => localStorage.setItem(key, raw),
-    [key, serializeContributionPreferences(saved)],
-  );
+  await saveScope(page, baseURL!, saved);
   await page.goto('/repos');
-  await page
-    .getByRole('navigation', { name: 'Main navigation' })
-    .getByRole('link', { name: 'Contributions', exact: true })
-    .click();
+  await entry(page).click();
   await expect(
     page.getByRole('heading', { name: 'No accounts match this report', exact: true }),
   ).toBeVisible();
@@ -156,7 +262,7 @@ test('an oversized Apply preserves its draft, current URL and preferences', asyn
   );
   await expect(alice).toBeChecked();
   expect(page.url()).toBe(before);
-  expect(await page.evaluate((key) => localStorage.getItem(key), key)).toBeNull();
+  expect(await contributionPreferences(page.context())).toBeNull();
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual(
     [],
   );

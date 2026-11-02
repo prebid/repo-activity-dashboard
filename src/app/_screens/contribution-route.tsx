@@ -1,5 +1,9 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { contributions } from '@/server/reporting';
+import { readPreferences } from '@/server/preferences';
+import { resolveContributionReport } from '@/server/contribution-preferences';
+import { contributionPath } from '@/lib/presentation/contribution-navigation';
 import { contributionSubjectTitle } from '@/lib/presentation/page-title';
 import { encodeSearchParams, type PageSearchParams } from '@/lib/presentation/search-params';
 import type { ContributionArea } from '@/models/contribution-page';
@@ -33,11 +37,20 @@ export async function ContributionRoute({
         </EmptyState>
       </>
     );
+  // An entry with a saved scope is answered with a redirect to its explicit-scope URL, so the
+  // report renders once and never rewrites its address.
+  const entry = resolveContributionReport(await readPreferences('contributions'), {
+    path: contributionPath(focus && focus.kind !== 'overview' ? focus : area),
+    params,
+    page: result.page,
+  });
+  if (entry.status === 'redirect') redirect(entry.href);
   return (
     <ContributionsScreen
       page={result.page}
       viewerId={result.viewer.id}
       directory={result.directory}
+      preferences={entry.preferences}
     />
   );
 }

@@ -1,41 +1,42 @@
 'use client';
 import { useCallback, useSyncExternalStore } from 'react';
 import {
-  contributionPreferenceKey,
   readStoredContributionPreferences,
   contributionPreferenceNeedsLookup,
   writeContributionSettings,
 } from '@/lib/presentation/contribution-settings';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
+import { preferenceChangeEvent, readPreference } from './use-preference-cookie';
+import { usePreferenceBinding } from './preference-binding';
 
-export const contributionPreferencesChanged = 'dashboard:contribution-preferences-changed';
 function subscribe(notify: () => void) {
-  window.addEventListener('storage', notify);
-  window.addEventListener(contributionPreferencesChanged, notify);
-  return () => {
-    window.removeEventListener('storage', notify);
-    window.removeEventListener(contributionPreferencesChanged, notify);
-  };
+  window.addEventListener(preferenceChangeEvent, notify);
+  return () => window.removeEventListener(preferenceChangeEvent, notify);
 }
 const serverSnapshot = () => null;
-/** Resolve browser defaults before in-app navigation; the destination remains a real shareable URL. */
+/**
+ * Resolve the saved report scope before in-app navigation, so an ordinary click opens the saved view
+ * in one request; the destination remains a real shareable URL. Scopes that need the directory (a
+ * named account or company, a custom range, an unknown repository) use the bare entry, which the
+ * server validates and redirects.
+ */
 export function useContributionEntry(
   viewerId: string | undefined,
   enabledRepositories: readonly { id: string }[],
 ): string {
+  const binding = usePreferenceBinding();
   const read = useCallback(() => {
+    // A value saved for another account or authentication revision is ignored.
+    if (!binding || binding.accountId !== viewerId) return null;
     try {
-      return viewerId
-        ? localStorage.getItem(contributionPreferenceKey(viewerId, 'reference'))
-        : null;
+      return readPreference(binding, 'contributions.scope');
     } catch {
       return null;
     }
-  }, [viewerId]);
+  }, [binding, viewerId]);
   const raw = useSyncExternalStore(subscribe, read, serverSnapshot);
   const settings = readStoredContributionPreferences(raw);
   const knownRepositories = new Set(enabledRepositories.map((repo) => repo.id));
-  // Identity-dependent and custom-date views need the authenticated restore boundary.
   const safe =
     settings &&
     settings.period.kind === 'preset' &&

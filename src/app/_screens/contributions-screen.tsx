@@ -8,6 +8,7 @@ import { contributionToolbar } from '@/features/contributions/contribution-contr
 import { useContributionControls } from '@/lib/navigation/use-contribution-controls';
 import { contributionTimelineEntry } from '@/lib/presentation/timeline-navigation';
 import type { ContributionControlDirectory } from '@/models/contribution-settings';
+import type { ContributionReportPreferences } from '@/models/contribution-preferences';
 import { contributionTableScope } from '@/lib/presentation/contribution-settings';
 import {
   ContributionDetailsView,
@@ -47,10 +48,13 @@ export function ContributionsScreen({
   page,
   viewerId,
   directory,
+  preferences,
 }: {
   page: ContributionPage;
   viewerId: string;
   directory: ContributionControlDirectory;
+  /** Server-validated saved values; without them the page saves nothing. */
+  preferences?: ContributionReportPreferences;
 }) {
   const options = useMemo(() => contributionOptionsClient(page.sample), [page.sample]);
   const pathname = usePathname(),
@@ -74,6 +78,7 @@ export function ContributionsScreen({
     columnIds,
     defaultSort: page.details ? detailSort : contributionDefaultSort,
     historyMode: 'push',
+    savedSort: preferences?.sort,
   });
   const controls = useContributionControls(
     viewerId,
@@ -82,7 +87,7 @@ export function ContributionsScreen({
     controller,
     table,
     columnIds,
-    options,
+    preferences,
   );
   /** `pendingKey` names the tab or breakdown link that shows the pending navigation. */
   function navigate(
