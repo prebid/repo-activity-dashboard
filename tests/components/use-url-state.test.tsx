@@ -13,6 +13,7 @@ import {
   useUrlState,
   writeHistory,
 } from '@/lib/navigation/use-url-state';
+import { parseQuery } from '@/lib/presentation/url/codec';
 
 const router = vi.hoisted(() => ({ push: vi.fn() }));
 vi.mock('next/navigation', async () => {
@@ -124,6 +125,28 @@ describe('history writes', () => {
     expect(previousEntry()).toBe('/contributors?v=1');
   });
 
+  it('keeps the fragment on a server navigation to the same page only', () => {
+    window.history.replaceState(null, '', '/repos/prebidjs?timeline&group=week#period-activity');
+    followHref(router, '/repos/prebidjs?timeline&group=quarter', { scroll: false });
+    expect(router.push).toHaveBeenLastCalledWith(
+      '/repos/prebidjs?timeline&group=quarter#period-activity',
+      { scroll: false },
+    );
+    // A fragment the target names is its own.
+    followHref(router, '/repos/prebidjs?timeline&group=quarter#records');
+    expect(router.push).toHaveBeenLastCalledWith('/repos/prebidjs?timeline&group=quarter#records');
+    // Another screen on the same path, or another path, is another page.
+    const support =
+      '/repos/prebidjs?timeline&detail=prsOpened&interval=month:2026-10-01&snap=repositories-reference-v1@2026-10-24T12:00Z';
+    expect(parseQuery('/repos/[slug]', new URL(support, 'https://x.invalid').search)).toMatchObject(
+      { kind: 'canonical', screen: 'support' },
+    );
+    for (const other of [support, '/repos/prebidjs', '/repos?timeline']) {
+      followHref(router, other);
+      expect(router.push).toHaveBeenLastCalledWith(other);
+    }
+  });
+
   it('goes back only to the view the entry came from', () => {
     expect(shouldGoBack('/repos?v=1', '/repos')).toBe(true);
     expect(shouldGoBack('/repos?age=', '/repos')).toBe(false);
@@ -146,14 +169,20 @@ describe('HistoryEntryMarker', () => {
         <a href="/file.csv" download>
           Export
         </a>
+        <a href="#period-activity">Period activity</a>
+        <Link href="/repos?age=#period-activity">No PR age</Link>
       </>,
     );
     const prevent = (event: Event) => event.preventDefault();
     document.addEventListener('click', prevent);
-    for (const name of ['New tab', 'Elsewhere', 'Export']) {
+    // An in-page fragment link moves within the entry, so it is not pinned either.
+    for (const name of ['New tab', 'Elsewhere', 'Export', 'Period activity']) {
       fireEvent.click(view.getByText(name));
       expect(address()).toBe('/repos');
     }
+    fireEvent.click(view.getByText('No PR age'));
+    expect(address()).toBe('/repos?v=1');
+    window.history.replaceState({ __NA: true }, '', '/repos');
     fireEvent.click(view.getByText('Prebid.js'), { ctrlKey: true });
     expect(address()).toBe('/repos');
     fireEvent.click(view.getByText('Prebid.js'));
@@ -206,11 +235,12 @@ describe('useUrlState', () => {
       back: ['~repo:prebidjs'],
     });
     expect(spy).not.toHaveBeenCalled();
+    // A server navigation on the same page keeps the fragment, as the history writes do.
     result.current.navigate('/repos?timeline&repo=prebidjs');
-    expect(router.push).toHaveBeenCalledWith('/repos?timeline&repo=prebidjs');
+    expect(router.push).toHaveBeenCalledWith('/repos?timeline&repo=prebidjs#matrix');
     // A scope change that loads another cohort can keep the scroll position.
     result.current.navigate('/repos?timeline&repo=prebidserver', { scroll: false });
-    expect(router.push).toHaveBeenLastCalledWith('/repos?timeline&repo=prebidserver', {
+    expect(router.push).toHaveBeenLastCalledWith('/repos?timeline&repo=prebidserver#matrix', {
       scroll: false,
     });
     result.current.replaceHash('top');

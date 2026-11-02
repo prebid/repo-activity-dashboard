@@ -34,6 +34,20 @@ function marker(): string | null {
 function withHash(href: string): string {
   return href.includes('#') ? href : href + window.location.hash;
 }
+/** The report screen a same-origin path and query show, or null for any other address. */
+function screenAt(pathname: string, search: string) {
+  const matched = matchRoute(pathname);
+  const parsed = matched && parseQuery(matched.route, search);
+  return parsed?.kind === 'canonical' ? parsed.screen : null;
+}
+/** Whether an href shows the current page (its path and screen) with other values. */
+function samePage(href: string): boolean {
+  const url = new URL(href, window.location.href);
+  if (url.origin !== window.location.origin || url.pathname !== window.location.pathname)
+    return false;
+  const screen = screenAt(url.pathname, url.search);
+  return screen !== null && screen === screenAt(window.location.pathname, window.location.search);
+}
 
 /**
  * Push or replace the current history entry. A push records the address it leaves; a replace keeps
@@ -61,12 +75,16 @@ export function pinCurrentEntry(): boolean {
   writeHistory('replace', window.location.pathname + '?' + query);
   return true;
 }
-/** Start a server navigation (`router.push`) from a pinned entry, recording where it started. */
+/**
+ * Start a server navigation (`router.push`) from a pinned entry, recording where it started. A
+ * target on the same page keeps the fragment, as history writes do; another page starts without it.
+ */
 export function followHref(router: Router, href: string, options?: NavigateOptions): void {
+  const target = samePage(href) ? withHash(href) : href;
   pinCurrentEntry();
   pending = here();
-  if (options) router.push(href, options);
-  else router.push(href);
+  if (options) router.push(target, options);
+  else router.push(target);
 }
 /** Whether a back link's href is the entry this one was pushed from, so Back can restore it. */
 export function shouldGoBack(previous: unknown, href: string): boolean {
@@ -93,7 +111,7 @@ export function markHistoryEntry(): void {
   committed = address;
   pending = null;
 }
-/** Whether a click follows a same-origin link in this tab. */
+/** Whether a click follows a same-origin link in this tab to another address than this one. */
 function followsLink(event: MouseEvent): boolean {
   if (
     event.defaultPrevented ||
@@ -108,7 +126,12 @@ function followsLink(event: MouseEvent): boolean {
   const link = event.target.closest('a[href]');
   if (!(link instanceof HTMLAnchorElement) || link.hasAttribute('download')) return false;
   if (link.target && link.target.toLowerCase() !== '_self') return false;
-  return new URL(link.href).origin === window.location.origin;
+  const url = new URL(link.href),
+    current = window.location;
+  // A fragment link to this address moves within the entry; nothing leaves it.
+  if (url.pathname + url.search === current.pathname + current.search && link.href.includes('#'))
+    return false;
+  return url.origin === current.origin;
 }
 /**
  * Mounted once in the dashboard layout: records history entries after each committed navigation,
