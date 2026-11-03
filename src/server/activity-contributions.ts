@@ -28,7 +28,7 @@ import {
   type ContributionRecordSource,
 } from '@/mocks/contribution-records';
 import {
-  activityDatabase,
+  activityData,
   activityDatabaseFloor,
   notConnectedReasons,
   type Account,
@@ -87,11 +87,21 @@ function mergedDiff(diff: PullRequestFacts['diff']): ChangeStats {
           value,
           reason: `GitHub listed ${listed} of this pull request's ${diff.filesTotal} files.`,
         };
+  // GitHub counts a path its file list repeats once, so its total and its list can disagree.
+  const classified = Object.values(statuses).reduce((sum, count) => sum + count, 0);
+  const filesChanged: Count =
+    classified === diff.changedFiles
+      ? complete(diff.changedFiles)
+      : {
+          status: 'partial',
+          value: diff.changedFiles,
+          reason: `GitHub reports ${diff.changedFiles} changed files and classifies ${classified} listed files.`,
+        };
   return Object.fromEntries(
     changeStatIds.map((stat): [ChangeStat, Count] => [
       stat,
       stat === 'filesChanged'
-        ? complete(diff.changedFiles)
+        ? filesChanged
         : stat === 'linesAdded'
           ? complete(diff.additions)
           : stat === 'linesRemoved'
@@ -322,14 +332,15 @@ export function databaseContributions(loaded: LoadedDatabase): ContributionRecor
 
 const sources = new WeakMap<LoadedDatabase, ContributionRecordSource>();
 /**
- * The source contribution reports read: the activity database named by
- * `DASHBOARD_ACTIVITY_DATABASE`, or the prepared samples when it is unset.
+ * The source contribution reports read: the activity data (see `activityData`), or the prepared
+ * samples.
  */
 export function contributionRecords(
   path = process.env.DASHBOARD_ACTIVITY_DATABASE,
 ): ContributionRecordSource {
-  if (!path) return sampleContributionRecords;
-  const { loaded } = activityDatabase(path);
+  const data = activityData(path);
+  if (!data) return sampleContributionRecords;
+  const { loaded } = data;
   let source = sources.get(loaded);
   if (!source) sources.set(loaded, (source = databaseContributions(loaded)));
   return source;
