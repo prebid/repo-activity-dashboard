@@ -1,6 +1,6 @@
 # Repository Activity Dashboard
 
-A TypeScript/Next.js frontend for repository activity reporting. Reports read a [github-activity-db](https://github.com/prebid/github-activity-db) SQLite file when `DASHBOARD_ACTIVITY_DATABASE` names one, and deterministic sample values otherwise. The dashboard itself collects nothing from GitHub: the previous ingestion, filesystem storage, and generated reporting datasets remain retired.
+A TypeScript/Next.js frontend for repository activity reporting. Production builds report GitHub pull request data from a [github-activity-db](https://github.com/prebid/github-activity-db) snapshot they carry (`src/server/activity-snapshot.json`); `DASHBOARD_ACTIVITY_DATABASE` points any build at a database file instead; preview builds, Storybook and tests use deterministic sample values. The dashboard itself collects nothing from GitHub: the previous ingestion, filesystem storage, and generated reporting datasets remain retired.
 
 Follow the [approved delivery sequence](docs/product/README.md#approved-delivery-sequence): review the frontend with prepared data, deploy the reviewed frontend with clearly labeled samples, integrate real reporting data incrementally, then add custom groups. Agent launching remains the last core feature; calendar heatmaps are a low-priority follow-up after the rest of the plan and validated real-data deployment. The Contributors and Companies increment follows the [five-step delivery process](docs/product/README.md#five-step-frontend-delivery-process); its implementation and review checkpoints are recorded in the [contribution contract](docs/product/contributors.md). The [product definitions](docs/product/README.md), [foundation contracts](docs/implementation/foundation-contracts.md) and [account operations](docs/implementation/account-operations.md) are the maintained references.
 
@@ -21,6 +21,12 @@ Point the server at a github-activity-db file to replace the samples with GitHub
 
 ```sh
 DASHBOARD_ACTIVITY_DATABASE=/absolute/path/github_activity.local.db npm run dev
+```
+
+To refresh the data production builds carry, sync the file and export it, then commit `src/server/activity-snapshot.json`:
+
+```sh
+npm run data:snapshot -- /absolute/path/github_activity.local.db
 ```
 
 Build the file with github-activity-db's own CLI (`uv run alembic upgrade head`, then `GITHUB_TOKEN="$(gh auth token)" uv run ghactivity sync --repo prebid/<name> …`; see its `CLAUDE.md`). The server opens it read-only with Node's built-in `node:sqlite`, accepts only `PRAGMA user_version` 2, and reads it again when its size or modification time changes. A configured file that cannot be read is an error page, never a fallback to samples.
@@ -60,7 +66,7 @@ For interactive component development, use `npm run storybook` on port 6006.
 - `npm run build:preview` and `npm run start:preview` create/run fixed synthetic accounts, bound to loopback by default.
 - Start mode must match the recorded build mode.
 - Amplify uses `build:production`; the preview launcher refuses an Amplify environment.
-- Both modes render synthetic reports unless `DASHBOARD_ACTIVITY_DATABASE` is set. Production mode changes authentication, not the reporting source; Amplify does not set the variable yet.
+- Production builds (`build`, Amplify) report from the carried snapshot; preview builds render samples. `DASHBOARD_ACTIVITY_DATABASE` overrides both with a database file.
 
 Amplify currently selects the existing-account compatibility backend so the new frontend can use the working deployment settings without new AWS resources or account migration. Existing secrets remain confined to the private server artifact, outside Next's public environment mapping. The separately activated managed backend uses runtime IAM and Secrets Manager. See [current production compatibility](docs/implementation/account-operations.md#current-production-compatibility-release) for the exact settings and limits. The authentication store is separate from reporting; preview tests do not establish live deployment readiness.
 

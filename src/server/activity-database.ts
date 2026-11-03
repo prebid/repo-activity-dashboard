@@ -1,5 +1,6 @@
 import 'server-only';
 import { statSync } from 'node:fs';
+import { gunzipSync, gzipSync } from 'node:zlib';
 import { DatabaseSync } from 'node:sqlite';
 import { repositoryCatalog, type RepositoryDefinition } from '@/config/repositories';
 import { matchesCurrentPr } from '@/lib/presentation/repository-records';
@@ -17,6 +18,7 @@ import type { LatestRecordActivity } from '@/models/repository-page';
 import type { LatestActor } from '@/models/repository-records';
 import { sampleRecordSource, type RepositoryRecordSource } from '@/mocks/record-source';
 import { openPullRequestRows } from '@/mocks/repository-records';
+import activitySnapshot from './activity-snapshot.json';
 import {
   byText,
   type WorldActorType,
@@ -359,234 +361,236 @@ export interface LoadedDatabase {
   unconnected: ReadonlyMap<string, string>;
 }
 
-function load(path: string): LoadedDatabase {
+/** The rows a report reads from a github-activity-db file, as its queries return them. */
+export interface ActivityRows {
+  version: number;
+  run: { id: number; started_at: string; finished_at: string } | null;
+  repositories: {
+    id: number;
+    github_id: number;
+    default_branch: string;
+    last_outcome: string | null;
+    last_index_started_at: string | null;
+  }[];
+  users: {
+    id: number;
+    github_id: number | null;
+    node_id: string;
+    login: string;
+    name: string | null;
+    type: GithubType;
+  }[];
+  pullRequests: PullRequestRow[];
+  labels: { pr_id: number; name: string }[];
+  reviews: {
+    pr_id: number;
+    reviewer_id: number | null;
+    state: Review['state'];
+    at: string;
+    inline: number;
+  }[];
+  comments: { pr_id: number; github_id: number; author_id: number | null; created_at: string }[];
+  files: { pr_id: number; change_type: string; count: number }[];
+  commits: { pr_id: number; last: string }[];
+}
+
+/** Every row a report reads, from the file at `path`, opened read-only. */
+export function readActivityRows(path: string): ActivityRows {
   const database = new DatabaseSync(path, { readOnly: true });
   try {
     const { user_version: version } = database.prepare('PRAGMA user_version').get() as {
       user_version: number;
     };
-    if (version !== activityDatabaseSchemaVersion)
-      throw new Error(
-        'The activity database has schema version ' +
-          version +
-          '; this dashboard reads version ' +
-          activityDatabaseSchemaVersion +
-          '.',
-      );
-    const run = database
-      .prepare(
-        "SELECT id, started_at, finished_at FROM sync_runs WHERE status <> 'running' AND finished_at IS NOT NULL AND exit_code IN (0, 2) ORDER BY finished_at DESC LIMIT 1",
-      )
-      .get() as { id: number; started_at: string; finished_at: string } | undefined;
-    if (!run) throw new Error('The activity database has no finished sync run.');
-    const stored = new Map(
-      rows<{
-        id: number;
-        github_id: number;
-        default_branch: string;
-        last_outcome: string | null;
-        last_index_started_at: string | null;
-      }>(
+    return {
+      version,
+      run:
+        (database
+          .prepare(
+            "SELECT id, started_at, finished_at FROM sync_runs WHERE status <> 'running' AND finished_at IS NOT NULL AND exit_code IN (0, 2) ORDER BY finished_at DESC LIMIT 1",
+          )
+          .get() as ActivityRows['run'] | undefined) ?? null,
+      repositories: rows(
         database,
         'SELECT r.id, r.github_id, r.default_branch, s.last_outcome, s.last_index_started_at FROM repositories r LEFT JOIN repo_sync_state s ON s.repository_id = r.id',
-      ).map((row) => [String(row.github_id), row]),
-    );
-    // Each repository's rows are GitHub's state when its index started, so the report states the
-    // earliest such start among the repositories it reads; later events and records are ignored.
-    const indexStarts = repositoryCatalog
-      .filter((entry) => entry.enabled)
-      .map((entry) => stored.get(entry.githubId))
-      .filter((row) => row?.last_outcome === 'complete')
-      .map((row) => row!.last_index_started_at ?? run.started_at);
-    const clock = indexStarts.length
-      ? indexStarts.reduce((a, b) => (b < a ? b : a))
-      : run.started_at;
-    const asOf = databaseInstant(clock);
-    const accounts = new Map<number, Account>(
-      rows<{
-        id: number;
-        github_id: number | null;
-        node_id: string;
-        login: string;
-        name: string | null;
-        type: GithubType;
-      }>(database, 'SELECT id, github_id, node_id, login, name, type FROM github_users').map(
-        (row) => [
-          row.id,
-          {
-            id: 'account-' + (row.github_id ?? row.node_id),
-            login: row.login,
-            name: row.name,
-            type: row.type,
-          },
-        ],
       ),
-    );
-    const pullRequests = groupBy(
-      rows<PullRequestRow>(
+      users: rows(database, 'SELECT id, github_id, node_id, login, name, type FROM github_users'),
+      pullRequests: rows(
         database,
-        'SELECT id, repository_id, number, state, is_draft, title, author_id, created_at, merged_at, closed_at, base_ref, merged_by_id, additions, deletions, changed_files, files_total FROM pull_requests WHERE created_at <= ?',
-        clock,
+        'SELECT id, repository_id, number, state, is_draft, title, author_id, created_at, merged_at, closed_at, base_ref, merged_by_id, additions, deletions, changed_files, files_total FROM pull_requests',
       ),
-      (row) => row.repository_id,
-    );
-    const labels = groupBy(
-      rows<{ pr_id: number; name: string }>(
-        database,
-        'SELECT pr_id, name FROM pr_labels ORDER BY pr_id, name',
-      ),
-      (row) => row.pr_id,
-    );
-    const reviews = groupBy(
-      rows<{
-        pr_id: number;
-        reviewer_id: number | null;
-        state: Review['state'];
-        at: string;
-        inline: number;
-      }>(
+      labels: rows(database, 'SELECT pr_id, name FROM pr_labels ORDER BY pr_id, name'),
+      reviews: rows(
         database,
         'SELECT pr_id, reviewer_id, state, COALESCE(submitted_at, created_at) AS at, inline_comments_total AS inline FROM pr_reviews',
       ),
-      (row) => row.pr_id,
-    );
-    const comments = groupBy(
-      rows<{ pr_id: number; github_id: number; author_id: number | null; created_at: string }>(
-        database,
-        'SELECT pr_id, github_id, author_id, created_at FROM pr_comments',
-      ),
-      (row) => row.pr_id,
-    );
-    const files = groupBy(
-      rows<{ pr_id: number; change_type: string; count: number }>(
+      comments: rows(database, 'SELECT pr_id, github_id, author_id, created_at FROM pr_comments'),
+      files: rows(
         database,
         'SELECT pr_id, change_type, COUNT(*) AS count FROM pr_files GROUP BY pr_id, change_type',
       ),
-      (row) => row.pr_id,
-    );
-    const facts: PullRequestFacts[] = [];
-    const unconnectedRepositories = new Map<string, string>();
-    const commits = new Map(
-      rows<{ pr_id: number; last: string }>(
+      commits: rows(
         database,
         'SELECT pr_id, MAX(authored_at) AS last FROM pr_commits GROUP BY pr_id',
-      ).map((row) => [row.pr_id, databaseInstant(row.last)]),
+      ),
+    };
+  } finally {
+    database.close();
+  }
+}
+
+function build(data: ActivityRows): LoadedDatabase {
+  if (data.version !== activityDatabaseSchemaVersion)
+    throw new Error(
+      'The activity database has schema version ' +
+        data.version +
+        '; this dashboard reads version ' +
+        activityDatabaseSchemaVersion +
+        '.',
     );
-    const availability = [{ start: activityDatabaseFloor, end: asOf, endInclusive: true }];
-    const repositories = new Map<string, WorldRepository>();
-    for (const definition of repositoryCatalog.filter((entry) => entry.enabled)) {
-      const row = stored.get(definition.githubId);
-      const branch = reportingBranchSchema.safeParse(row?.default_branch);
-      const base = {
-        id: definition.id,
-        slug: definition.slug,
-        name: definition.displayName,
-        primaryBranch: branch.success
-          ? branch.data
-          : reportingBranchSchema.parse(definition.primaryBranch),
-        availability,
-        issues: [],
-      };
-      const unconnected =
-        definition.name === 'prebid-agent-skills' && !row
-          ? notConnectedReasons.private
-          : !row || row.last_outcome !== 'complete'
-            ? notConnectedReasons.unsynced
-            : undefined;
-      if (unconnected || !row) {
-        unconnectedRepositories.set(definition.id, unconnected ?? notConnectedReasons.unsynced);
-        repositories.set(definition.id, {
-          ...base,
-          pullRequests: [],
-          notConnected: {
-            pullRequests: unconnected ?? notConnectedReasons.unsynced,
-            issues: notConnectedReasons.issues,
-            agents: notConnectedReasons.agents,
-            history: notConnectedReasons.history,
-          },
-        });
-        continue;
-      }
-      const account = (id: number | null) => (id === null ? null : (accounts.get(id) ?? null));
-      const records = (pullRequests.get(row.id) ?? [])
-        .map((pr) => {
-          const prReviews = (reviews.get(pr.id) ?? []).map((review) => ({
-            reviewer: review.reviewer_id,
-            state: review.state,
-            at: databaseInstant(review.at),
-            inline: review.inline,
-          }));
-          const prComments = (comments.get(pr.id) ?? []).map((comment) => ({
-            githubId: comment.github_id,
-            actor: comment.author_id,
-            at: databaseInstant(comment.created_at),
-          }));
-          const record = pullRequest(pr, definition, {
-            asOf,
-            accounts,
-            labels: (labels.get(pr.id) ?? []).map((label) => label.name),
-            reviews: prReviews,
-            comments: prComments,
-            lastCommitAt: commits.get(pr.id) ?? null,
-          });
-          const dismissed = new Map<string, Account>();
-          for (const review of prReviews) {
-            const reviewer = account(review.reviewer);
-            if (review.state === 'DISMISSED' && review.at <= asOf && reviewer)
-              if (review.reviewer !== pr.author_id) dismissed.set(reviewer.id, reviewer);
-          }
-          facts.push({
-            record,
-            repositoryId: definition.id,
-            primaryBranch: base.primaryBranch,
-            author: account(pr.author_id),
-            merger: record.state === 'Merged' ? account(pr.merged_by_id) : null,
-            diff: {
-              additions: pr.additions,
-              deletions: pr.deletions,
-              changedFiles: pr.changed_files,
-              filesTotal: pr.files_total,
-              files: new Map(
-                (files.get(pr.id) ?? []).map((file) => [file.change_type, file.count]),
-              ),
-            },
-            comments: prComments
-              .filter((comment) => comment.at <= asOf)
-              .map((comment) => ({
-                githubId: comment.githubId,
-                account: account(comment.actor),
-                at: comment.at,
-              })),
-            dismissed: [...dismissed.values()],
-          });
-          return record;
-        })
-        .sort((a, b) => byText(a.createdAt, b.createdAt) || a.number - b.number);
+  const run = data.run;
+  if (!run) throw new Error('The activity database has no finished sync run.');
+  const stored = new Map(data.repositories.map((row) => [String(row.github_id), row]));
+  // Each repository's rows are GitHub's state when its index started, so the report states the
+  // earliest such start among the repositories it reads; later events and records are ignored.
+  const indexStarts = repositoryCatalog
+    .filter((entry) => entry.enabled)
+    .map((entry) => stored.get(entry.githubId))
+    .filter((row) => row?.last_outcome === 'complete')
+    .map((row) => row!.last_index_started_at ?? run.started_at);
+  const clock = indexStarts.length ? indexStarts.reduce((a, b) => (b < a ? b : a)) : run.started_at;
+  const asOf = databaseInstant(clock);
+  const accounts = new Map<number, Account>(
+    data.users.map((row) => [
+      row.id,
+      {
+        id: 'account-' + (row.github_id ?? row.node_id),
+        login: row.login,
+        name: row.name,
+        type: row.type,
+      },
+    ]),
+  );
+  const pullRequests = groupBy(
+    data.pullRequests.filter((row) => row.created_at <= clock),
+    (row) => row.repository_id,
+  );
+  const labels = groupBy(data.labels, (row) => row.pr_id);
+  const reviews = groupBy(data.reviews, (row) => row.pr_id);
+  const comments = groupBy(data.comments, (row) => row.pr_id);
+  const files = groupBy(data.files, (row) => row.pr_id);
+  const facts: PullRequestFacts[] = [];
+  const unconnectedRepositories = new Map<string, string>();
+  const commits = new Map(data.commits.map((row) => [row.pr_id, databaseInstant(row.last)]));
+  const availability = [{ start: activityDatabaseFloor, end: asOf, endInclusive: true }];
+  const repositories = new Map<string, WorldRepository>();
+  for (const definition of repositoryCatalog.filter((entry) => entry.enabled)) {
+    const row = stored.get(definition.githubId);
+    const branch = reportingBranchSchema.safeParse(row?.default_branch);
+    const base = {
+      id: definition.id,
+      slug: definition.slug,
+      name: definition.displayName,
+      primaryBranch: branch.success
+        ? branch.data
+        : reportingBranchSchema.parse(definition.primaryBranch),
+      availability,
+      issues: [],
+    };
+    const unconnected =
+      definition.name === 'prebid-agent-skills' && !row
+        ? notConnectedReasons.private
+        : !row || row.last_outcome !== 'complete'
+          ? notConnectedReasons.unsynced
+          : undefined;
+    if (unconnected || !row) {
+      unconnectedRepositories.set(definition.id, unconnected ?? notConnectedReasons.unsynced);
       repositories.set(definition.id, {
         ...base,
-        pullRequests: records,
+        pullRequests: [],
         notConnected: {
+          pullRequests: unconnected ?? notConnectedReasons.unsynced,
           issues: notConnectedReasons.issues,
           agents: notConnectedReasons.agents,
           history: notConnectedReasons.history,
         },
       });
+      continue;
     }
-    const types = new Map<string, ReportingAccountType>();
-    for (const account of accounts.values())
-      types.set(account.login.toLowerCase(), account.type === 'Bot' ? 'bot' : 'human');
-    return {
-      asOf,
-      runId: run.id,
-      repositories,
-      accounts: types,
-      accountDirectory: [...accounts.values()],
-      pullRequests: facts,
-      unconnected: unconnectedRepositories,
-    };
-  } finally {
-    database.close();
+    const account = (id: number | null) => (id === null ? null : (accounts.get(id) ?? null));
+    const records = (pullRequests.get(row.id) ?? [])
+      .map((pr) => {
+        const prReviews = (reviews.get(pr.id) ?? []).map((review) => ({
+          reviewer: review.reviewer_id,
+          state: review.state,
+          at: databaseInstant(review.at),
+          inline: review.inline,
+        }));
+        const prComments = (comments.get(pr.id) ?? []).map((comment) => ({
+          githubId: comment.github_id,
+          actor: comment.author_id,
+          at: databaseInstant(comment.created_at),
+        }));
+        const record = pullRequest(pr, definition, {
+          asOf,
+          accounts,
+          labels: (labels.get(pr.id) ?? []).map((label) => label.name),
+          reviews: prReviews,
+          comments: prComments,
+          lastCommitAt: commits.get(pr.id) ?? null,
+        });
+        const dismissed = new Map<string, Account>();
+        for (const review of prReviews) {
+          const reviewer = account(review.reviewer);
+          if (review.state === 'DISMISSED' && review.at <= asOf && reviewer)
+            if (review.reviewer !== pr.author_id) dismissed.set(reviewer.id, reviewer);
+        }
+        facts.push({
+          record,
+          repositoryId: definition.id,
+          primaryBranch: base.primaryBranch,
+          author: account(pr.author_id),
+          merger: record.state === 'Merged' ? account(pr.merged_by_id) : null,
+          diff: {
+            additions: pr.additions,
+            deletions: pr.deletions,
+            changedFiles: pr.changed_files,
+            filesTotal: pr.files_total,
+            files: new Map((files.get(pr.id) ?? []).map((file) => [file.change_type, file.count])),
+          },
+          comments: prComments
+            .filter((comment) => comment.at <= asOf)
+            .map((comment) => ({
+              githubId: comment.githubId,
+              account: account(comment.actor),
+              at: comment.at,
+            })),
+          dismissed: [...dismissed.values()],
+        });
+        return record;
+      })
+      .sort((a, b) => byText(a.createdAt, b.createdAt) || a.number - b.number);
+    repositories.set(definition.id, {
+      ...base,
+      pullRequests: records,
+      notConnected: {
+        issues: notConnectedReasons.issues,
+        agents: notConnectedReasons.agents,
+        history: notConnectedReasons.history,
+      },
+    });
   }
+  const types = new Map<string, ReportingAccountType>();
+  for (const account of accounts.values())
+    types.set(account.login.toLowerCase(), account.type === 'Bot' ? 'bot' : 'human');
+  return {
+    asOf,
+    runId: run.id,
+    repositories,
+    accounts: types,
+    accountDirectory: [...accounts.values()],
+    pullRequests: facts,
+    unconnected: unconnectedRepositories,
+  };
 }
 
 function databaseSource(loaded: LoadedDatabase): RepositoryRecordSource {
@@ -612,26 +616,75 @@ function databaseSource(loaded: LoadedDatabase): RepositoryRecordSource {
   };
 }
 
-let cached: { key: string; loaded: LoadedDatabase; source: RepositoryRecordSource } | undefined;
+type Activity = { loaded: LoadedDatabase; source: RepositoryRecordSource };
+function activity(rows: ActivityRows): Activity {
+  const loaded = build(rows);
+  return { loaded, source: databaseSource(loaded) };
+}
+let cached: (Activity & { key: string }) | undefined;
 /** The activity database at `path`, read once per change to its size or modification time. */
-export function activityDatabase(path: string) {
+export function activityDatabase(path: string): Activity {
   const stat = statSync(path);
   const key = path + ':' + stat.size + ':' + stat.mtimeMs;
-  if (cached?.key !== key) {
-    const loaded = load(path);
-    cached = { key, loaded, source: databaseSource(loaded) };
-  }
+  if (cached?.key !== key) cached = { key, ...activity(readActivityRows(path)) };
   return cached;
 }
+
+/** A snapshot of `ActivityRows`: each table as column names and value rows, gzipped JSON. */
+export function encodeActivitySnapshot(data: ActivityRows): string {
+  const tables = Object.fromEntries(
+    Object.entries(data).map(([name, value]) => {
+      if (!Array.isArray(value)) return [name, value];
+      const columns = value.length ? Object.keys(value[0] as object) : [];
+      return [
+        name,
+        {
+          columns,
+          rows: value.map((row: Record<string, unknown>) => columns.map((column) => row[column])),
+        },
+      ];
+    }),
+  );
+  return gzipSync(JSON.stringify(tables), { level: 9 }).toString('base64');
+}
+export function decodeActivitySnapshot(encoded: string): ActivityRows {
+  const tables = JSON.parse(gunzipSync(Buffer.from(encoded, 'base64')).toString('utf8')) as Record<
+    string,
+    unknown
+  >;
+  return Object.fromEntries(
+    Object.entries(tables).map(([name, value]) => {
+      if (!value || typeof value !== 'object' || !('columns' in value)) return [name, value];
+      const { columns, rows } = value as { columns: string[]; rows: unknown[][] };
+      return [
+        name,
+        rows.map((row) => Object.fromEntries(columns.map((column, index) => [column, row[index]]))),
+      ];
+    }),
+  ) as unknown as ActivityRows;
+}
+let bundled: Activity | undefined;
+/** The snapshot production builds carry, read once per server process. */
+function bundledActivity(): Activity {
+  bundled ??= activity(decodeActivitySnapshot(activitySnapshot.data));
+  return bundled;
+}
+
 /**
- * The record source repository views read: the activity database named by
- * `DASHBOARD_ACTIVITY_DATABASE`, or the prepared samples when it is unset. A configured database
- * that cannot be read is an error, never a silent fallback to samples.
+ * The activity data reports read: the file `DASHBOARD_ACTIVITY_DATABASE` names; otherwise, in a
+ * production build, the snapshot it carries (`DASHBOARD_REPORT_DATA`, set by next.config.mjs);
+ * otherwise none, and reports read the prepared samples. Data that cannot be read is an error,
+ * never a silent fallback to samples.
  */
+export function activityData(path = process.env.DASHBOARD_ACTIVITY_DATABASE): Activity | null {
+  if (path) return activityDatabase(path);
+  return process.env.DASHBOARD_REPORT_DATA === 'snapshot' ? bundledActivity() : null;
+}
+/** The record source repository views read: the activity data, or the prepared samples. */
 export function repositoryRecords(
   path = process.env.DASHBOARD_ACTIVITY_DATABASE,
 ): RepositoryRecordSource {
-  return path ? activityDatabase(path).source : sampleRecordSource;
+  return activityData(path)?.source ?? sampleRecordSource;
 }
 
 /**

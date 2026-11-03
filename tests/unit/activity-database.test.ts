@@ -10,14 +10,22 @@ import type { RepositoryRecordSource } from '@/mocks/record-source';
 import { reportingBranchSchema } from '@/models/repository-overview';
 
 vi.mock('server-only', () => ({}));
-const { databaseInstant, notConnectedReasons, repositoryRecords } =
-  await import('@/server/activity-database');
+const {
+  databaseInstant,
+  decodeActivitySnapshot,
+  encodeActivitySnapshot,
+  notConnectedReasons,
+  readActivityRows,
+  repositoryRecords,
+} = await import('@/server/activity-database');
+const committedSnapshot = (await import('@/server/activity-snapshot.json')).default;
 const { contributionRecords } = await import('@/server/activity-contributions');
 
 const schema = readFileSync(join(__dirname, '../fixtures/github-activity-db-schema.sql'), 'utf8');
 const directories: string[] = [];
 afterEach(() => {
   for (const directory of directories.splice(0)) rmSync(directory, { recursive: true });
+  vi.unstubAllEnvs();
 });
 
 type Value = string | number | null;
@@ -113,6 +121,7 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
       closed?: string;
       draft?: boolean;
       base?: string;
+      files?: { changed: number; listed: string[] };
     } = {},
   ) =>
     insert(database, 'pull_requests', {
@@ -128,6 +137,7 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
       closed_at: end.merged ?? end.closed ?? null,
       merged_by_id: end.mergedBy ?? null,
       base_ref: end.base ?? 'master',
+      ...(end.files && { changed_files: end.files.changed, files_total: end.files.listed.length }),
     });
   const review = (prId: number, reviewer: number, state: string, submitted: string, inline = 0) =>
     insert(database, 'pr_reviews', {
@@ -162,7 +172,14 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
   // Alice's approval was dismissed after Drew's push; GitHub reports the review as DISMISSED.
   review(p107, alice, 'DISMISSED', at('10-20'));
   insert(database, 'pr_commits', { pr_id: p107, sha: 'c107', authored_at: at('10-21') });
-  pr(prebidjs, 108, bob, at('10-20'), { merged: at('10-21'), mergedBy: drew });
+  // GitHub counts one changed file but lists the same path twice.
+  const p108 = pr(prebidjs, 108, bob, at('10-20'), {
+    merged: at('10-21'),
+    mergedBy: drew,
+    files: { changed: 1, listed: ['ADDED', 'MODIFIED'] },
+  });
+  for (const [ordinal, change_type] of ['ADDED', 'MODIFIED'].entries())
+    insert(database, 'pr_files', { pr_id: p108, ordinal, path: 'src/a.js', change_type });
   pr(server, 201, carol, at('10-22'), { merged: at('10-25'), mergedBy: bob });
   pr(server, 202, carol, at('10-25'));
   pr(server, 205, carol, at('10-24', '13:00:00'));
@@ -385,7 +402,40 @@ describe('activity database contributions', () => {
     ]);
   });
 
+  it('keeps a merged diff whose file list GitHub counts differently, marking its total partial', () => {
+    const { source } = credits(referenceDatabase());
+    const p108 = source.records.find((row) => row.id === 'repo-prebidjs-pr-108');
+    if (p108?.kind !== 'pr') throw new Error('Expected P108');
+    expect(p108.mergedDiff).toMatchObject({
+      filesChanged: {
+        status: 'partial',
+        value: 1,
+        reason: 'GitHub reports 1 changed files and classifies 2 listed files.',
+      },
+      filesAdded: { status: 'complete', value: 1 },
+      filesModified: { status: 'complete', value: 1 },
+    });
+  });
+
   it('reads samples when no database is configured', () => {
     expect(contributionRecords('').kind).toBe('sample');
+  });
+});
+
+describe('activity snapshot', () => {
+  it('carries exactly the rows the reader reads from the file', () => {
+    const rows = readActivityRows(referenceDatabase());
+    expect(decodeActivitySnapshot(encodeActivitySnapshot(rows))).toEqual(rows);
+  });
+
+  it('is what production builds read, and samples stay the default elsewhere', () => {
+    expect(repositoryRecords('').kind).toBe('sample');
+    vi.stubEnv('DASHBOARD_REPORT_DATA', 'snapshot');
+    const source = repositoryRecords('');
+    expect(source.kind).toBe('database');
+    expect(committedSnapshot.format).toBe(1);
+    // The committed snapshot states GitHub as of its earliest index start, before the run finished.
+    expect(source.asOf < databaseInstant(committedSnapshot.finishedAt)).toBe(true);
+    expect(source.repositories().get('repo-prebidjs')!.pullRequests.length).toBeGreaterThan(0);
   });
 });
