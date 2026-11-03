@@ -2,9 +2,15 @@
 
 The application has an existing-account compatibility backend and a separately activated managed backend. Both use the existing users/whitelist tables; neither introduces a reporting database. The current production selection and the deferred migration are distinguished below.
 
-## Current production compatibility release
+## Managed backend activation
 
-Amplify selects `DASHBOARD_AUTH_BACKEND=legacy` for the rebuilt frontend. This uses the existing account tables and deployment configuration; it does not provision AWS resources or run the managed account migration below. The reviewed reporting frontend, page access checks, password-change flow and administrator UI remain in place.
+This revision selects `DASHBOARD_AUTH_BACKEND=managed` in Amplify. Before deployment, configure the signing secret, branch-scoped SSR compute role, canonical origin and explicit table region/names; preserve account backups and complete the ordered account migration below. Activating this build before those prerequisites are satisfied can fail the build or deny existing sign-ins. It does not change the reporting frontend or integrate reporting data.
+
+The existing-account release selects `legacy`; it remains available as a build selection while the managed activation is held for deployment. Switching a build profile does not itself migrate accounts or prepare AWS resources.
+
+## Existing-account compatibility backend
+
+Select `DASHBOARD_AUTH_BACKEND=legacy` to retain the existing-account compatibility deployment. This uses the existing account tables and deployment configuration; it does not provision AWS resources or run the managed account migration below. The reviewed reporting frontend, page access checks, password-change flow and administrator UI remain in place.
 
 - Existing configuration: `NEXTAUTH_URL` (or `AUTH_URL`), `NEXTAUTH_SECRET` (or `AUTH_SECRET`), `DYNAMODB_USERS_TABLE`, and `DYNAMODB_WHITELIST_TABLE`. Region precedence is `DYNAMODB_REGION`, `S3_REGION`, `AWS_REGION`, then the previously deployed `us-east-2` default.
 - An existing explicit `S3_ACCESS_KEY_ID` / `S3_SECRET_ACCESS_KEY` pair is used for DynamoDB. Without that pair, the runtime uses its normal AWS credential provider. The build never captures the hosting build role's temporary `AWS_*` credentials.
@@ -17,9 +23,9 @@ Use the existing administrator UI for this release. **Do not run the managed mig
 
 `npm run build:production:fixture` builds with synthetic versions of the existing Amplify settings, checks that private settings reach the server artifact, and scans public output for secret canaries. The packaged-production suite runs both backends against isolated local services; compatibility fixtures reject transaction requests and verify no Secrets Manager access. Browser cases cover sign-in, account creation/reissue, required password replacement and protected reporting in Chromium and WebKit. These checks do not establish the current Amplify build outcome.
 
-## Deferred managed backend
+## Managed backend
 
-The remaining sections document the separately activated managed backend. Its AWS setup and account migration are not prerequisites for the compatibility release above.
+The remaining sections document the managed backend selected by this revision. Its AWS setup and account migration are required before deploying this activation; they are not prerequisites for the compatibility build.
 
 ## Runtime configuration
 
