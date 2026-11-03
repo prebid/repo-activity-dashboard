@@ -1,7 +1,7 @@
 import 'server-only';
 import { statSync } from 'node:fs';
 import { gunzipSync, gzipSync } from 'node:zlib';
-import { DatabaseSync } from 'node:sqlite';
+import type { DatabaseSync } from 'node:sqlite';
 import { repositoryCatalog, type RepositoryDefinition } from '@/config/repositories';
 import { matchesCurrentPr } from '@/lib/presentation/repository-records';
 import { notConnected, type Count } from '@/models/reporting-measurement';
@@ -396,7 +396,11 @@ export interface ActivityRows {
 
 /** Every row a report reads, from the file at `path`, opened read-only. */
 export function readActivityRows(path: string): ActivityRows {
-  const database = new DatabaseSync(path, { readOnly: true });
+  // Loaded only to read a file, so a server whose Node lacks node:sqlite still serves the snapshot.
+  const sqlite = process.getBuiltinModule('node:sqlite') as
+    typeof import('node:sqlite') | undefined;
+  if (!sqlite) throw new Error('Reading an activity database file needs Node with node:sqlite.');
+  const database = new sqlite.DatabaseSync(path, { readOnly: true });
   try {
     const { user_version: version } = database.prepare('PRAGMA user_version').get() as {
       user_version: number;
