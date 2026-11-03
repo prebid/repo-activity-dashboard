@@ -226,35 +226,121 @@ test('at phone width a Sections menu replaces the chips and leaves focus on the 
   expect(await historyLength(page)).toBe(entries);
 });
 
+async function signIn(page: Page) {
+  await page.goto('/auth/login');
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await expect(page).toHaveURL((url) => url.pathname === '/repos');
+}
+const pathOf = (id: InventoryId) => inventory.find((view) => view.id === id)!.path;
+
 for (const id of ['repo-author-issues', 'repo-docs-open-issues'] satisfies InventoryId[])
-  test(`up to the two-row masthead width the Sections menu keeps the record tabs whole (${id})`, async ({
+  test(`where the chips do not fit, the Sections menu keeps the record tabs whole (${id})`, async ({
     page,
   }) => {
-    await page.goto('/auth/login');
-    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-    await expect(page).toHaveURL(/\/repos$/);
-    await page.setViewportSize({ width: 768, height: 900 });
-    await page.goto(inventory.find((view) => view.id === id)!.path);
+    await signIn(page);
     const tabs = page.getByRole('navigation', { name: 'Repository lists', exact: true });
     const trigger = sectionsNav(page).getByRole('button', { name: 'Sections', exact: true });
-    await expect(trigger).toBeVisible();
-    await expect(sectionsNav(page).getByRole('list')).toBeHidden();
-    // The tab row does not scroll, and every tab lies whole inside it.
-    expect(await tabs.evaluate((row) => row.scrollWidth <= row.clientWidth)).toBe(true);
-    const row = (await tabs.boundingBox())!;
-    const links = tabs.getByRole('link');
-    expect(await links.count()).toBe(3);
-    for (const link of await links.all()) {
-      const box = (await link.boundingBox())!;
-      const name = (await link.textContent()) ?? '';
-      expect(box.x, name).toBeGreaterThanOrEqual(row.x - 0.5);
-      expect(box.x + box.width, name).toBeLessThanOrEqual(row.x + row.width + 0.5);
+    // 601 to 700px: the narrow gap and the icon-only trigger; 768px: the full trigger.
+    for (const width of [601, 640, 700, 768]) {
+      const at = `at ${width}px`;
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(pathOf(id));
+      await expect(trigger, at).toBeVisible();
+      await expect(sectionsNav(page).getByRole('list'), at).toBeHidden();
+      // The tab row does not scroll, and every tab lies whole inside it.
+      expect(await tabs.evaluate((row) => row.scrollWidth <= row.clientWidth), at).toBe(true);
+      const row = (await tabs.boundingBox())!;
+      const links = tabs.getByRole('link');
+      expect(await links.count(), at).toBe(3);
+      for (const link of await links.all()) {
+        const box = (await link.boundingBox())!;
+        const name = at + ' ' + ((await link.textContent()) ?? '');
+        expect(box.x, name).toBeGreaterThanOrEqual(row.x - 0.5);
+        expect(box.x + box.width, name).toBeLessThanOrEqual(row.x + row.width + 0.5);
+      }
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+        at,
+      ).toBe(true);
     }
-    // Once the masthead takes one row the chips return, and their list does not scroll.
+    // Widened until they fit, the chips return, and their list does not scroll.
     await page.setViewportSize({ width: 1121, height: 900 });
     const chips = sectionsNav(page).getByRole('list');
     await expect(chips).toBeVisible();
     await expect(trigger).toBeHidden();
     expect(await chips.evaluate((list) => list.scrollWidth <= list.clientWidth)).toBe(true);
     expect(await tabs.evaluate((row) => row.scrollWidth <= row.clientWidth)).toBe(true);
+  });
+
+for (const [id, width] of [
+  ['repos-overview', 768],
+  ['repos-comparison', 700],
+  ['repo-docs-open-issues', 1000],
+  ['repo-author-issues', 1440],
+] satisfies [InventoryId, number][])
+  test(`where the chips fit, they show from the first paint and the menu never does (${id}, ${width}px)`, async ({
+    page,
+    browser,
+  }) => {
+    await signIn(page);
+    await page.setViewportSize({ width, height: 900 });
+    // Records whether the Sections trigger was ever laid out, from before the first paint to the
+    // end of the load.
+    await page.addInitScript(() => {
+      const seen = { menu: false, done: false };
+      Object.assign(window, { sectionsMenuSeen: seen });
+      const check = () => {
+        const trigger = [
+          ...document.querySelectorAll('nav[aria-label="On this page"] button'),
+        ].find((button) => button.textContent?.includes('Sections'));
+        if (trigger && trigger.getClientRects().length > 0) seen.menu = true;
+      };
+      new MutationObserver(check).observe(document, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+      });
+      const frame = () => {
+        check();
+        if (!seen.done) requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+      addEventListener('load', () => setTimeout(() => (seen.done = true), 1000));
+    });
+    await page.goto(pathOf(id));
+    const chips = sectionsNav(page).getByRole('list');
+    await expect(chips).toBeVisible();
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            (window as unknown as { sectionsMenuSeen: { done: boolean } }).sectionsMenuSeen.done,
+        ),
+      )
+      .toBe(true);
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { sectionsMenuSeen: { menu: boolean } }).sectionsMenuSeen.menu,
+      ),
+    ).toBe(false);
+    expect(await chips.evaluate((list) => list.scrollWidth <= list.clientWidth)).toBe(true);
+    await expect(
+      sectionsNav(page).getByRole('button', { name: 'Sections', exact: true }),
+    ).toBeHidden();
+    // The server renders the chips: without JavaScript the same page shows them.
+    const context = await browser.newContext({
+      javaScriptEnabled: false,
+      viewport: { width, height: 900 },
+      storageState: await page.context().storageState(),
+    });
+    try {
+      const plain = await context.newPage();
+      await plain.goto(new URL(pathOf(id), page.url()).href);
+      await expect(sectionsNav(plain).getByRole('list')).toBeVisible();
+      await expect(
+        sectionsNav(plain).getByRole('button', { name: 'Sections', exact: true }),
+      ).toBeHidden();
+    } finally {
+      await context.close();
+    }
   });

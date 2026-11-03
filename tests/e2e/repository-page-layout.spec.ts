@@ -264,6 +264,34 @@ test('a reset-only group puts Reset view on its overline or status line, not a r
   expect(reset.x).toBeGreaterThanOrEqual(box.x - 0.5);
   expect(reset.x + reset.width).toBeLessThanOrEqual(box.x + box.width + 0.5);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+  // On phones a toolbar whose one group holds only its reset still opens with the status sentence
+  // beside the reset, not with a row that holds the reset alone.
+  for (const width of [390, 320]) {
+    const at = `${width}px`;
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(authorRecords);
+    await page.evaluate(() => document.fonts.ready);
+    const toolbar = page.getByRole('region', { name: 'Selected repository scope', exact: true });
+    const card = (await toolbar.boundingBox())!;
+    const only = (await toolbar
+      .getByRole('button', { name: 'Reset view', exact: true })
+      .boundingBox())!;
+    const sentence = toolbar.getByText('Preferences saved for your account on this browser.', {
+      exact: true,
+    });
+    // The sentence wraps here, so the reset sits beside its lines rather than its first one.
+    const text = (await sentence.boundingBox())!;
+    const middle = only.y + only.height / 2;
+    expect(middle, at).toBeGreaterThanOrEqual(text.y);
+    expect(middle, at).toBeLessThanOrEqual(text.y + text.height);
+    // The sentence ends before the reset, and both stay inside the card.
+    expect(text.x + text.width, at).toBeLessThanOrEqual(only.x + 0.5);
+    expect(only.x + only.width, at).toBeLessThanOrEqual(card.x + card.width + 0.5);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+      at,
+    ).toBe(true);
+  }
 });
 
 test('the scope link takes the breadcrumb link colour in both themes', async ({ page }) => {

@@ -105,7 +105,12 @@ test('component catalog themes also reach portaled dialogs', async ({ page }) =>
 async function login(page: import('@playwright/test').Page) {
   await page.goto('/auth/login');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-  await expect(page).toHaveURL(/\/repos$/);
+  // Sign-in lands on All repositories. A bare /repos redirects to the viewer's saved view once
+  // one differs from the defaults, so the query may carry it, as when another tab changed a sort.
+  await expect(page).toHaveURL((url) => url.pathname === '/repos');
+  await expect(
+    page.getByRole('heading', { name: 'All repositories', exact: true, level: 1 }),
+  ).toBeVisible();
 }
 // --prebid-overlay in Dark (#1c2a37); dialogs must not fall back to the card or the canvas.
 const darkOverlay = 'rgb(28, 42, 55)';

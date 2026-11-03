@@ -223,6 +223,12 @@
 .glyphLeads > :first-child {
   margin-inline-end: 4px;
 }
+/* A count and its noun stay beside the glyph as one unit ("0 approvals"), which a narrow numeric
+   column fits by letting the label run into the cell's start padding. The label still ends at the
+   values' edge. */
+.countLabel {
+  margin-inline-start: calc(-1 * var(--table-cell-padding-inline));
+}
 .glyphTrails > :last-child {
   margin-inline-start: 4px;
 }
@@ -358,9 +364,11 @@
     padding: 0 16px 12px;
   }
 }
-/* Below 375px a narrower pinned column leaves the first numeric column's values in view. */
+/* Below 375px, where the column beside the pinned one holds numbers, a narrower pinned column
+   leaves its right-aligned values in view. A text column beside it is already in view, so names
+   keep their width there. */
 @media (max-width: 374px) {
-  .scroll {
+  .scroll[data-numeric-beside-pinned] {
     --pinned-width: 128px;
   }
 }

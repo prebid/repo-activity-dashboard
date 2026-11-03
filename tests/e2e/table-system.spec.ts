@@ -240,6 +240,59 @@ test('a wrapped header keeps its sort glyph beside its words', async ({ page }) 
   }
 });
 
+test('approval headers keep each count beside its noun on one line, whole and level with the values', async ({
+  page,
+}) => {
+  await login(page);
+  const comparison = '/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90';
+  // The comparison's ten numeric columns sit at their narrowest at 1366px; at 1440px "1 approval"
+  // used to fit on one line while "0 approvals" split after its numeral. At 1000px the default
+  // backlog's columns are at their declared 106px.
+  for (const [width, path] of [
+    [1366, comparison],
+    [1440, comparison],
+    [1000, '/repos'],
+  ] as const) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(path);
+    const backlog = page.getByRole('table', { name: 'Current backlog', exact: true });
+    await expect(backlog.locator('tbody tr').first()).toBeVisible();
+    await page.evaluate(() => document.fonts.ready);
+    for (const [name, id] of [
+      ['0 approvals', 'humanApprovals0'],
+      ['1 approval', 'humanApprovals1'],
+      ['2 approvals', 'humanApprovals2'],
+    ] as const) {
+      const at = `${name} at ${width}px on ${path}`;
+      const header = await backlog
+        .getByRole('columnheader', { name, exact: true })
+        .evaluate((cell) => {
+          const label = cell.querySelector('button')!.firstElementChild as HTMLElement;
+          const range = document.createRange();
+          range.selectNodeContents(label);
+          const rects = [...range.getClientRects()].filter((rect) => rect.width > 0);
+          const tops = rects.map((rect) => rect.top).sort((a, b) => a - b);
+          return {
+            lines: tops.filter((top, index) => !index || top - tops[index - 1] > 4).length,
+            clipped: label.scrollWidth > label.clientWidth,
+            left: Math.min(...rects.map((rect) => rect.left)),
+            right: Math.max(...rects.map((rect) => rect.right)),
+            cell: cell.getBoundingClientRect().left,
+          };
+        });
+      expect(header.lines, at).toBe(1);
+      expect(header.clipped, at).toBe(false);
+      expect(header.left, at).toBeGreaterThan(header.cell);
+      const cells = backlog.locator(`tbody td[data-column="${id}"]`);
+      let digits: number | null = null;
+      for (let index = 0; digits === null && index < (await cells.count()); index++)
+        digits = await digitsRight(cells.nth(index));
+      expect(digits, at).not.toBeNull();
+      expect(Math.abs(header.right - digits!), at).toBeLessThanOrEqual(1);
+    }
+  }
+});
+
 test('one line at the pinned junction and right-aligned digits beside their header', async ({
   page,
 }) => {

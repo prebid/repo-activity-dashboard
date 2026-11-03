@@ -458,6 +458,68 @@ test('at 320px the metric column beside a pinned column shows its values on the 
   }
 });
 
+test('below 375px a name column beside a text column keeps its width, so no name gains a line', async ({
+  page,
+}) => {
+  await login(page);
+  /** Text lines in the pinned cell of each of the first six rows, and the next cell's alignment. */
+  const read = () =>
+    page
+      .getByRole('region', { name: /table scroll area$/ })
+      .first()
+      .evaluate((area) =>
+        [...area.querySelectorAll('tbody tr')].slice(0, 6).map((row) => {
+          const [pinned, next] = row.querySelectorAll('td');
+          const tops: number[] = [];
+          const walker = document.createTreeWalker(pinned, NodeFilter.SHOW_TEXT);
+          for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+            // Screen-reader-only text is clipped to a 1px box.
+            if ((node.parentElement?.getBoundingClientRect().width ?? 0) <= 1) continue;
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            for (const rect of range.getClientRects()) if (rect.width > 0) tops.push(rect.top);
+          }
+          tops.sort((a, b) => a - b);
+          return {
+            lines: tops.filter((top, index) => !index || top - tops[index - 1] > 4).length,
+            numericNext: getComputedStyle(next).textAlign === 'right',
+          };
+        }),
+      );
+  for (const id of [
+    'contributors',
+    'reviewers',
+    'company-detail',
+    'repo-credits-metric',
+  ] satisfies InventoryId[]) {
+    const counts: { lines: number; numericNext: boolean }[][] = [];
+    for (const width of [375, 320]) {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(pathOf(id));
+      await expect(
+        page
+          .getByRole('region', { name: /table scroll area$/ })
+          .first()
+          .locator('tbody tr')
+          .first(),
+      ).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
+      counts.push(await read());
+    }
+    const [wide, narrow] = counts;
+    expect(narrow.length, id).toBeGreaterThan(0);
+    // The column beside the names holds text, such as Account type.
+    expect(
+      narrow.every((row) => !row.numericNext),
+      id,
+    ).toBe(true);
+    expect(
+      narrow.map((row) => row.lines),
+      id,
+    ).toEqual(wide.map((row) => row.lines));
+  }
+});
+
 test('a toolbar reset stays level with its last row of fields, and starts the row on phones', async ({
   page,
 }) => {

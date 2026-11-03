@@ -334,33 +334,40 @@ it('validates custom dates and distinguishes unavailable samples from an empty r
   expect(row.querySelector('[data-column="prsOpened"]')).toHaveTextContent('—');
 });
 it('shows a horizontal-scroll hint only while the table overflows its container', async () => {
-  const callbacks: (() => void)[] = [];
-  const observe = vi.fn();
-  const disconnect = vi.fn();
+  const observers: { callback: () => void; targets: Element[]; disconnected: boolean }[] = [];
   vi.stubGlobal(
     'ResizeObserver',
     class {
+      record;
       constructor(callback: () => void) {
-        callbacks.push(callback);
+        this.record = { callback, targets: [] as Element[], disconnected: false };
+        observers.push(this.record);
       }
-      observe = observe;
-      disconnect = disconnect;
+      observe(target: Element) {
+        this.record.targets.push(target);
+      }
+      disconnect() {
+        this.record.disconnected = true;
+      }
     },
   );
   const width = vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(1200);
   vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(500);
   const view = render(<Preview />);
   expect(screen.getAllByText(/Scroll horizontally/)).toHaveLength(2);
-  // Each table observes its scroll area and its header rows.
-  expect(observe).toHaveBeenCalledTimes(4);
+  // Each table observes its scroll area and its header rows; the view bar observes its own row.
+  const tables = observers.filter((observer) =>
+    observer.targets.some((target) => target.matches('[aria-label$="table scroll area"]')),
+  );
+  expect(tables.map((observer) => observer.targets.length)).toEqual([2, 2]);
   expect(
     screen.getByRole('region', { name: 'Current backlog table scroll area' }),
   ).toHaveAccessibleDescription('Scroll horizontally to see all columns');
   width.mockReturnValue(400);
-  act(() => callbacks.forEach((callback) => callback()));
+  act(() => observers.forEach((observer) => observer.callback()));
   await waitFor(() => expect(screen.queryAllByText(/Scroll horizontally/)).toHaveLength(0));
   view.unmount();
-  expect(disconnect).toHaveBeenCalledTimes(2);
+  expect(tables.every((observer) => observer.disconnected)).toBe(true);
 });
 it('renders separate grouped tables with complete sample populations and pinned identities', () => {
   render(<Preview />);

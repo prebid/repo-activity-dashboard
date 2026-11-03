@@ -120,24 +120,24 @@
   color: var(--prebid-muted);
   white-space: nowrap;
 }
-/* A toolbar whose one group holds only its reset sets the reset beside the status line. */
-@media (min-width: 601px) {
-  .toolbar:has(> .groups > .group:only-child > .row > .controls:empty) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-  .toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > * {
-    grid-column: 1 / -1;
-  }
-  .toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > .groups {
-    grid-row: 1;
-    grid-column: 2;
-  }
-  .toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > .status {
-    grid-row: 1;
-    grid-column: 1;
-    align-self: center;
-  }
+/* A toolbar whose one group holds only its reset sets the reset beside the status line at every
+   width, so the card never opens with a row that holds the reset alone. On phones the sentence
+   wraps in the room the reset leaves. */
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > * {
+  grid-column: 1 / -1;
+}
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > .groups {
+  grid-row: 1;
+  grid-column: 2;
+}
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > .status {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: center;
 }
 @media (max-width: 600px) {
   .toolbar {

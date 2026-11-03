@@ -126,16 +126,20 @@
     height: 34px;
   }
 }
-/* Phone widths: a segmented control and the current subject tab beside it share the view bar's
-   row whole. Chromium on Linux sets these labels up to 12% wider than macOS and WebKit, which the
-   padding here and the icon rule below leave room for. */
-@media (max-width: 600px) {
+/* Up to 700px the tabs sit closer, so the three record tabs stay whole beside the Sections menu
+   from 601px; with the wider gaps Chromium on Linux cut them by up to 13px there. */
+@media (max-width: 700px) {
   .tabs:not([data-variant='segmented']) {
     gap: 16px;
   }
   .tabs a {
     gap: 6px;
   }
+}
+/* Phone widths: a segmented control and the current subject tab beside it share the view bar's
+   row whole. Chromium on Linux sets these labels up to 12% wider than macOS and WebKit, which the
+   padding here and the icon rule below leave room for. */
+@media (max-width: 600px) {
   .tabs[data-variant='segmented'] a,
   .tabs[data-variant='segmented'] .disabled {
     padding: 0 8px;

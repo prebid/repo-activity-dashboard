@@ -25,9 +25,15 @@
   height: 100%;
   min-width: 0;
 }
+/* Up to 700px the record tabs need the room a wide gap takes to sit whole beside the Sections
+   menu (section-nav.module.css). */
+@media (max-width: 700px) {
+  .row {
+    gap: 8px;
+  }
+}
 @media (max-width: 600px) {
   .row {
     justify-content: space-between;
-    gap: 8px;
   }
 }

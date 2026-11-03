@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -47,8 +47,36 @@ function jumpTo(id: string): boolean {
 }
 
 /**
- * The page's section chips, the current one following the scroll position; at 1120px and below a
- * "Sections" menu replaces them. Without JavaScript the chips are plain fragment links.
+ * Whether the view bar's row has room for every item at its natural width with the chips and
+ * their caption beside them. The chips are measured whether shown or not: hidden, they keep their
+ * full width (section-nav.module.css).
+ */
+function chipsFit(nav: HTMLElement, inline: HTMLElement, chips: HTMLElement) {
+  const row = nav.parentElement;
+  // A row that is not laid out keeps the server's chips.
+  if (!row || !row.clientWidth) return true;
+  const others = [...row.children].filter(
+    (item): item is HTMLElement =>
+      item !== nav && item instanceof HTMLElement && item.getClientRects().length > 0,
+  );
+  const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+  const caption = inline.firstElementChild as HTMLElement;
+  // A scrolling tab row's scrollWidth is its content's width; the difference adds its border.
+  const natural = (item: HTMLElement) => item.scrollWidth + item.offsetWidth - item.clientWidth;
+  const need =
+    others.reduce((sum, item) => sum + natural(item) + gap, 0) +
+    caption.offsetWidth +
+    (parseFloat(getComputedStyle(inline).columnGap) || 0) +
+    chips.scrollWidth;
+  // Rounded widths: the chips show only with a pixel to spare.
+  return need + 1 <= row.clientWidth;
+}
+
+/**
+ * The page's section chips, the current one following the scroll position. Where they do not fit
+ * beside the tabs, and at 600px and below, a "Sections" menu replaces them. The server renders the
+ * chips, so a wide screen never shifts; the menu takes their place once a measure shows they do
+ * not fit. Without JavaScript the chips are plain fragment links.
  */
 export function SectionNav({
   sections,
@@ -64,7 +92,41 @@ export function SectionNav({
   const pinned = useRef<{ id: string; y: number } | null>(null);
   const chosen = useRef<string | null>(null);
   const [container, setContainer] = useState<HTMLElement | null>(null);
+  const inline = useRef<HTMLDivElement>(null);
+  const chips = useRef<HTMLUListElement>(null);
+  const [compact, setCompact] = useState(false);
   const ids = sections.map((section) => section.id).join(' ');
+
+  // Measured before paint, and again whenever the row, the chips or a tab row changes size, such
+  // as when the window resizes or the fonts load.
+  useLayoutEffect(() => {
+    const row = container?.parentElement;
+    if (!container || !row || !inline.current || !chips.current) return;
+    const measure = () => setCompact(!chipsFit(container, inline.current!, chips.current!));
+    measure();
+    // Later measures wait a frame, keeping state writes outside ResizeObserver delivery.
+    let frame = 0;
+    const schedule = () => {
+      if (!frame)
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          measure();
+        });
+    };
+    const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(schedule) : null;
+    observer?.observe(row);
+    observer?.observe(inline.current);
+    for (const item of row.children) if (item !== container) observer?.observe(item);
+    window.addEventListener('resize', schedule);
+    void document.fonts?.ready.then(schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      // Marks a frame as pending, so a font promise settling after unmount measures nothing.
+      frame = -1;
+      observer?.disconnect();
+      window.removeEventListener('resize', schedule);
+    };
+  }, [container, ids]);
 
   useEffect(() => {
     const order = ids.split(' ');
@@ -110,24 +172,31 @@ export function SectionNav({
   };
 
   return (
-    <nav ref={setContainer} className={styles.sections} aria-label={label}>
-      <span className={styles.caption} aria-hidden="true">
-        {label}
-      </span>
-      <ul className={styles.chips}>
-        {sections.map((section) => (
-          <li key={section.id}>
-            <a
-              href={'#' + section.id}
-              className={styles.chip}
-              aria-current={current === section.id ? 'location' : undefined}
-              onClick={(event) => follow(event, section.id)}
-            >
-              {section.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav
+      ref={setContainer}
+      className={styles.sections}
+      aria-label={label}
+      data-compact={compact ? '' : undefined}
+    >
+      <div ref={inline} className={styles.inline}>
+        <span className={styles.caption} aria-hidden="true">
+          {label}
+        </span>
+        <ul ref={chips} className={styles.chips}>
+          {sections.map((section) => (
+            <li key={section.id}>
+              <a
+                href={'#' + section.id}
+                className={styles.chip}
+                aria-current={current === section.id ? 'location' : undefined}
+                onClick={(event) => follow(event, section.id)}
+              >
+                {section.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className={styles.menu}>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
