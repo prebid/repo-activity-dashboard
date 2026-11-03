@@ -6,7 +6,7 @@ import type {
   ContributionTableKind,
 } from '@/models/contribution-preferences';
 import type { ContributionLens } from '@/models/contribution-lens';
-import { contributionDirectorySample, contributionSampleAsOf } from '@/mocks/contributions';
+import { contributionRecords } from './activity-contributions';
 import { readContributionPresentationDocument } from '@/lib/presentation/contribution-settings';
 import { contributionTableSections } from '@/lib/presentation/contribution-lens';
 import { lensOf } from '@/lib/presentation/url/defaults';
@@ -131,11 +131,8 @@ export function contributionEntry(
   const sample = (
     typeof values.sample === 'string' ? values.sample : 'reference'
   ) as ContributionSampleScenario;
-  const scope = savedContributionScope(
-    snapshot,
-    contributionDirectorySample(sample),
-    contributionSampleAsOf,
-  );
+  const records = contributionRecords();
+  const scope = savedContributionScope(snapshot, records.directory(sample), records.asOf);
   // The entry then renders at its own address, so the notice shows and the client can delete the
   // rejected section; the saved presentation applies again on the next entry.
   if (scope.invalid !== undefined)

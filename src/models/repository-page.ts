@@ -118,4 +118,6 @@ export interface RepositoryPageNavigation {
   githubUrl: string;
   openPrs: Count;
   openIssues: Count;
+  /** Whether the repository's records are prepared samples rather than the activity database. */
+  sample: boolean;
 }

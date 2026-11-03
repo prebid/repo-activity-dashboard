@@ -112,7 +112,7 @@ export function AllRepositoriesView({
   const savedMatrix = useSavedTimelinePresentation('timeline.matrix', 'matrix');
   return (
     <>
-      <AllRepositoriesHeading asOf={data.asOf} />
+      <AllRepositoriesHeading asOf={data.asOf} sample={data.source === 'sample'} />
       <AllRepositoriesTabs
         active="summary"
         summaryHref={returnTo}

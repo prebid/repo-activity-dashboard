@@ -34,6 +34,8 @@ export interface PageHeaderProps {
   meta?: ReactNode;
   /** Labels the report as prepared sample data; the reporting configuration decides by default. */
   sampleData?: boolean;
+  /** Data the report does not have yet, each shown as an orange chip beside the source. */
+  notConnected?: readonly string[];
 }
 
 /**
@@ -50,6 +52,7 @@ export function PageHeader({
   identity,
   meta,
   sampleData = reportingDataIsSample,
+  notConnected = [],
 }: PageHeaderProps) {
   return (
     <header className={styles.header}>
@@ -101,6 +104,12 @@ export function PageHeader({
             Sample data
           </p>
         )}
+        {notConnected.map((label) => (
+          <p key={label} className={styles.sample}>
+            <SampleDataIcon size={14} />
+            {label}
+          </p>
+        ))}
         <p className={styles.chip}>
           <DataAsOfIcon size={14} />
           <span className={styles.chipLabel}>Data as of</span>{' '}

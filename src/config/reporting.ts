@@ -1,5 +1,6 @@
 /**
- * Reports read prepared sample data until the reporting adapter serves live GitHub activity. While
- * this is true, every page header labels its report "Sample data".
+ * The default for a page header that does not say where its data comes from: prepared samples.
+ * Repository pages say so from their records, which come from the activity database when one is
+ * configured; contribution reports read samples until they are connected.
  */
 export const reportingDataIsSample = true;

@@ -23,7 +23,7 @@ import {
 import type { DateRange } from '@/models/reporting-period';
 import type { BacklogMetric } from '@/models/repository-overview';
 import type { RecordSelection } from '@/models/repository-records';
-import type { Count, Measurement } from '@/models/reporting-measurement';
+import { notConnected, type Count, type Measurement } from '@/models/reporting-measurement';
 import {
   buildTimelineIntervals,
   validateTimelineAvailability,
@@ -255,7 +255,15 @@ function projectRepositoryTimeline(
   if (!metrics.length || metrics.some((metric) => !allowedMetrics.includes(metric)))
     throw Error('Selected metric does not match the repository timeline family');
   let rows: RepositoryTimeline['rows'], summary: RepositoryTimelineValues;
-  if (family === 'snapshot') {
+  const unconnected =
+    source.notConnected?.records ??
+    (family === 'snapshot' ? source.notConnected?.history : undefined);
+  if (unconnected) {
+    const values = () =>
+      Object.fromEntries(metrics.map((metric) => [metric, notConnected(unconnected)]));
+    rows = intervals.map((interval) => ({ interval, values: values() }));
+    summary = values();
+  } else if (family === 'snapshot') {
     rows = intervals.map((interval) => ({
       interval,
       values: snapshotValues(

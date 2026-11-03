@@ -10,11 +10,16 @@ import type {
 import type { RepositoryRecordList } from '@/models/repository-records';
 import { authorRecordSelection } from '@/lib/presentation/repository-author-records';
 import { repositoryRecordSample } from './repository-records';
+import { notConnected } from '@/models/reporting-measurement';
 import { repositoryPageRecordsSample } from './repository-page';
-import { sampleAuthorType, sampleProfileUrl } from './repository-accounts';
-import { medianMergeDays, periodCount, periodCredits } from './repository-activity';
-import { worldRepository, type WorldPullRequest } from './repository-world';
-import { overviewAsOf } from './sample-clock';
+import { sampleRecordSource, sourceRepository, type RepositoryRecordSource } from './record-source';
+import {
+  activityNotConnected,
+  medianMergeDays,
+  periodCount,
+  periodCredits,
+} from './repository-activity';
+import type { WorldPullRequest } from './repository-world';
 
 function reference(row: WorldPullRequest): SupportingRecord {
   return {
@@ -29,32 +34,36 @@ function reference(row: WorldPullRequest): SupportingRecord {
 export function repositoryInsightSample(
   repo: OverviewRepository,
   drilldown: RepositoryDrilldown & { selection: InsightSelection },
+  source: RepositoryRecordSource = sampleRecordSource,
 ): RepositoryInsight {
   const { selection, returnTo } = drilldown;
-  const world = worldRepository(repo.id);
+  const world = sourceRepository(source, repo.id);
   const context = {
     repository: { ...repo },
-    asOf: overviewAsOf,
+    asOf: source.asOf,
     drilldown: structuredClone(drilldown),
   };
   if (selection.metric === 'medianMergeDays') {
-    const records = repositoryRecordSample(repo, {
-      selection: { ...selection, metric: 'prsMerged' },
-      returnTo,
-    });
+    const records = repositoryRecordSample(
+      repo,
+      { selection: { ...selection, metric: 'prsMerged' }, returnTo },
+      source,
+    );
     if (records.kind !== 'prs') throw new Error('Expected merged PR sample');
     const merged = new Set(records.rows.map((row) => row.id));
     // Author types come from the record pages' enrichment, so both lists classify an author alike.
-    const enriched = repositoryPageRecordsSample(records).rows;
+    const enriched = repositoryPageRecordsSample(records, source).rows;
     return {
       ...context,
       kind: 'duration',
       measurement: { ...records.measurement },
-      days: medianMergeDays(
-        world,
-        world.pullRequests.filter((row) => merged.has(row.id)),
-        selection.range,
-      ),
+      days: world.notConnected?.pullRequests
+        ? notConnected(world.notConnected.pullRequests)
+        : medianMergeDays(
+            world,
+            world.pullRequests.filter((row) => merged.has(row.id)),
+            selection.range,
+          ),
       records: {
         ...records,
         rows: records.rows.map((row, index) => ({
@@ -66,19 +75,20 @@ export function repositoryInsightSample(
   }
   if (selection.metric === 'prAuthors' || selection.metric === 'issueAuthors') {
     const isPr = selection.metric === 'prAuthors';
-    const source = repositoryRecordSample(repo, {
-      selection: { ...selection, metric: isPr ? 'prsOpened' : 'issuesOpened' },
-      returnTo,
-    });
+    const records = repositoryRecordSample(
+      repo,
+      { selection: { ...selection, metric: isPr ? 'prsOpened' : 'issuesOpened' }, returnTo },
+      source,
+    );
     // One author per login, whatever casing a record carries, as distinct-author counts use.
     const authors = new Map<string, RepositoryAuthor>();
-    for (const row of source.rows) {
+    for (const row of records.rows) {
       const key = row.author.toLowerCase();
       const author = authors.get(key) ?? {
         id: repo.id + ':' + key,
         account: row.author,
-        profileUrl: sampleProfileUrl(row.author),
-        accountType: sampleAuthorType(row.author),
+        profileUrl: source.profileUrl(row.author),
+        accountType: source.accountType(row.author),
         recordCount: 0,
       };
       author.recordCount += 1;
@@ -88,8 +98,8 @@ export function repositoryInsightSample(
       ...context,
       kind: 'authors',
       measurement:
-        source.measurement.value === null
-          ? { ...source.measurement }
+        records.measurement.value === null
+          ? { ...records.measurement }
           : periodCount(world, authors.size, selection.range),
       recordKind: isPr ? 'prs' : 'issues',
       rows: [...authors.values()].sort(
@@ -98,7 +108,10 @@ export function repositoryInsightSample(
     };
   }
   const credits = periodCredits(world, selection.metric, selection.range);
-  const measurement = periodCount(world, credits.length, selection.range);
+  const unconnected = activityNotConnected(world, selection.metric);
+  const measurement = unconnected
+    ? notConnected(unconnected)
+    : periodCount(world, credits.length, selection.range);
   return {
     ...context,
     kind: 'contributions',
@@ -110,7 +123,7 @@ export function repositoryInsightSample(
             .map((credit) => ({
               id: repo.id + ':' + credit.account + ':' + credit.pr.id + ':' + credit.contribution,
               account: credit.account,
-              profileUrl: sampleProfileUrl(credit.account),
+              profileUrl: source.profileUrl(credit.account),
               accountType: credit.accountType,
               contribution: credit.contribution,
               firstCreditAt: credit.firstCreditAt,
@@ -129,11 +142,13 @@ export function repositoryAuthorRecordSample(
   drilldown: RepositoryDrilldown & { selection: AuthorSelection },
   account: string,
   returnToAuthors: string,
+  records: RepositoryRecordSource = sampleRecordSource,
 ): RepositoryRecordList {
-  const source = repositoryRecordSample(repo, {
-    selection: authorRecordSelection(drilldown.selection),
-    returnTo: drilldown.returnTo,
-  });
+  const source = repositoryRecordSample(
+    repo,
+    { selection: authorRecordSelection(drilldown.selection), returnTo: drilldown.returnTo },
+    records,
+  );
   const author = { account, returnTo: returnToAuthors };
   const measurement = (count: number) =>
     source.measurement.value === null

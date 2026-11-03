@@ -25,6 +25,8 @@ const result = spawnSync(process.execPath, ['scripts/app.mjs', 'build', 'product
     S3_SECRET_ACCESS_KEY: credential,
     DYNAMODB_USERS_TABLE: 'fixture-users',
     DYNAMODB_WHITELIST_TABLE: 'fixture-whitelist',
+    // The production suites check access with the deterministic samples, not the carried snapshot.
+    DASHBOARD_REPORT_DATA: 'sample',
   },
 });
 if (result.error || result.signal || result.status !== 0)

@@ -42,7 +42,7 @@ export const timelineCutoffSchema = z
   .strict();
 export type TimelineCutoff = z.infer<typeof timelineCutoffSchema>;
 export interface TimelineSourceIdentity {
-  source: 'sample';
+  source: 'sample' | 'database';
   scenarioId: string;
   asOf: string;
 }

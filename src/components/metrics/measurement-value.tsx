@@ -1,4 +1,4 @@
-import type { Measurement } from '@/models/reporting-measurement';
+import { isNotConnected, type Measurement } from '@/models/reporting-measurement';
 import { absoluteChange } from '@/lib/presentation/measurement';
 import { formatCount, formatDayNumber, formatMeasure } from '@/lib/presentation/format';
 import styles from './measurement-value.module.css';
@@ -45,11 +45,19 @@ export function MeasurementValue({
   const reason = measurement.status === 'complete' ? undefined : measurement.reason;
   const value = measurement.value;
   const change = comparison ? absoluteChange(measurement, comparison) : null;
+  const pending = isNotConnected(measurement);
   return (
     <span className={styles.metric}>
       <span
-        className={value === null || value === 0 ? styles.quiet : styles.value}
-        title={reason ?? detail}
+        className={
+          pending
+            ? styles.notConnected
+            : value === null || value === 0
+              ? styles.quiet
+              : styles.value
+        }
+        data-not-connected={pending || undefined}
+        title={reason ? (pending ? 'Not connected yet: ' : '') + reason : detail}
       >
         {formatMeasure(value, unit)}
         {measurement.status === 'partial' && (
@@ -61,6 +69,7 @@ export function MeasurementValue({
           <span className="sr-only">
             {' '}
             {measurement.status === 'partial' ? 'Partial value. ' : ''}
+            {pending ? 'Not connected yet. ' : ''}
             {reason}
           </span>
         )}

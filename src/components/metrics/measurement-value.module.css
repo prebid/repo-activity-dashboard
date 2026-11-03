@@ -17,8 +17,18 @@
   white-space: nowrap;
 }
 .value,
-.quiet {
+.quiet,
+.notConnected {
   position: relative;
+}
+/* A value whose data is not connected yet: an orange dash in an orange-tinted box. */
+.notConnected {
+  padding: 0 6px;
+  border: 1px solid var(--prebid-warning-border);
+  border-radius: var(--prebid-radius-small);
+  background: var(--prebid-warning-bg);
+  color: var(--prebid-warning-ink);
+  font-weight: 600;
 }
 .value {
   font-weight: var(--prebid-number-weight);

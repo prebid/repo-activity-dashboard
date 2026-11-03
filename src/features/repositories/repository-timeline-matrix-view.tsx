@@ -82,7 +82,10 @@ export function RepositoryTimelineMatrixView({
     multiple = metrics.length > 1;
   return (
     <>
-      <AllRepositoriesHeading asOf={matrix.source.asOf} />
+      <AllRepositoriesHeading
+        asOf={matrix.source.asOf}
+        sample={matrix.source.source === 'sample'}
+      />
       <AllRepositoriesTabs active="timeline" summaryHref={summaryHref} timelineHref={href} />
       <ReportToolbar
         label="Timeline scope"

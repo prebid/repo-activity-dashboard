@@ -1,5 +1,5 @@
 import type { DateRange } from '@/models/reporting-period';
-import type { Count, Measurement } from '@/models/reporting-measurement';
+import { notConnected, type Count, type Measurement } from '@/models/reporting-measurement';
 import {
   activityMetricIds,
   type ActivityMetric,
@@ -8,12 +8,8 @@ import {
 import { inDateRange } from '@/lib/presentation/reporting-period';
 import { withTimelineAvailability } from '@/lib/presentation/reporting-timeline';
 import { mergeElapsedDays } from '@/lib/presentation/repository-insights';
-import {
-  worldRepository,
-  type WorldIssue,
-  type WorldPullRequest,
-  type WorldRepository,
-} from './repository-world';
+import { sampleRecordSource, sourceRepository, type RepositoryRecordSource } from './record-source';
+import type { WorldIssue, WorldPullRequest, WorldRepository } from './repository-world';
 
 export type CreditMetric = Extract<ActivityMetric, `${'agent' | 'bot'}${string}Credits`>;
 export interface PeriodCredit {
@@ -97,9 +93,26 @@ export function medianMergeDays(
   );
 }
 
-/** Summary activity for one repository and range, counted from its dated sample records. */
-export function periodActivity(repositoryId: string, range: DateRange): RepositoryActivity {
-  const repository = worldRepository(repositoryId);
+/** The reason a metric's records are not connected in this record set, or null when they are. */
+export function activityNotConnected(
+  repository: WorldRepository,
+  metric: ActivityMetric,
+): string | null {
+  const missing = repository.notConnected;
+  if (!missing) return null;
+  if (metric === 'issuesOpened' || metric === 'issuesClosed' || metric === 'issueAuthors')
+    return missing.issues ?? null;
+  if (missing.pullRequests) return missing.pullRequests;
+  if (metric.startsWith('agent')) return missing.agents ?? null;
+  return null;
+}
+/** Summary activity for one repository and range, counted from its dated records. */
+export function periodActivity(
+  repositoryId: string,
+  range: DateRange,
+  source: RepositoryRecordSource = sampleRecordSource,
+): RepositoryActivity {
+  const repository = sourceRepository(source, repositoryId);
   const prs = (metric: 'prsOpened' | 'prsMerged') => periodPullRequests(repository, metric, range);
   const issues = (metric: 'issuesOpened' | 'issuesClosed') =>
     periodIssues(repository, metric, range);
@@ -120,11 +133,22 @@ export function periodActivity(repositoryId: string, range: DateRange): Reposito
   };
   return {
     counts: Object.fromEntries(
-      activityMetricIds.map((metric) => [metric, periodCount(repository, values[metric], range)]),
+      activityMetricIds.map((metric) => {
+        const reason = activityNotConnected(repository, metric);
+        return [
+          metric,
+          reason ? notConnected(reason) : periodCount(repository, values[metric], range),
+        ];
+      }),
     ) as RepositoryActivity['counts'],
-    mergeDuration: {
-      days: medianMergeDays(repository, merged, range),
-      sampleSize: periodCount(repository, merged.length, range),
-    },
+    mergeDuration: repository.notConnected?.pullRequests
+      ? {
+          days: notConnected(repository.notConnected.pullRequests),
+          sampleSize: notConnected(repository.notConnected.pullRequests),
+        }
+      : {
+          days: medianMergeDays(repository, merged, range),
+          sampleSize: periodCount(repository, merged.length, range),
+        },
   };
 }

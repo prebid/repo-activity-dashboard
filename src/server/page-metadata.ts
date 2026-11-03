@@ -2,8 +2,8 @@ import 'server-only';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { getViewer } from '@/lib/auth/viewer';
-import { contributionDirectorySample } from '@/mocks/contributions';
-import { overviewAsOf } from '@/mocks/sample-clock';
+import { contributionRecords } from './activity-contributions';
+import { repositoryRecords } from './activity-database';
 import { readContributionLayoutQuery } from '@/lib/presentation/contribution-navigation';
 import {
   contributionPageTitle,
@@ -46,7 +46,9 @@ export function repositoriesPageMetadata(params: URLSearchParams): Promise<Metad
   return titled(() => repositoriesPageTitle(params));
 }
 export function repositoryPageMetadata(slug: string, params: URLSearchParams): Promise<Metadata> {
-  return forRepository(slug, (repository) => repositoryPageTitle(repository, params, overviewAsOf));
+  return forRepository(slug, (repository) =>
+    repositoryPageTitle(repository, params, repositoryRecords().asOf),
+  );
 }
 export function repositoryAuthorPageMetadata(
   slug: string,
@@ -54,7 +56,7 @@ export function repositoryAuthorPageMetadata(
   params: URLSearchParams,
 ): Promise<Metadata> {
   return forRepository(slug, (repository) =>
-    repositoryAuthorPageTitle(repository, account, params, overviewAsOf),
+    repositoryAuthorPageTitle(repository, account, params, repositoryRecords().asOf),
   );
 }
 /**
@@ -72,7 +74,7 @@ export function contributionPageMetadata(
     if (focus.kind === 'overview') return contributionPageTitle(area, 'overview', params, lens);
     const layout = readContributionLayoutQuery(params);
     if (!layout) return null;
-    const directory = contributionDirectorySample(layout.sample);
+    const directory = contributionRecords().directory(layout.sample);
     const subject =
       focus.kind === 'contributor'
         ? directory.accounts.find((account) => account.id === focus.accountId)

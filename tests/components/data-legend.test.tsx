@@ -42,6 +42,18 @@ describe('DataLegend', () => {
     ).toEqual(['missing', 'partial']);
   });
 
+  it('explains values whose data is not connected yet apart from missing ones', () => {
+    expect(
+      measurementMarks([
+        { status: 'partial' },
+        { status: 'missing', notConnected: true },
+        { status: 'missing' },
+      ]),
+    ).toEqual(['missing', 'not-connected', 'partial']);
+    const { container } = render(<DataLegend marks={['not-connected']} />);
+    expect(container.firstElementChild).toHaveTextContent(/^— Not connected yet$/);
+  });
+
   it('renders nothing without a mark to explain', () => {
     const { container } = render(<DataLegend marks={[]} />);
     expect(container).toBeEmptyDOMElement();

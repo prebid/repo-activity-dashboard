@@ -152,10 +152,11 @@
   gap: 6px;
   height: 28px;
   padding: 0 10px;
-  border: 1px solid var(--prebid-info-border);
+  /* Orange, as every value whose data is not connected yet: this report still reads samples. */
+  border: 1px solid var(--prebid-warning-border);
   border-radius: var(--prebid-radius-small);
-  background: var(--prebid-info-bg);
-  color: var(--prebid-info-ink);
+  background: var(--prebid-warning-bg);
+  color: var(--prebid-warning-ink);
   font-size: var(--prebid-text-small);
   font-weight: 600;
   line-height: var(--prebid-leading-small);

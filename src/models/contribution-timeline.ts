@@ -4,6 +4,7 @@ import type {
   ContributionFocus,
   ContributionAccount,
   ContributionCompany,
+  CompanyAttribution,
 } from './contributions';
 import type { ContributionBasis, ReportMetric } from './contribution-metrics';
 import type { DateRange } from './reporting-period';
@@ -21,7 +22,7 @@ export interface ContributionTimeline extends TimelineSeries<ReportMetric> {
     subject: ContributionAccount | ContributionCompany | null;
     /** A contributor subject's current company, null when unmapped; absent on other reports. */
     company?: ContributionCompany | null;
-    companyAttribution: 'current-mapping';
+    companyAttribution: CompanyAttribution;
   };
 }
 export interface ContributionTimelineDetail {

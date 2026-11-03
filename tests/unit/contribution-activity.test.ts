@@ -373,6 +373,11 @@ it('handles missing, not-applicable and overflow values without converting them 
       { status: 'missing', value: null, reason: 'Unknown' },
     ]),
   ).toEqual({ status: 'partial', value: 3, reason: 'Unknown' });
+  const pending = { status: 'missing', value: null, reason: 'Issues', notConnected: true } as const;
+  expect(sumContributionCounts([pending, pending])).toEqual(pending);
+  expect(
+    sumContributionCounts([pending, { status: 'missing', value: null, reason: 'Unknown' }]),
+  ).toEqual({ status: 'missing', value: null, reason: 'Issues; Unknown' });
   expect(() =>
     sumContributionCounts([
       { status: 'complete', value: Number.MAX_SAFE_INTEGER },

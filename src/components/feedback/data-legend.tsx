@@ -1,21 +1,24 @@
 import { Fragment } from 'react';
 import { InfoIcon } from '@/components/ui/icons';
-import type { Measurement } from '@/models/reporting-measurement';
+import { isNotConnected } from '@/models/reporting-measurement';
 import styles from './data-legend.module.css';
 
-export const dataLegendMarks = ['missing', 'partial'] as const;
+export const dataLegendMarks = ['missing', 'not-connected', 'partial'] as const;
 export type DataLegendMark = (typeof dataLegendMarks)[number];
 
 /**
- * The marks a set of measurements shows: a dash for a missing or not-applicable value and an
- * asterisk for a partial one, in the legend's order.
+ * The marks a set of measurements shows: a dash for a missing or not-applicable value, an orange
+ * dash for a value whose data is not connected yet, and an asterisk for a partial one, in the
+ * legend's order.
  */
 export function measurementMarks(
-  measurements: Iterable<Pick<Measurement, 'status'>>,
+  measurements: Iterable<{ status: string; notConnected?: true }>,
 ): DataLegendMark[] {
   const shown = new Set<DataLegendMark>();
-  for (const { status } of measurements) {
-    if (status === 'missing' || status === 'not-applicable') shown.add('missing');
+  for (const measurement of measurements) {
+    const { status } = measurement;
+    if (isNotConnected(measurement)) shown.add('not-connected');
+    else if (status === 'missing' || status === 'not-applicable') shown.add('missing');
     else if (status === 'partial') shown.add('partial');
   }
   return dataLegendMarks.filter((mark) => shown.has(mark));
@@ -24,6 +27,7 @@ export function measurementMarks(
 /** The one wording for each value glyph, wherever a table, matrix or chart explains them. */
 const wording = {
   missing: { glyph: '—', text: 'Not available or not applicable' },
+  'not-connected': { glyph: '—', text: 'Not connected yet' },
   partial: { glyph: '*', text: 'Partial data' },
 } as const satisfies Record<DataLegendMark, { glyph: string; text: string }>;
 
@@ -32,7 +36,7 @@ export interface DataLegendProps {
   marks?: readonly DataLegendMark[];
 }
 
-export function DataLegend({ marks = dataLegendMarks }: DataLegendProps) {
+export function DataLegend({ marks = ['missing', 'partial'] }: DataLegendProps) {
   const shown = dataLegendMarks.filter((mark) => marks.includes(mark));
   if (!shown.length) return null;
   return (

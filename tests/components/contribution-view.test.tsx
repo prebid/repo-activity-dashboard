@@ -313,7 +313,8 @@ it('paginates 251 accounts at 50 rows and searches by the displayed account iden
   expect(
     screen.getByRole('table').querySelector('[data-column="issuesAuthored"]'),
   ).toHaveTextContent('350');
-});
+  // Typing into a 251-row table takes 3.3-5.1 s on CI runners, past the 5 s default.
+}, 15_000);
 it('keeps account type visible and exposes the full optional volume groups through Columns', async () => {
   const user = userEvent.setup();
   render(<Preview data={page()} />);

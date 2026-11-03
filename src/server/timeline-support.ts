@@ -1,14 +1,15 @@
 import 'server-only';
 import { requireViewer } from '@/lib/auth/viewer';
 import { loadTimelineView } from './timeline-report';
+import { routeClock } from './timeline-preview';
 import { readTimelineSupportQuery } from '@/lib/presentation/timeline-support-query';
 import {
   selectContributionTimelineSupport,
   selectRepositoryTimelineSupport,
 } from '@/lib/presentation/timeline-support';
-import { contributionTimelineSample } from '@/mocks/contribution-timeline';
 import { repositoryTimelineSample } from '@/mocks/repository-timeline';
-import { contributionSampleAsOf } from '@/mocks/contributions';
+import { contributionRecords } from './activity-contributions';
+import { repositoryRecords } from './activity-database';
 import { readTimelineView } from '@/lib/presentation/timeline-controls';
 import { allRepositorySlugs } from '@/lib/presentation/url/defaults';
 import { resolveBack, viewHref, type UrlView } from '@/lib/presentation/url/back';
@@ -30,7 +31,7 @@ const text = (value: unknown) => (typeof value === 'string' ? value : undefined)
  */
 export async function loadTimelineSupport(view: UrlView) {
   const viewer = await requireViewer();
-  const params = timelineParams(view.route, view.values, contributionSampleAsOf),
+  const params = timelineParams(view.route, view.values, routeClock(view.route)),
     query = params && readTimelineSupportQuery(params),
     href = viewHref(view, 'level');
   if (!query || href === null) return invalid();
@@ -96,7 +97,7 @@ export async function loadTimelineSupport(view: UrlView) {
     sample = text(parent.values.sample) ?? 'reference';
   if (loaded.category === 'contribution') {
     if (query.author) return unavailable();
-    const source = contributionTimelineSample(sample as ContributionSampleScenario, gap);
+    const source = contributionRecords().timeline(sample as ContributionSampleScenario, gap);
     return {
       status: 'ready' as const,
       viewerId: viewer.id,
@@ -108,6 +109,7 @@ export async function loadTimelineSupport(view: UrlView) {
     loaded.report.scope.repository.id,
     sample as RepositoryTimelineScenario,
     gap,
+    repositoryRecords(),
   );
   if (query.author) {
     const authors = selectRepositoryTimelineSupport(source, loaded.report, context);

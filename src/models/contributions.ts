@@ -73,6 +73,14 @@ export const contributionDefaultPeriod = {
 } as const satisfies PeriodSelection;
 export const contributionDefaultSort = { sort: 'authoredPrsMerged', descending: true } as const;
 const identity = z.string().trim().min(1).max(200);
+const recordHosts = { sample: 'github.example', database: 'github.com' } as const;
+/** How company totals attribute accounts: the current mapping, or none while it is not connected. */
+export const companyAttributions = ['current-mapping', 'not-connected'] as const;
+export type CompanyAttribution = (typeof companyAttributions)[number];
+export const companyAttributionLabels = {
+  'current-mapping': 'Company attribution: current mapping',
+  'not-connected': 'Company attribution: not connected',
+} as const satisfies Record<CompanyAttribution, string>;
 export const contributionAccountSchema = z
   .object({
     id: identity,
@@ -99,20 +107,21 @@ const recordFields = {
   repositoryId: identity,
   number: z.number().int().positive().max(Number.MAX_SAFE_INTEGER),
   title: z.string().trim().min(1).max(500),
-  // These sources are explicitly invented. Never link invented record IDs to real GitHub records.
+  // Sample records are invented and never link to real GitHub records; database records link to
+  // GitHub. The source schema checks each record's host against its source.
   url: z.url().refine((value) => {
     try {
       const url = new URL(value);
       return (
         url.protocol === 'https:' &&
-        url.hostname === 'github.example' &&
+        Object.values<string>(recordHosts).includes(url.hostname) &&
         !url.username &&
         !url.password
       );
     } catch {
       return false;
     }
-  }, 'Expected a synthetic record URL'),
+  }, 'Expected a GitHub record URL'),
   authorId: identity.nullable(),
   createdAt: utcInstantSchema,
 };
@@ -144,12 +153,12 @@ export const contributionCreditSchema = z
 /** A complete supplied display scenario, not GitHub events or a future database paging API. */
 export const contributionSourceSchema = z
   .object({
-    source: z.literal('sample'),
+    source: z.enum(['sample', 'database']),
     scenarioId: identity,
     asOf: utcInstantSchema,
     period: periodSelectionSchema,
     range: dateRangeSchema,
-    companyAttribution: z.literal('current-mapping'),
+    companyAttribution: z.enum(companyAttributions),
     accounts: z.array(contributionAccountSchema),
     companies: z.array(contributionCompanySchema),
     repositories: z.array(contributionRepositorySchema),
@@ -170,7 +179,12 @@ export const contributionSourceSchema = z
         .strict(),
     ),
   })
-  .strict();
+  .strict()
+  .refine(
+    (source) =>
+      source.records.every((record) => new URL(record.url).hostname === recordHosts[source.source]),
+    'Record links must match their data source.',
+  );
 export type ContributionSource = z.infer<typeof contributionSourceSchema>;
 export type ContributionAccount = z.infer<typeof contributionAccountSchema>;
 export type ContributionCompany = z.infer<typeof contributionCompanySchema>;
@@ -226,12 +240,12 @@ export interface RepositoryContributionRow {
   additionalMetrics: AdditionalValues;
 }
 export interface ContributionContext {
-  source: 'sample';
+  source: 'sample' | 'database';
   scenarioId: string;
   asOf: string;
   period: PeriodSelection;
   range: ContributionSource['range'];
-  companyAttribution: 'current-mapping';
+  companyAttribution: CompanyAttribution;
   selection: ContributionSelection;
   focus: ContributionFocus;
   includedAccountCount: number;

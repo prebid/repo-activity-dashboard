@@ -31,7 +31,12 @@ const indexes = new WeakMap<ContributionSource, ReturnType<typeof buildIndex>>()
 function baseline(coverage: ContributionCoverage): Count {
   if (coverage.status === 'complete') return { status: 'complete', value: 0 };
   return coverage.status === 'missing'
-    ? { status: 'missing', value: null, reason: coverage.reason }
+    ? {
+        status: 'missing',
+        value: null,
+        reason: coverage.reason,
+        ...(coverage.notConnected && { notConnected: true }),
+      }
     : { status: 'partial', value: 0, reason: coverage.reason };
 }
 function buildIndex(source: ContributionSource) {

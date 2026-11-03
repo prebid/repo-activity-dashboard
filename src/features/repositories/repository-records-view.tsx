@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { DataTable } from '@/components/tables/data-table';
 import type { TableController } from '@/lib/presentation/table-controller';
-import { recordListTitle } from '@/lib/presentation/repository-records';
+import { recordLinkNote, recordListTitle } from '@/lib/presentation/repository-records';
 import { repositoryRecordColumnDefaults } from '@/lib/presentation/repository-page-preferences';
 import type { MergedPullRequestList } from '@/models/repository-insights';
 import { repositoryMergedPrColumns, repositoryInlineColumnIds } from './repository-page-columns';
@@ -42,7 +42,10 @@ export function RepositoryRecordTable({
         controller={controller}
         visibility={visibility}
         itemLabel={{ singular: 'PR', plural: 'PRs' }}
-        footerNote="Sample record links are placeholders. Reviewers and current approvals are separate measures."
+        footerNote={recordLinkNote(
+          list.rows.map((row) => row.url),
+          'Reviewers and current approvals are separate measures.',
+        )}
       />
     </div>
   );
