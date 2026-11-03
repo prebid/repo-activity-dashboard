@@ -375,11 +375,33 @@ function load(path: string): LoadedDatabase {
       );
     const run = database
       .prepare(
-        "SELECT id, finished_at FROM sync_runs WHERE status <> 'running' AND finished_at IS NOT NULL AND exit_code IN (0, 2) ORDER BY finished_at DESC LIMIT 1",
+        "SELECT id, started_at, finished_at FROM sync_runs WHERE status <> 'running' AND finished_at IS NOT NULL AND exit_code IN (0, 2) ORDER BY finished_at DESC LIMIT 1",
       )
-      .get() as { id: number; finished_at: string } | undefined;
+      .get() as { id: number; started_at: string; finished_at: string } | undefined;
     if (!run) throw new Error('The activity database has no finished sync run.');
-    const asOf = databaseInstant(run.finished_at);
+    const stored = new Map(
+      rows<{
+        id: number;
+        github_id: number;
+        default_branch: string;
+        last_outcome: string | null;
+        last_index_started_at: string | null;
+      }>(
+        database,
+        'SELECT r.id, r.github_id, r.default_branch, s.last_outcome, s.last_index_started_at FROM repositories r LEFT JOIN repo_sync_state s ON s.repository_id = r.id',
+      ).map((row) => [String(row.github_id), row]),
+    );
+    // Each repository's rows are GitHub's state when its index started, so the report states the
+    // earliest such start among the repositories it reads; later events and records are ignored.
+    const indexStarts = repositoryCatalog
+      .filter((entry) => entry.enabled)
+      .map((entry) => stored.get(entry.githubId))
+      .filter((row) => row?.last_outcome === 'complete')
+      .map((row) => row!.last_index_started_at ?? run.started_at);
+    const clock = indexStarts.length
+      ? indexStarts.reduce((a, b) => (b < a ? b : a))
+      : run.started_at;
+    const asOf = databaseInstant(clock);
     const accounts = new Map<number, Account>(
       rows<{
         id: number;
@@ -400,17 +422,11 @@ function load(path: string): LoadedDatabase {
         ],
       ),
     );
-    const stored = new Map(
-      rows<{ id: number; github_id: number; default_branch: string; last_outcome: string | null }>(
-        database,
-        'SELECT r.id, r.github_id, r.default_branch, s.last_outcome FROM repositories r LEFT JOIN repo_sync_state s ON s.repository_id = r.id',
-      ).map((row) => [String(row.github_id), row]),
-    );
     const pullRequests = groupBy(
       rows<PullRequestRow>(
         database,
         'SELECT id, repository_id, number, state, is_draft, title, author_id, created_at, merged_at, closed_at, base_ref, merged_by_id, additions, deletions, changed_files, files_total FROM pull_requests WHERE created_at <= ?',
-        run.finished_at,
+        clock,
       ),
       (row) => row.repository_id,
     );

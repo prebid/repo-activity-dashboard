@@ -67,7 +67,7 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
   if (options.version !== undefined) database.exec(`PRAGMA user_version = ${options.version}`);
   const run = insert(database, 'sync_runs', {
     started_at: at('10-24', '11:00:00'),
-    finished_at: options.finished === false ? null : at('10-24'),
+    finished_at: options.finished === false ? null : at('10-24', '14:00:00'),
     status: options.finished === false ? 'running' : 'complete',
     exit_code: options.finished === false ? null : 0,
     trigger: 'manual',
@@ -90,10 +90,12 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
       full_name: 'prebid/' + name,
       default_branch: 'master',
     });
+    // The index starts at the reporting clock; hydration runs until the run finishes at 14:00.
     insert(database, 'repo_sync_state', {
       repository_id: id,
       last_run_id: run,
       last_outcome: outcome,
+      last_index_started_at: at('10-24'),
     });
     return id;
   };
@@ -153,6 +155,8 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
   comment(p105, agent, at('10-13'));
   review(p105, agent, 'APPROVED', at('10-14'));
   comment(p105, bot, at('10-15'));
+  // Alice comments after the index started, while the run was still hydrating.
+  comment(p105, alice, at('10-24', '12:30:00'));
   const p107 = pr(prebidjs, 107, drew, at('10-18'));
   comment(p107, alice, at('10-19'));
   // Alice's approval was dismissed after Drew's push; GitHub reports the review as DISMISSED.
@@ -161,6 +165,7 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
   pr(prebidjs, 108, bob, at('10-20'), { merged: at('10-21'), mergedBy: drew });
   pr(server, 201, carol, at('10-22'), { merged: at('10-25'), mergedBy: bob });
   pr(server, 202, carol, at('10-25'));
+  pr(server, 205, carol, at('10-24', '13:00:00'));
   pr(server, 203, drew, at('09-01'), { draft: true });
   // A merge into a release branch is authored work but not a primary-branch merge.
   pr(server, 204, carol, at('10-02'), { merged: at('10-03'), mergedBy: bob, base: 'release' });
@@ -250,6 +255,22 @@ describe('activity database records', () => {
       [107, 'https://github.com/prebid/Prebid.js/pull/107', 'https://github.com/drew'],
       [105, 'https://github.com/prebid/Prebid.js/pull/105', 'https://github.com/bob'],
     ]);
+  });
+
+  it('states GitHub as it was when the index started, not when the run finished', () => {
+    const source = records(referenceDatabase());
+    expect(source.asOf).toBe(asOf);
+    // Alice's 12:30 comment and PR 205 opened at 13:00 came after the index started.
+    expect(source.backlog('repo-prebidjs').counts.lastBot).toEqual({
+      status: 'complete',
+      value: 1,
+    });
+    expect(
+      source
+        .repositories()
+        .get('repo-prebidserver')!
+        .pullRequests.map((row) => row.number),
+    ).not.toContain(205);
   });
 
   it('states GitHub as it was at the clock: later merges stay open and later records are absent', () => {
