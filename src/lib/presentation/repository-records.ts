@@ -105,3 +105,14 @@ export function matchesCurrentPr(
       return actors[metric] !== undefined && row.latestActor === actors[metric];
   }
 }
+
+/**
+ * A footer note's sentences, with "Sample record links are placeholders." first when any link
+ * points at the reserved example host; database records link to GitHub and need no note.
+ */
+export function recordLinkNote(links: Iterable<string>, ...sentences: string[]): string {
+  for (const link of links)
+    if (new URL(link).hostname === 'github.example')
+      return ['Sample record links are placeholders.', ...sentences].join(' ');
+  return sentences.join(' ');
+}

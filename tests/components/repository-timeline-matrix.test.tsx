@@ -108,7 +108,7 @@ it('keeps sorting by a period after moving it offscreen and restores the same va
   const priorYear = within(repoRow('Prebid.js')).getAllByRole('cell').slice(1);
   expect(priorYear).toHaveLength(12);
   for (const cell of priorYear)
-    expect(cell).toHaveTextContent('— This time range has incomplete prepared sample coverage.');
+    expect(cell).toHaveTextContent('— This time range has incomplete data coverage.');
   expect(screen.getByRole('button', { name: 'Earlier' })).toBeDisabled();
   await user.click(screen.getByRole('button', { name: 'Later' }));
   expect(names()).toEqual(sorted);

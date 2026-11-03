@@ -145,14 +145,20 @@ export function sumContributionCounts(counts: Count[]): Count {
     ...new Set(counts.flatMap((count) => (count.status === 'complete' ? [] : [count.reason]))),
   ];
   const available = counts.filter((count) => count.value !== null);
-  if (!available.length)
+  if (!available.length) {
+    if (counts.every((count) => count.status === 'not-applicable'))
+      return { status: 'not-applicable', value: null, reason: reasons.join('; ') };
+    // Not connected only when every missing part is; otherwise a plain gap.
+    const pending = counts.every(
+      (count) => count.status !== 'missing' || count.notConnected === true,
+    );
     return {
-      status: counts.every((count) => count.status === 'not-applicable')
-        ? 'not-applicable'
-        : 'missing',
+      status: 'missing',
       value: null,
       reason: reasons.join('; '),
+      ...(pending && { notConnected: true }),
     };
+  }
   const value = available.reduce((sum, count) => sum + count.value, 0);
   if (!Number.isSafeInteger(value))
     throw new Error('Aggregated contribution volume exceeds the safe count range');

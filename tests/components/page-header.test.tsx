@@ -127,6 +127,20 @@ describe('PageHeader', () => {
     );
   });
 
+  it('names data a report does not have yet beside its source', () => {
+    render(
+      <PageHeader
+        title="Contributors"
+        asOf={asOf}
+        sampleData={false}
+        notConnected={['Company mapping not connected']}
+      />,
+    );
+    expect(screen.getByRole('complementary', { name: 'Data source' })).toHaveTextContent(
+      /^Company mapping not connected\s*Data as of /,
+    );
+  });
+
   it('shows a dash for a snapshot time it cannot read', () => {
     render(<PageHeader title="All repositories" asOf="not a date" />);
     expect(screen.getByRole('complementary', { name: 'Data source' })).toHaveTextContent(

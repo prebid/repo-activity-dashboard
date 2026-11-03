@@ -19,20 +19,25 @@ import {
 } from './reporting-timeline';
 
 const text = z.string().trim().min(1).max(500);
-// Sample records and profiles point at the reserved example host, never real GitHub accounts.
-const sampleGithubUrl = z.url().refine((value) => {
+const githubHosts = { sample: 'github.example', database: 'github.com' } as const;
+// Sample records and profiles point at the reserved example host, never real GitHub accounts;
+// database records point at GitHub. The source schema checks each link against its source.
+const githubUrl = z.url().refine((value) => {
   const url = new URL(value);
   return (
-    url.protocol === 'https:' && url.hostname === 'github.example' && !url.username && !url.password
+    url.protocol === 'https:' &&
+    Object.values<string>(githubHosts).includes(url.hostname) &&
+    !url.username &&
+    !url.password
   );
 });
 const metadata = {
   id: text,
   number: z.number().int().positive().max(Number.MAX_SAFE_INTEGER),
   title: text,
-  url: sampleGithubUrl,
+  url: githubUrl,
   author: text,
-  authorUrl: sampleGithubUrl,
+  authorUrl: githubUrl,
   authorType: z.enum(['human', 'agent', 'bot']).nullable(),
   createdAt: utcInstantSchema,
   labels: z.array(text),
@@ -69,33 +74,53 @@ const issue = z
   })
   .strict();
 const context = {
-  source: z.literal('sample'),
+  source: z.enum(['sample', 'database']),
   scenarioId: text,
   asOf: utcInstantSchema,
   repository: z
     .object({ id: text, slug: text, name: text, primaryBranch: reportingBranchSchema })
     .strict(),
   availableRanges: z.array(dateRangeSchema).max(timelineCoverageWindowLimit),
+  /** Data the source does not hold yet: this record kind, or its historical state at cutoffs. */
+  notConnected: z
+    .object({ records: text.optional(), history: text.optional() })
+    .strict()
+    .optional(),
 };
 const snapshot = { cutoff: timelineCutoffSchema, coverage: reportingCoverageSchema };
-export const repositoryTimelineSourceSchema = z.discriminatedUnion('kind', [
-  z
-    .object({
-      ...context,
-      kind: z.literal('prs'),
-      rows: z.array(pr),
-      snapshots: z.array(z.object({ ...snapshot, rows: z.array(pr) }).strict()),
-    })
-    .strict(),
-  z
-    .object({
-      ...context,
-      kind: z.literal('issues'),
-      rows: z.array(issue),
-      snapshots: z.array(z.object({ ...snapshot, rows: z.array(issue) }).strict()),
-    })
-    .strict(),
-]);
+export const repositoryTimelineSourceSchema = z
+  .discriminatedUnion('kind', [
+    z
+      .object({
+        ...context,
+        kind: z.literal('prs'),
+        rows: z.array(pr),
+        snapshots: z.array(z.object({ ...snapshot, rows: z.array(pr) }).strict()),
+      })
+      .strict(),
+    z
+      .object({
+        ...context,
+        kind: z.literal('issues'),
+        rows: z.array(issue),
+        snapshots: z.array(z.object({ ...snapshot, rows: z.array(issue) }).strict()),
+      })
+      .strict(),
+  ])
+  .superRefine((source, context) => {
+    const host = githubHosts[source.source];
+    const links: readonly { url: string; authorUrl: string }[] = [
+      ...source.rows,
+      ...source.snapshots.flatMap(
+        (snapshot): readonly { url: string; authorUrl: string }[] => snapshot.rows,
+      ),
+    ];
+    if (links.some((row) => !hostIs(row.url, host) || !hostIs(row.authorUrl, host)))
+      context.addIssue({ code: 'custom', message: 'Record links must match their data source.' });
+  });
+function hostIs(value: string, host: string) {
+  return new URL(value).hostname === host;
+}
 export type RepositoryTimelineSource = z.infer<typeof repositoryTimelineSourceSchema>;
 export const repositoryTimelineActivityMetrics = {
   prs: ['prsOpened', 'prsMerged', 'prAuthors', 'medianMergeDays'],

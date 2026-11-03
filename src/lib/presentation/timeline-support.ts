@@ -34,7 +34,7 @@ export function selectContributionTimelineSupport(
     ...descriptor.source,
     period: customPeriodForRange(context.interval.covered),
     range: context.interval.covered,
-    companyAttribution: 'current-mapping',
+    companyAttribution: source.contributions.companyAttribution,
     selection: scope.selection,
     focus: scope.focus,
     includedAccountCount: scope.accounts.length,

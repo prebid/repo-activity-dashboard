@@ -7,6 +7,7 @@ import {
   contributionAccountSchema,
   contributionRecordSchema,
   contributionSelectionSchema,
+  contributionSourceSchema,
   type ContributionSource,
 } from '@/models/contributions';
 
@@ -262,15 +263,27 @@ it('requires explicit per-metric coverage and honest reasons', () => {
     }),
   ).toThrow();
 });
-it.each([
-  'https://github.com/prebid/Prebid.js/pull/1',
-  'javascript:alert(1)',
-  'not a url',
-  'https://name:password@github.example/pull/1',
-])('rejects invented records linking to %s', (url) => {
+it.each(['javascript:alert(1)', 'not a url', 'https://name:password@github.example/pull/1'])(
+  'rejects records linking to %s',
+  (url) => {
+    expect(
+      contributionRecordSchema.safeParse({ ...contributionSample().records[0], url }).success,
+    ).toBe(false);
+  },
+);
+it('links sample records only to the example host and database records only to GitHub', () => {
+  const sample = contributionSample();
+  const real = 'https://github.com/prebid/Prebid.js/pull/1';
+  expect(contributionRecordSchema.safeParse({ ...sample.records[0], url: real }).success).toBe(
+    true,
+  );
   expect(
-    contributionRecordSchema.safeParse({ ...contributionSample().records[0], url }).success,
+    contributionSourceSchema.safeParse({
+      ...sample,
+      records: [{ ...sample.records[0], url: real }, ...sample.records.slice(1)],
+    }).success,
   ).toBe(false);
+  expect(contributionSourceSchema.safeParse({ ...sample, source: 'database' }).success).toBe(false);
 });
 it('keeps unknown account classification and unmapped companies explicit, and excludes group inputs', () => {
   expect(

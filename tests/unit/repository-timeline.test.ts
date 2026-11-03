@@ -569,3 +569,28 @@ it('rejects record states a backlog snapshot cannot contain', () => {
     ).states,
   ).toEqual(['Open']);
 });
+
+it('shows every value of records or history a source has not connected as not connected', () => {
+  const issues = repositoryTimelineSample('issues', 'repo-prebidjs', 'calendar');
+  const unconnected = (notConnected: RepositoryTimelineSource['notConnected']) =>
+    ({ ...issues, notConnected }) as RepositoryTimelineSource;
+  const records = selectRepositoryTimeline(
+    unconnected({ records: 'Issues are not collected.' }),
+    query,
+  );
+  for (const values of [...records.rows.map((row) => row.values), records.summary])
+    expect(values.issuesOpened).toEqual({
+      status: 'missing',
+      value: null,
+      reason: 'Issues are not collected.',
+      notConnected: true,
+    });
+  const history = unconnected({ history: 'Only current state is stored.' });
+  expect(selectRepositoryTimeline(history, query).summary.issuesOpened).toMatchObject({
+    status: 'complete',
+  });
+  expect(selectRepositoryTimeline(history, query, 'snapshot').summary.openIssues).toMatchObject({
+    reason: 'Only current state is stored.',
+    notConnected: true,
+  });
+});

@@ -104,6 +104,7 @@ export function RepositoryHeader({
       <PageHeader
         title={repository.name}
         asOf={asOf}
+        sampleData={navigation?.sample}
         breadcrumbs={breadcrumbs}
         current={current}
         meta={

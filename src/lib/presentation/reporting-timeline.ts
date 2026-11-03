@@ -7,7 +7,11 @@ import {
   type TimelineGrouping,
 } from '@/models/reporting-timeline';
 import { dateRangeSchema, utcInstantSchema, type DateRange } from '@/models/reporting-period';
-import type { Measurement, ReportingCoverage } from '@/models/reporting-measurement';
+import {
+  isNotConnected,
+  type Measurement,
+  type ReportingCoverage,
+} from '@/models/reporting-measurement';
 import { utcMonthStart, utcWeekStart } from './reporting-period';
 
 const day = 86_400_000;
@@ -141,7 +145,7 @@ export function timelineRangeCoverage(
     0,
   );
   if (known === through - from) return { status: 'complete' };
-  const reason = 'This time range has incomplete prepared sample coverage.';
+  const reason = 'This time range has incomplete data coverage.';
   return known === 0 ? { status: 'missing', reason } : { status: 'partial', reason };
 }
 export function withTimelineAvailability(
@@ -150,7 +154,7 @@ export function withTimelineAvailability(
   available: readonly DateRange[],
 ): Measurement {
   const coverage = timelineRangeCoverage(range, available);
-  if (coverage.status === 'complete') return value;
+  if (coverage.status === 'complete' || isNotConnected(value)) return value;
   return coverage.status === 'missing' || value.value === null
     ? { status: 'missing', value: null, reason: coverage.reason }
     : {

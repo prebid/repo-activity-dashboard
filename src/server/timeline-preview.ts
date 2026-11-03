@@ -13,13 +13,13 @@ import type {
 } from '@/models/timeline-controls';
 import type { ContributionDirectory, ContributionSettings } from '@/models/contribution-settings';
 import type { SavedPreference } from '@/models/preferences';
-import { contributionTimelineSample } from '@/mocks/contribution-timeline';
 import {
   repositoryTimelineSample,
   repositoryTimelineMatrixSample,
 } from '@/mocks/repository-timeline';
 import { repositoryPageNavigationSample } from '@/mocks/repository-page';
-import { contributionSampleAsOf } from '@/mocks/contributions';
+import { contributionRecords } from './activity-contributions';
+import { repositoryRecords } from './activity-database';
 import { selectContributionTimeline } from '@/lib/presentation/contribution-timeline';
 import { selectRepositoryTimeline } from '@/lib/presentation/repository-timeline';
 import {
@@ -79,6 +79,13 @@ const repositories = repositoryCatalog
     name: row.displayName,
     primaryBranch: row.primaryBranch === 'main' ? ('main' as const) : ('master' as const),
   }));
+/** Each Timeline reads the clock of the records it shows. */
+function timelineClock(area: TimelineArea): string {
+  return area === 'contribution' ? contributionRecords().asOf : repositoryRecords().asOf;
+}
+export function routeClock(route: string): string {
+  return timelineClock(route.startsWith('/repos') ? 'repository' : 'contribution');
+}
 function options(params: URLSearchParams, area: TimelineArea, path: string) {
   if (['scope', 'population', 'view'].some((key) => params.getAll(key).length > 1))
     return invalid();
@@ -125,7 +132,7 @@ function options(params: URLSearchParams, area: TimelineArea, path: string) {
     return {
       status: 'valid' as const,
       search: params.toString(),
-      ...readTimelineView(params, area, contributionSampleAsOf),
+      ...readTimelineView(params, area, timelineClock(area)),
       ...source,
     };
   } catch (error) {
@@ -149,7 +156,7 @@ function context(
     path,
     href: path + '?' + parsed.search,
     sample: parsed.sample + (parsed.gap ? ':gap' : ''),
-    asOf: contributionSampleAsOf,
+    asOf: timelineClock(area),
     preferenceScope,
     period: parsed.period,
     exactRange: parsed.exactRange,
@@ -237,7 +244,7 @@ export async function contributionTimelinePreview(
     parsed = options(params, 'contribution', path);
   if (parsed.status === 'invalid') return parsed;
   if (parsed.sample === 'mixed') return invalid();
-  const sample = contributionTimelineSample(parsed.sample, parsed.gap);
+  const sample = contributionRecords().timeline(parsed.sample, parsed.gap);
   const settings = readContributionSettings(
     params,
     sample.contributions,
@@ -306,11 +313,13 @@ export async function repositoryTimelinePreview(
   };
   const saved = timelinePreferences(params, controls, preferences, undefined, previewOptions);
   if ('redirect' in saved) return redirectTo(saved.redirect);
+  const records = repositoryRecords();
   const source = repositoryTimelineSample(
     parsed.view.kind,
     repository.id,
     parsed.sample,
     parsed.gap,
+    records,
   );
   const rows = [
     ...source.rows,
@@ -322,7 +331,7 @@ export async function repositoryTimelinePreview(
     status: 'ready' as const,
     viewerId: viewer.id,
     report: selectRepositoryTimeline(source, parsed.request, parsed.view.family, filters),
-    navigation: repositoryPageNavigationSample(source.repository),
+    navigation: repositoryPageNavigationSample(source.repository, records),
     href: path + '?' + params.toString(),
     omitted: params.get('timeline.omitted') === 'current',
     facets: repositoryFilterOptions(rows),
@@ -361,6 +370,7 @@ export async function repositoryTimelineMatrixPreview(
     kinds.size > 1 ? 'mixed' : kinds.has('issues') ? 'issues' : 'prs',
     parsed.sample,
     parsed.gap,
+    repositoryRecords(),
   );
   // validateTimelineScope applied the matrix size rule above to these same inputs.
   return {
@@ -405,7 +415,7 @@ export async function timelineView(
   options: { entry?: boolean; preferences?: PreferenceSnapshot } = {},
 ) {
   const { route, segments, values } = view;
-  const params = timelineParams(route, values, contributionSampleAsOf, { entry: options.entry });
+  const params = timelineParams(route, values, routeClock(route), { entry: options.entry });
   const href = viewHref(view, 'level');
   if (!params || href === null) return invalid();
   const ancestors = resolveBack(view);
@@ -496,7 +506,7 @@ export async function timelineEntryValues(
   preferences: PreferenceSnapshot,
 ): Promise<SavedViewValues | null> {
   const { route, segments, values } = view;
-  const params = timelineParams(route, values, contributionSampleAsOf, { entry: true });
+  const params = timelineParams(route, values, routeClock(route), { entry: true });
   if (!params) return null;
   const screen = screenOf(route, values);
   let result;
@@ -524,7 +534,7 @@ export async function timelineEntryValues(
   const saved = timelineStateValues(
     route,
     query,
-    contributionSampleAsOf,
+    routeClock(route),
     screen === 'contributionTimeline' ? { repositories } : undefined,
   );
   if (!saved) return null;

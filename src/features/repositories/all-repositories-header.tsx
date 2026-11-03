@@ -24,11 +24,12 @@ export function InvalidRepositoriesView({ message }: { message: string }) {
     </>
   );
 }
-export function AllRepositoriesHeading({ asOf }: { asOf: string }) {
+export function AllRepositoriesHeading({ asOf, sample }: { asOf: string; sample: boolean }) {
   return (
     <PageHeader
       title="All repositories"
       asOf={asOf}
+      sampleData={sample}
       meta={
         <a href="https://github.com/prebid" target="_blank" rel="noopener noreferrer">
           Prebid on GitHub

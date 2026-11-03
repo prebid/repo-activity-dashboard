@@ -4,18 +4,16 @@ import {
 } from '@/models/repository-timeline';
 import type { RepositoryTimelineMatrixSource } from '@/models/repository-timeline-matrix';
 import type { ContributionScenario } from './contributions';
-import { sampleProfileUrl } from './repository-accounts';
+import { sampleRecordSource, type RepositoryRecordSource } from './record-source';
 import {
   authorCategory,
   endedAt,
-  repositoryWorld,
   reviewStateAt,
   type WorldIssue,
   type WorldPullRequest,
   type WorldRepository,
   type WorldScenario,
 } from './repository-world';
-import { overviewAsOf } from './sample-clock';
 
 export type RepositoryTimelineScenario = ContributionScenario | 'calendar' | 'mixed';
 const day = 86_400_000;
@@ -29,18 +27,18 @@ function worldScenario(scenario: RepositoryTimelineScenario): WorldScenario {
     : 'reference';
 }
 const ageAt = (createdAt: string, at: string) => (Date.parse(at) - Date.parse(createdAt)) / day;
-function pullRequestRow(row: WorldPullRequest) {
+function pullRequestRow(row: WorldPullRequest, records: RepositoryRecordSource) {
   return {
     id: row.id,
     number: row.number,
     title: row.title,
     url: row.url,
     author: row.author,
-    authorUrl: sampleProfileUrl(row.author),
+    authorUrl: records.profileUrl(row.author),
     authorType: row.authorType,
     createdAt: row.createdAt,
     labels: row.labels,
-    ageDays: ageAt(row.createdAt, overviewAsOf),
+    ageDays: ageAt(row.createdAt, records.asOf),
     latestActivity: row.latestActivity,
     state: row.state,
     draft: row.draft,
@@ -53,18 +51,18 @@ function pullRequestRow(row: WorldPullRequest) {
     latestActor: row.latestActor,
   };
 }
-function issueRow(row: WorldIssue) {
+function issueRow(row: WorldIssue, records: RepositoryRecordSource) {
   return {
     id: row.id,
     number: row.number,
     title: row.title,
     url: row.url,
     author: row.author,
-    authorUrl: sampleProfileUrl(row.author),
+    authorUrl: records.profileUrl(row.author),
     authorType: row.authorType,
     createdAt: row.createdAt,
     labels: row.labels,
-    ageDays: ageAt(row.createdAt, overviewAsOf),
+    ageDays: ageAt(row.createdAt, records.asOf),
     latestActivity: row.latestActivity,
     state: row.state,
     closedAt: row.closedAt,
@@ -97,7 +95,9 @@ function snapshots(
   repository: WorldRepository,
   kind: 'prs' | 'issues',
   scenario: RepositoryTimelineScenario,
+  records: RepositoryRecordSource,
 ) {
+  if (records.kind !== 'sample') return [];
   if (!['reference', 'partial', 'calendar', 'mixed'].includes(scenario)) return [];
   if (scenario === 'mixed' && repository.id === 'repo-prebidserverjava') return [];
   const coverage =
@@ -119,7 +119,7 @@ function snapshots(
         ? repository.pullRequests
             .filter((row) => openAt(row, at))
             .map((row) => ({
-              ...pullRequestRow(row),
+              ...pullRequestRow(row, records),
               state: 'Open' as const,
               mergedAt: null,
               ageDays: ageAt(row.createdAt, at),
@@ -129,7 +129,7 @@ function snapshots(
         : repository.issues
             .filter((row) => openAt(row, at))
             .map((row) => ({
-              ...issueRow(row),
+              ...issueRow(row, records),
               state: 'Open' as const,
               closedAt: null,
               ageDays: ageAt(row.createdAt, at),
@@ -146,11 +146,17 @@ function source(
   kind: 'prs' | 'issues',
   scenario: RepositoryTimelineScenario,
   gap: boolean,
+  records: RepositoryRecordSource,
 ): RepositoryTimelineSource {
+  const missing = repository.notConnected;
+  const notConnected = missing && {
+    records: kind === 'issues' ? missing.issues : missing.pullRequests,
+    history: missing.history,
+  };
   return repositoryTimelineSourceSchema.parse({
-    source: 'sample',
-    scenarioId: 'repositories-' + scenario + '-v1' + (gap ? '-temporal-gap' : ''),
-    asOf: overviewAsOf,
+    source: records.kind,
+    scenarioId: scenarioId(records, scenario, gap),
+    asOf: records.asOf,
     repository: {
       id: repository.id,
       slug: repository.slug,
@@ -159,12 +165,22 @@ function source(
     },
     kind,
     availableRanges: repository.availability,
+    ...(notConnected && { notConnected }),
     rows:
       kind === 'prs'
-        ? repository.pullRequests.map(pullRequestRow)
-        : repository.issues.map(issueRow),
-    snapshots: snapshots(repository, kind, scenario),
+        ? repository.pullRequests.map((row) => pullRequestRow(row, records))
+        : repository.issues.map((row) => issueRow(row, records)),
+    snapshots: snapshots(repository, kind, scenario, records),
   });
+}
+function scenarioId(
+  records: RepositoryRecordSource,
+  scenario: RepositoryTimelineScenario,
+  gap: boolean,
+) {
+  return records.kind === 'sample'
+    ? 'repositories-' + scenario + '-v1' + (gap ? '-temporal-gap' : '')
+    : records.scenarioId;
 }
 function deepFreeze<T>(value: T): T {
   if (value && typeof value === 'object' && !Object.isFrozen(value)) {
@@ -173,7 +189,10 @@ function deepFreeze<T>(value: T): T {
   }
   return value;
 }
-const sources = new Map<string, RepositoryTimelineSource>();
+const sourcesByRecords = new WeakMap<
+  RepositoryRecordSource,
+  Map<string, RepositoryTimelineSource>
+>();
 /**
  * Each source is built and validated once, then shared read-only by every request: the full record
  * set is large, and freezing makes an accidental write fail instead of changing later requests.
@@ -183,11 +202,15 @@ function sharedSource(
   kind: 'prs' | 'issues',
   scenario: RepositoryTimelineScenario,
   gap: boolean,
+  records: RepositoryRecordSource,
 ): RepositoryTimelineSource {
+  let sources = sourcesByRecords.get(records);
+  if (!sources)
+    sourcesByRecords.set(records, (sources = new Map<string, RepositoryTimelineSource>()));
   const key = [repository.id, kind, scenario, gap].join(':');
   let built = sources.get(key);
   if (!built) {
-    built = deepFreeze(source(repository, kind, scenario, gap));
+    built = deepFreeze(source(repository, kind, scenario, gap, records));
     sources.set(key, built);
   }
   return built;
@@ -197,29 +220,31 @@ export function repositoryTimelineSample(
   repositoryId = 'repo-prebidjs',
   scenario: RepositoryTimelineScenario = 'reference',
   gap = false,
+  records: RepositoryRecordSource = sampleRecordSource,
 ): RepositoryTimelineSource {
-  const repository = repositoryWorld(worldScenario(scenario), gap).get(repositoryId);
+  const repository = records.repositories(worldScenario(scenario), gap).get(repositoryId);
   if (!repository) throw Error('Unknown sample repository');
-  return sharedSource(repository, kind, scenario, gap);
+  return sharedSource(repository, kind, scenario, gap, records);
 }
 export function repositoryTimelineMatrixSample(
   kind: 'prs' | 'issues' | 'mixed' = 'prs',
   scenario: RepositoryTimelineScenario = 'reference',
   gap = false,
+  records: RepositoryRecordSource = sampleRecordSource,
 ): RepositoryTimelineMatrixSource {
-  const repositories = [...repositoryWorld(worldScenario(scenario), gap).values()];
+  const repositories = [...records.repositories(worldScenario(scenario), gap).values()];
   return {
-    source: 'sample',
-    scenarioId: 'repositories-' + scenario + '-v1' + (gap ? '-temporal-gap' : ''),
-    asOf: overviewAsOf,
+    source: records.kind,
+    scenarioId: scenarioId(records, scenario, gap),
+    asOf: records.asOf,
     kind,
     repositories: repositories.flatMap((repository) =>
       kind === 'mixed'
         ? [
-            sharedSource(repository, 'prs', scenario, gap),
-            sharedSource(repository, 'issues', scenario, gap),
+            sharedSource(repository, 'prs', scenario, gap, records),
+            sharedSource(repository, 'issues', scenario, gap, records),
           ]
-        : [sharedSource(repository, kind, scenario, gap)],
+        : [sharedSource(repository, kind, scenario, gap, records)],
     ),
   };
 }

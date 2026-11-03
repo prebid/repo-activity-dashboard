@@ -18,3 +18,10 @@
 .glyph {
   color: var(--prebid-ink);
 }
+.entry[data-mark='not-connected'] .glyph {
+  padding: 0 4px;
+  border: 1px solid var(--prebid-warning-border);
+  border-radius: var(--prebid-radius-small);
+  background: var(--prebid-warning-bg);
+  color: var(--prebid-warning-ink);
+}

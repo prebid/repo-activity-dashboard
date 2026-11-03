@@ -29,6 +29,7 @@ export function TimelineSupportFrame({
       <PageHeader
         title={title}
         asOf={context.source.asOf}
+        sampleData={context.source.source === 'sample'}
         breadcrumbs={breadcrumbs}
         breadcrumbLabel="Supporting view navigation"
       />

@@ -1,7 +1,6 @@
 import 'server-only';
 import { repositoryCatalog } from '@/config/repositories';
-import { contributionTimelineSample } from '@/mocks/contribution-timeline';
-import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
+import type { ContributionRecordSource } from '@/mocks/contribution-records';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { reportingBranchSchema } from '@/models/repository-overview';
 import { authorTableColumnIds } from '@/models/repository-insights';
@@ -18,14 +17,17 @@ import {
   recordPrColumnIds,
 } from '@/models/table-columns';
 import type { LegacyContext } from '@/lib/presentation/url/legacy/state';
+import { contributionRecords } from './activity-contributions';
 
-let cached: LegacyContext | undefined;
-/** The prepared samples, catalog and column lists the legacy readers resolve old links against. */
+const contexts = new WeakMap<ContributionRecordSource, LegacyContext>();
+/** The report data, catalog and column lists the legacy readers resolve old links against. */
 export function legacyContext(): LegacyContext {
+  const records = contributionRecords();
+  const cached = contexts.get(records);
   if (cached) return cached;
   const overview = repositoryOverviewSamples();
-  cached = {
-    asOf: contributionSampleAsOf,
+  const context: LegacyContext = {
+    asOf: records.asOf,
     enabledRepositoryIds: repositoryCatalog.filter((row) => row.enabled).map((row) => row.id),
     catalogIdentity(slug) {
       const repo = repositoryCatalog.find((row) => row.slug === slug && row.enabled);
@@ -54,9 +56,9 @@ export function legacyContext(): LegacyContext {
       ...contributionTableColumnIds,
       details: contributionDetailColumnIds,
     },
-    contributionDirectory: (scenario, period) => contributionSample({ scenario, period }),
-    contributionTimelineDirectory: (sample, gap) =>
-      contributionTimelineSample(sample, gap).contributions,
+    contributionDirectory: (scenario, period) => records.report(scenario, period),
+    contributionTimelineDirectory: (sample, gap) => records.timeline(sample, gap).contributions,
   };
-  return cached;
+  contexts.set(records, context);
+  return context;
 }

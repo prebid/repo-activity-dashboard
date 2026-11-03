@@ -92,7 +92,7 @@ export interface RepositoryOverviewRow {
   comparison: RepositoryActivity;
 }
 export interface RepositoryOverview {
-  source: 'sample';
+  source: 'sample' | 'database';
   scenarioId: string;
   asOf: string;
   period: ResolvedPeriod;
@@ -120,7 +120,7 @@ export type RepositoryActivityRow = RepositoryPeriodRow | RepositoryDifferenceRo
 
 /** Small prepared display bundles, with current backlog stored only once. */
 export interface RepositoryOverviewSamples {
-  source: 'sample';
+  source: 'sample' | 'database';
   scenarioId: string;
   asOf: string;
   repositories: Pick<RepositoryOverviewRow, 'repository' | 'backlog'>[];

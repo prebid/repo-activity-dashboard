@@ -17,7 +17,7 @@ import type {
 const identity = z.string().trim().min(1).max(500);
 export const repositoryTimelineMatrixSourceSchema = z
   .object({
-    source: z.literal('sample'),
+    source: z.enum(['sample', 'database']),
     scenarioId: identity,
     asOf: utcInstantSchema,
     kind: z.enum(['prs', 'issues', 'mixed']),

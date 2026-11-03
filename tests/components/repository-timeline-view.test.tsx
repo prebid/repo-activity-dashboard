@@ -13,6 +13,7 @@ const navigation = {
   githubUrl: 'https://github.example/prebid/Prebid.js',
   openPrs: { status: 'complete' as const, value: 3 },
   openIssues: { status: 'complete' as const, value: 4 },
+  sample: true,
 };
 
 it.each([

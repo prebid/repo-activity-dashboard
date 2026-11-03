@@ -24,6 +24,9 @@ afterEach(() => {
   savedWidth.value = undefined;
 });
 vi.mock('@/components/layout/toolbar', () => ({ Toolbar: () => <header>Navigation</header> }));
+vi.mock('@/server/activity-database', () => ({
+  repositoryClock: () => '2026-10-24T12:00:00.000Z',
+}));
 vi.mock('next/navigation', () => ({
   usePathname: () => '/repos',
   useSearchParams: () => new URLSearchParams(),

@@ -10,7 +10,7 @@ import { DataTable } from '@/components/tables/data-table';
 import { Callout } from '@/components/feedback/callout';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { LinkPending } from '@/components/navigation/link-pending';
-import { recordListTitle } from '@/lib/presentation/repository-records';
+import { recordLinkNote, recordListTitle } from '@/lib/presentation/repository-records';
 import { repositoryDrilldownHref } from '@/lib/presentation/repository-drilldown';
 import {
   drilldownPresentation,
@@ -77,8 +77,11 @@ function RepositoryPageTable({
       : ({ kind: 'empty', title: 'No items' } as const),
     footerNote:
       page.kind === 'prs'
-        ? 'Sample record links are placeholders. Reviewers and current approvals are separate measures.'
-        : 'Sample record links are placeholders.',
+        ? recordLinkNote(
+            page.rows.map((row) => row.url),
+            'Reviewers and current approvals are separate measures.',
+          )
+        : recordLinkNote(page.rows.map((row) => row.url)),
   };
   return (
     <div className={styles.records}>

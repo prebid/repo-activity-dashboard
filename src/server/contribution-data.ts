@@ -1,7 +1,7 @@
 import 'server-only';
 import { notFound } from 'next/navigation';
 import { requireViewer } from '@/lib/auth/viewer';
-import { contributionSample, contributionSampleAsOf } from '@/mocks/contributions';
+import { contributionRecords } from './activity-contributions';
 import {
   readContributionLayoutQuery,
   contributionPath,
@@ -48,9 +48,10 @@ export async function loadContributionData(
     return { status: 'invalid' as const, viewer, area };
   const options = readContributionLayoutQuery(params);
   if (!options) return { status: 'invalid' as const, viewer, area };
-  const period = readContributionPeriod(params, contributionSampleAsOf);
+  const records = contributionRecords();
+  const period = readContributionPeriod(params, records.asOf);
   if (!period) return { status: 'invalid' as const, viewer, area };
-  const source = contributionSample({ scenario: options.sample, period });
+  const source = records.report(options.sample, period);
   const settings = readContributionSettings(params, source, source.asOf);
   if (!settings) return { status: 'invalid' as const, viewer, area };
   if (!focusExists(source, focus)) notFound();
@@ -73,12 +74,13 @@ export async function loadContributionValues(
   ) as ContributionSampleScenario;
   const period = periodSelection(typeof values.period === 'string' ? values.period : 'this-year');
   if (!period || !contributionSampleScenarios.includes(sample)) return invalid;
+  const records = contributionRecords();
   try {
-    resolveReportingPeriod(period, contributionSampleAsOf);
+    resolveReportingPeriod(period, records.asOf);
   } catch {
     return invalid;
   }
-  const source = contributionSample({ scenario: sample, period });
+  const source = records.report(sample, period);
   const input = contributionScopeInput(values, source);
   const settings = input && validateContributionSettings(input, source, source.asOf);
   if (!settings) return invalid;

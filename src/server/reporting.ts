@@ -25,14 +25,14 @@ import { reportingBranchSchema } from '@/models/repository-overview';
 import { isInsightSelection } from '@/lib/presentation/repository-insights';
 import { isRecordSelection } from '@/lib/presentation/repository-records';
 import { repositoryInsightSample, repositoryAuthorRecordSample } from '@/mocks/repository-insights';
-import { overviewAsOf } from '@/mocks/sample-clock';
+import { repositoryRecords } from './activity-database';
 import { isAuthorSelection } from '@/lib/presentation/repository-author-records';
 import { resolveBack, type UrlView } from '@/lib/presentation/url/back';
 import { columnTableOf, visibleColumns } from '@/lib/presentation/url/defaults';
 import type { UrlValues } from '@/lib/presentation/url/registry';
 export async function allRepositories() {
   const viewer = await requireViewer();
-  return { viewer, samples: repositoryOverviewSamples() };
+  return { viewer, samples: repositoryOverviewSamples(repositoryRecords()) };
 }
 /** The enabled catalog repository a route slug names, or null when the route is not found. */
 export function catalogRepository(slug: string) {
@@ -64,9 +64,10 @@ function knownColumns(view: UrlView): boolean {
  */
 export async function repositoryDetail(slug: string, values: UrlValues = {}) {
   const { viewer, repo, identity } = await repositoryContext(slug);
+  const records = repositoryRecords();
   const view: UrlView = { route: '/repos/[slug]', segments: { slug: [identity.slug] }, values };
-  const selection = readDrilldownSelection(values, identity, overviewAsOf);
-  const navigation = repositoryPageNavigationSample(identity);
+  const selection = readDrilldownSelection(values, identity, records.asOf);
+  const navigation = repositoryPageNavigationSample(identity, records);
   if (!selection || !knownColumns(view)) return { status: 'invalid' as const };
   const returnTo = summaryReturnTo(view);
   if (isInsightSelection(selection))
@@ -75,14 +76,14 @@ export async function repositoryDetail(slug: string, values: UrlValues = {}) {
       viewer,
       repo,
       navigation,
-      insight: repositoryInsightSample(identity, { selection, returnTo }),
+      insight: repositoryInsightSample(identity, { selection, returnTo }, records),
     };
   if (!isRecordSelection(selection)) return { status: 'invalid' as const };
   return {
     status: 'page' as const,
     viewer,
     navigation,
-    source: repositoryPageSample(identity, { selection, returnTo }),
+    source: repositoryPageSample(identity, { selection, returnTo }, records),
   };
 }
 
@@ -97,7 +98,8 @@ export async function repositoryAuthorDetail(
   values: UrlValues,
 ) {
   const { viewer, identity } = await repositoryContext(slug);
-  const selection = readDrilldownSelection(values, identity, overviewAsOf);
+  const records = repositoryRecords();
+  const selection = readDrilldownSelection(values, identity, records.asOf);
   if (account === null || !selection || !isAuthorSelection(selection))
     return { status: 'invalid' as const };
   const view: UrlView = {
@@ -110,14 +112,16 @@ export async function repositoryAuthorDetail(
   return {
     status: 'list' as const,
     viewer,
-    navigation: repositoryPageNavigationSample(identity),
+    navigation: repositoryPageNavigationSample(identity, records),
     source: repositoryPageRecordsSample(
       repositoryAuthorRecordSample(
         identity,
         { selection, returnTo: summaryReturnTo(view) },
         account,
         list.href,
+        records,
       ),
+      records,
     ),
   };
 }

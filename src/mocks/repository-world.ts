@@ -91,6 +91,12 @@ export interface WorldRepository {
   availability: DateRange[];
   pullRequests: WorldPullRequest[];
   issues: WorldIssue[];
+  /**
+   * Data this record set does not hold yet, each with the reason its values show as not
+   * connected: pull request or issue records, the Prebid agent mapping, and historical review
+   * state. Samples hold all of them.
+   */
+  notConnected?: { pullRequests?: string; issues?: string; agents?: string; history?: string };
 }
 
 /** The latest-activity category of an action by a record's own author. */

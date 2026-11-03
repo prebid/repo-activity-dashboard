@@ -27,6 +27,7 @@ import {
   ContributionSubjectAvatar,
 } from './contribution-header';
 import { ContributionNavigationLink, coreMetricHeading } from './contribution-columns';
+import { companyAttributionLabels } from '@/models/contributions';
 
 /**
  * The links an Over time view takes from its screen, which derives them from the current URL.
@@ -108,6 +109,10 @@ export function ContributionTimelineView({
       <ContributionHeading
         title={title}
         asOf={report.source.asOf}
+        source={{
+          source: report.source.source,
+          companyAttribution: report.scope.companyAttribution,
+        }}
         returnTo={focus.kind === 'overview' ? undefined : navigation.returnTo}
         returnLabel={navigation.returnLabel}
         identity={
@@ -160,7 +165,7 @@ export function ContributionTimelineView({
                 singular: 'included account',
                 plural: 'included accounts',
               }),
-            'Company attribution: current mapping',
+            companyAttributionLabels[report.scope.companyAttribution],
           ],
         }}
       />

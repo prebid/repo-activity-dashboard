@@ -19,6 +19,7 @@ import type { TableController } from '@/lib/presentation/table-controller';
 import { formatCount, formatUtcDate } from '@/lib/presentation/format';
 import { accountTypeLabels } from '@/models/github-account';
 import { insightTitles } from '@/lib/presentation/repository-insights';
+import { recordLinkNote } from '@/lib/presentation/repository-records';
 import type {
   AuthorSelection,
   RepositoryInsight,
@@ -232,7 +233,10 @@ export function RepositoryInsightsView({
           )}
           controller={controller}
           itemLabel={{ singular: 'author', plural: 'authors' }}
-          footerNote="One row per account in this repository and period, including humans, Prebid agents, and other bots. Sample record links are placeholders."
+          footerNote={recordLinkNote(
+            insight.rows.flatMap((row) => (row.profileUrl ? [row.profileUrl] : [])),
+            'One row per account in this repository and period, including humans, Prebid agents, and other bots.',
+          )}
         />
       ) : insight.kind === 'contributions' ? (
         <DataTable
@@ -243,7 +247,10 @@ export function RepositoryInsightsView({
           columns={contributionDetailColumns}
           controller={controller}
           itemLabel={{ singular: 'contribution credit', plural: 'contribution credits' }}
-          footerNote="One credit per account, PR, and contribution type, in the period of its first qualifying action. Multiple accounts can contribute to one PR. Sample links are placeholders."
+          footerNote={recordLinkNote(
+            insight.rows.map((row) => row.pr.url),
+            'One credit per account, PR, and contribution type, in the period of its first qualifying action. Multiple accounts can contribute to one PR.',
+          )}
         />
       ) : (
         <>

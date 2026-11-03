@@ -283,7 +283,7 @@ describe('prepared All Repositories samples', () => {
     for (const activity of [partial!.activity, partial!.comparison])
       expect(activity.counts.issuesClosed).toMatchObject({
         status: 'partial',
-        reason: 'This time range has incomplete prepared sample coverage.',
+        reason: 'This time range has incomplete data coverage.',
       });
     const unknown = rows.find((row) => row.repository.id === 'repo-github-activity-db');
     expect(unknown?.comparison.counts.prsOpened).toMatchObject({ status: 'missing', value: null });

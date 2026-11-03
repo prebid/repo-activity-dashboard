@@ -16,7 +16,12 @@ import {
 } from '@/components/ui/icons';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
 import type { ContributionLens } from '@/models/contribution-lens';
-import { contributionActorTypes, type ContributionAccount } from '@/models/contributions';
+import {
+  companyAttributionLabels,
+  contributionActorTypes,
+  type CompanyAttribution,
+  type ContributionAccount,
+} from '@/models/contributions';
 import { zonedRangeLabel } from '@/lib/presentation/overview-periods';
 import {
   noReportControls,
@@ -212,6 +217,7 @@ export function ContributionHeader({
       <ContributionHeading
         title={title}
         asOf={context.asOf}
+        source={context}
         returnTo={report.kind === 'overview' ? undefined : page.returnTo}
         returnLabel={page.returnLabel}
         identity={
@@ -260,7 +266,7 @@ export function ContributionHeader({
                 singular: 'included account',
                 plural: 'included accounts',
               }),
-            'Company attribution: current mapping',
+            companyAttributionLabels[context.companyAttribution],
           ],
         }}
       />
@@ -309,6 +315,7 @@ export function ContributionSubjectAvatar({
 export function ContributionHeading({
   title,
   asOf,
+  source,
   returnTo,
   returnLabel = 'Back to report',
   identity,
@@ -316,6 +323,8 @@ export function ContributionHeading({
 }: {
   title: string;
   asOf: string;
+  /** Where the report's data comes from and how it attributes companies. */
+  source: { source: 'sample' | 'database'; companyAttribution: CompanyAttribution };
   /**
    * On a contributor or company report, the report the crumb opens; null when the page it came
    * from cannot be restored, which shows the crumb unavailable.
@@ -332,6 +341,10 @@ export function ContributionHeading({
     <PageHeader
       title={title}
       asOf={asOf}
+      sampleData={source.source === 'sample'}
+      notConnected={
+        source.companyAttribution === 'not-connected' ? ['Company mapping not connected'] : []
+      }
       breadcrumbLabel="Contribution breadcrumb"
       breadcrumbs={returnTo === undefined ? undefined : [{ label: returnLabel, href: returnTo }]}
       identity={identity}

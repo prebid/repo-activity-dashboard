@@ -1,6 +1,6 @@
 # Repository Activity Dashboard
 
-A TypeScript/Next.js frontend foundation for repository activity reporting. Reporting uses deterministic sample values while the pages are designed. The previous GitHub ingestion, filesystem storage, and generated reporting datasets have been retired.
+A TypeScript/Next.js frontend for repository activity reporting. Reports read a [github-activity-db](https://github.com/prebid/github-activity-db) SQLite file when `DASHBOARD_ACTIVITY_DATABASE` names one, and deterministic sample values otherwise. The dashboard itself collects nothing from GitHub: the previous ingestion, filesystem storage, and generated reporting datasets remain retired.
 
 Follow the [approved delivery sequence](docs/product/README.md#approved-delivery-sequence): review the frontend with prepared data, deploy the reviewed frontend with clearly labeled samples, integrate real reporting data incrementally, then add custom groups. Agent launching remains the last core feature; calendar heatmaps are a low-priority follow-up after the rest of the plan and validated real-data deployment. The Contributors and Companies increment follows the [five-step delivery process](docs/product/README.md#five-step-frontend-delivery-process); its implementation and review checkpoints are recorded in the [contribution contract](docs/product/contributors.md). The [product definitions](docs/product/README.md), [foundation contracts](docs/implementation/foundation-contracts.md) and [account operations](docs/implementation/account-operations.md) are the maintained references.
 
@@ -14,6 +14,18 @@ npm run dev
 ```
 
 Open http://127.0.0.1:3000. Preview accounts are `alice@example.test` and `bob@example.test`, both with password `preview`. They are synthetic identities accepted only by an explicitly built preview.
+
+### Real reporting data
+
+Point the server at a github-activity-db file to replace the samples with GitHub data:
+
+```sh
+DASHBOARD_ACTIVITY_DATABASE=/absolute/path/github_activity.local.db npm run dev
+```
+
+Build the file with github-activity-db's own CLI (`uv run alembic upgrade head`, then `GITHUB_TOKEN="$(gh auth token)" uv run ghactivity sync --repo prebid/<name> …`; see its `CLAUDE.md`). The server opens it read-only with Node's built-in `node:sqlite`, accepts only `PRAGMA user_version` 2, and reads it again when its size or modification time changes. A configured file that cannot be read is an error page, never a fallback to samples.
+
+What the file cannot supply yet is shown in orange as **not connected**, never as zero: issues and issue comments, inline review comments (stored only as a count per review), the Prebid agent and Prebid reviewer mappings, the company mapping, backlog at past dates (the database keeps current state only), and any repository whose last sync did not complete, such as the private `prebid-agent-skills`, which only its maintainer or the scheduled run may sync. Pages that still read samples keep the orange **Sample data** chip.
 
 No GitHub, S3, DynamoDB, or production-auth credentials are needed for preview development or tests. All report values are visibly labeled sample data; the repository catalog contains the 18 real repositories selected for the project.
 
@@ -48,7 +60,7 @@ For interactive component development, use `npm run storybook` on port 6006.
 - `npm run build:preview` and `npm run start:preview` create/run fixed synthetic accounts, bound to loopback by default.
 - Start mode must match the recorded build mode.
 - Amplify uses `build:production`; the preview launcher refuses an Amplify environment.
-- Both modes currently render synthetic reports. Production mode changes authentication, not the reporting source.
+- Both modes render synthetic reports unless `DASHBOARD_ACTIVITY_DATABASE` is set. Production mode changes authentication, not the reporting source; Amplify does not set the variable yet.
 
 Amplify currently selects the existing-account compatibility backend so the new frontend can use the working deployment settings without new AWS resources or account migration. Existing secrets remain confined to the private server artifact, outside Next's public environment mapping. The separately activated managed backend uses runtime IAM and Secrets Manager. See [current production compatibility](docs/implementation/account-operations.md#current-production-compatibility-release) for the exact settings and limits. The authentication store is separate from reporting; preview tests do not establish live deployment readiness.
 
@@ -63,7 +75,8 @@ Public first-admin registration is closed. The compatibility deployment retains 
 - `src/mocks/`: prepared display data, not an ingestion simulator.
 - `src/lib/presentation/`: pure formatting/query contracts and preview identity definitions.
 - `src/lib/navigation/`: application URL, preference, and debounced-search controllers.
-- `src/server/reporting.ts`: authorized sample reads; no real reporting database.
+- `src/server/reporting.ts`: authorized report reads from the configured record source.
+- `src/server/activity-database.ts` and `activity-contributions.ts`: the read-only github-activity-db reader for repository and contribution reports.
 - `src/lib/auth/` and `src/lib/aws/`: retained server account integration.
 - `.storybook/`: isolated component states.
 
