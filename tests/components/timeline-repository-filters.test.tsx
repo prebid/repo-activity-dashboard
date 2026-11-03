@@ -2,6 +2,7 @@ import { expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TimelineRepositoryFilters } from '@/features/repositories/timeline-repository-filters';
+import { FiltersIcon } from '@/components/ui/icons';
 import { repositoryPageFiltersSchema } from '@/models/repository-page';
 
 const facets = {
@@ -47,4 +48,20 @@ it('keeps the dialog open with the rejection message and removes chips one at a 
   await userEvent.keyboard('{Escape}');
   await userEvent.click(screen.getByRole('button', { name: /^Remove / }));
   expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ labels: [] }));
+});
+it('leads the Record filters trigger with the Filters glyph and keeps its name', () => {
+  render(
+    <TimelineRepositoryFilters
+      filters={repositoryPageFiltersSchema.parse({ kind: 'prs', labels: ['feature'] })}
+      facets={facets}
+      snapshot
+      onChange={() => undefined}
+    />,
+  );
+  const icon = screen.getByRole('button', { name: 'Record filters (1)' }).firstElementChild!;
+  const glyph = render(<FiltersIcon size={14} />).container.querySelector('svg')!;
+  expect(icon.tagName).toBe('svg');
+  expect(icon.innerHTML).toBe(glyph.innerHTML);
+  expect(icon).toHaveAttribute('aria-hidden', 'true');
+  expect(icon).toHaveAttribute('width', '14');
 });

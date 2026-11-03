@@ -133,6 +133,13 @@
     gap: 8px;
   }
 }
+/* Below 375px, where a metric column follows the identity column, a narrower identity column
+   leaves its values in view; beside Account type the names keep their width. */
+@media (max-width: 374px) {
+  .table [data-numeric-beside-pinned] table {
+    --pinned-width: 140px;
+  }
+}
 
 .memberControls {
   display: flex;

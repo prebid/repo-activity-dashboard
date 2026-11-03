@@ -116,6 +116,10 @@
     font-stretch: var(--prebid-display-stretch);
     font-weight: 800;
   }
+  /* Short paragraphs and notes end on more than one word. */
+  p {
+    text-wrap: pretty;
+  }
 }
 
 @utility focus-ring {

@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 import type { Locator, Page } from '@playwright/test';
-import { viewsFor } from '../support/views';
+import { inventory, viewsFor, type InventoryId } from '../support/views';
 
 type Mode = 'wide' | 'contained';
 
@@ -331,5 +331,358 @@ test("an administrator's first masthead row fits from 320px without overlapping 
     expect(await page.evaluate(() => document.documentElement.scrollWidth), at).toBeLessThanOrEqual(
       width,
     );
+  }
+});
+
+const pathOf = (id: InventoryId) => inventory.find((view) => view.id === id)!.path;
+/** Whether a box lies whole between another's left and right edges, to half a pixel. */
+async function inside(inner: Locator, outer: Locator | { x: number; width: number }) {
+  const box = (await inner.boundingBox())!;
+  const frame = 'x' in outer ? outer : (await outer.boundingBox())!;
+  return box.x >= frame.x - 0.5 && box.x + box.width <= frame.x + frame.width + 0.5;
+}
+
+for (const [id, modes, subjects] of [
+  ['contributors-timeline', 'Report view', 'Contribution reports'],
+  ['companies-timeline', 'Report view', 'Contribution reports'],
+  ['repos-overview', 'Repository overview views', null],
+] satisfies [InventoryId, string, string | null][])
+  test(`on phones the view bar keeps both view modes and the current subject whole (${id})`, async ({
+    page,
+  }) => {
+    await login(page);
+    for (const width of [320, 375, 390]) {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(pathOf(id));
+      const at = `at ${width}px`;
+      const group = page.getByRole('navigation', { name: modes, exact: true });
+      const options = await group.getByRole('link').all();
+      expect(options.length, at).toBe(2);
+      for (const option of options) {
+        const name = at + ' ' + (await option.textContent());
+        expect(await inside(option, group), name).toBe(true);
+        expect(await inside(option, { x: 0, width }), name).toBe(true);
+      }
+      if (subjects) {
+        // The bar scrolls its current subject tab into view once the page is interactive.
+        const row = page.getByRole('navigation', { name: subjects, exact: true });
+        await expect.poll(() => inside(row.locator('[aria-current="page"]'), row), at).toBe(true);
+      } else {
+        const trigger = page.getByRole('button', { name: 'Sections', exact: true });
+        await expect(trigger).toBeEnabled();
+        expect(await inside(trigger, { x: 0, width }), at).toBe(true);
+      }
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+        at,
+      ).toBe(true);
+    }
+  });
+
+test('at 320px the masthead scrolls its current destination into view', async ({ page }) => {
+  await login(page);
+  await page.setViewportSize({ width: 320, height: 800 });
+  const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
+  const [, , contributors, reviewers] = mainDestinations(page);
+  for (const [id, current] of [
+    ['reviewers', reviewers],
+    ['companies-reviewers', reviewers],
+    ['contributor-detail-reviewers', reviewers],
+    ['contributors', contributors],
+  ] satisfies [InventoryId, Locator][]) {
+    await page.goto(pathOf(id));
+    // The four destinations do not fit this width, so the row scrolls sideways.
+    expect(await main.evaluate((nav) => nav.scrollWidth > nav.clientWidth), id).toBe(true);
+    await expect.poll(() => inside(current, main), id).toBe(true);
+  }
+});
+
+test('at phone widths the current crumb ends inside the breadcrumb row', async ({ page }) => {
+  await login(page);
+  const crumbs = page
+    .getByRole('navigation', { name: 'Breadcrumb', exact: true })
+    .getByRole('list');
+  const current = crumbs.locator('[aria-current="page"]');
+  for (const width of [320, 375, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto(pathOf('repo-author-issues'));
+    const at = `at ${width}px`;
+    // Shortened on screen only: the crumb keeps its whole name.
+    await expect(current, at).toHaveText('Issues by sample-author-2');
+    expect(await crumbs.evaluate((list) => list.scrollWidth <= list.clientWidth), at).toBe(true);
+    expect(await inside(current, crumbs), at).toBe(true);
+  }
+});
+
+test('at 320px the metric column beside a pinned column shows its values on the first screen', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await login(page);
+  for (const path of [
+    '/companies',
+    '/contributors?timeline',
+    '/repos?timeline&sample=mixed&group=quarter',
+  ]) {
+    await page.goto(path);
+    const area = page.getByRole('region', { name: /table scroll area$/ }).first();
+    await expect(area.locator('tbody tr').first()).toBeVisible();
+    await page.evaluate(() => document.fonts.ready);
+    const layout = await area.evaluate((element) => {
+      const box = element.getBoundingClientRect();
+      const [pinned, cell] = element.querySelector('tbody tr')!.querySelectorAll('td');
+      const text: { left: number; right: number }[] = [];
+      const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        // Screen-reader-only text is clipped to a 1px box.
+        if ((node.parentElement?.getBoundingClientRect().width ?? 0) <= 1) continue;
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        for (const rect of range.getClientRects())
+          if (rect.width > 0) text.push({ left: rect.left, right: rect.right });
+      }
+      return {
+        numeric: getComputedStyle(cell).textAlign === 'right',
+        pinnedRight: pinned.getBoundingClientRect().right,
+        visibleRight: box.left + element.clientWidth,
+        text,
+      };
+    });
+    expect(layout.numeric, path).toBe(true);
+    expect(layout.text.length, path).toBeGreaterThan(0);
+    // Clear of the pinned column and inside the area's visible width.
+    for (const rect of layout.text) {
+      expect(rect.left, path).toBeGreaterThanOrEqual(layout.pinnedRight);
+      expect(rect.right, path).toBeLessThanOrEqual(layout.visibleRight);
+    }
+  }
+});
+
+test('below 375px a name column beside a text column keeps its width, so no name gains a line', async ({
+  page,
+}) => {
+  await login(page);
+  /** Text lines in the pinned cell of each of the first six rows, and the next cell's alignment. */
+  const read = () =>
+    page
+      .getByRole('region', { name: /table scroll area$/ })
+      .first()
+      .evaluate((area) =>
+        [...area.querySelectorAll('tbody tr')].slice(0, 6).map((row) => {
+          const [pinned, next] = row.querySelectorAll('td');
+          const tops: number[] = [];
+          const walker = document.createTreeWalker(pinned, NodeFilter.SHOW_TEXT);
+          for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+            // Screen-reader-only text is clipped to a 1px box.
+            if ((node.parentElement?.getBoundingClientRect().width ?? 0) <= 1) continue;
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            for (const rect of range.getClientRects()) if (rect.width > 0) tops.push(rect.top);
+          }
+          tops.sort((a, b) => a - b);
+          return {
+            lines: tops.filter((top, index) => !index || top - tops[index - 1] > 4).length,
+            numericNext: getComputedStyle(next).textAlign === 'right',
+          };
+        }),
+      );
+  for (const id of [
+    'contributors',
+    'reviewers',
+    'company-detail',
+    'repo-credits-metric',
+  ] satisfies InventoryId[]) {
+    const counts: { lines: number; numericNext: boolean }[][] = [];
+    for (const width of [375, 320]) {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(pathOf(id));
+      await expect(
+        page
+          .getByRole('region', { name: /table scroll area$/ })
+          .first()
+          .locator('tbody tr')
+          .first(),
+      ).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
+      counts.push(await read());
+    }
+    const [wide, narrow] = counts;
+    expect(narrow.length, id).toBeGreaterThan(0);
+    // The column beside the names holds text, such as Account type.
+    expect(
+      narrow.every((row) => !row.numericNext),
+      id,
+    ).toBe(true);
+    expect(
+      narrow.map((row) => row.lines),
+      id,
+    ).toEqual(wide.map((row) => row.lines));
+  }
+});
+
+test('a toolbar reset stays level with its last row of fields, and starts the row on phones', async ({
+  page,
+}) => {
+  await login(page);
+  for (const [path, region] of [
+    ['/repos?timeline', 'Timeline scope'],
+    ['/contributors?v=1', 'Contribution report scope'],
+  ] as const) {
+    for (const width of [768, 390]) {
+      const at = `${path} at ${width}px`;
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const groups = await page
+        .getByRole('region', { name: region, exact: true })
+        .locator('fieldset')
+        .evaluateAll((sets) =>
+          sets.flatMap((set) => {
+            const controls = [...set.querySelectorAll('button, select')].filter(
+              (control) => control.getClientRects().length > 0,
+            );
+            const reset = controls.find((control) =>
+              /^Reset (view|filters)$/.test(control.textContent?.trim() ?? ''),
+            );
+            const fields = controls.filter((control) => control !== reset);
+            if (!reset || !fields.length) return [];
+            return [
+              {
+                group: set.getBoundingClientRect().left,
+                reset: reset.getBoundingClientRect().toJSON() as DOMRect,
+                lastRow: Math.max(...fields.map((field) => field.getBoundingClientRect().bottom)),
+              },
+            ];
+          }),
+        );
+      expect(groups.length, at).toBeGreaterThan(0);
+      for (const { group, reset, lastRow } of groups) {
+        if (width === 768) expect(Math.abs(reset.bottom - lastRow), at).toBeLessThanOrEqual(2);
+        else expect(Math.abs(reset.left - group), at).toBeLessThanOrEqual(1);
+      }
+    }
+  }
+});
+
+test('toolbar summaries wrap whole facts and never start a line with a separator', async ({
+  page,
+}) => {
+  await login(page);
+  for (const path of [
+    '/contributors?timeline&sample=empty',
+    '/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=medianMergeDays',
+  ]) {
+    for (const width of [320, 390]) {
+      const at = `${path} at ${width}px`;
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const summaries = await page
+        .getByRole('region', { name: /^(Timeline scope|Selected repository scope)$/ })
+        .evaluateAll((regions) =>
+          regions.flatMap((region) => {
+            const summary = region.lastElementChild!;
+            const separators = [...summary.querySelectorAll('[aria-hidden="true"]')];
+            if (summary.tagName !== 'P' || !separators.length) return [];
+            const style = getComputedStyle(summary);
+            const box = summary.getBoundingClientRect();
+            const left = box.left + parseFloat(style.paddingLeft);
+            const right = box.right - parseFloat(style.paddingRight);
+            const range = document.createRange();
+            return [
+              {
+                left,
+                right,
+                // Where each separator's dot is drawn.
+                dots: separators.map((separator) => {
+                  const text = separator.firstChild as Text;
+                  const at = text.data.indexOf('·');
+                  range.setStart(text, at);
+                  range.setEnd(text, at + 1);
+                  return range.getBoundingClientRect().left;
+                }),
+                // Each fact's line boxes, and where its box starts and ends.
+                items: [...summary.children].map((item) => {
+                  range.selectNodeContents(item);
+                  const tops = [...range.getClientRects()]
+                    .filter((rect) => rect.width > 0)
+                    .map((rect) => rect.top)
+                    .sort((a, b) => a - b);
+                  const box = item.getBoundingClientRect();
+                  return {
+                    text: item.textContent ?? '',
+                    lines: tops.filter((top, index) => !index || top - tops[index - 1] > 4).length,
+                    left: box.left,
+                    right: box.right,
+                  };
+                }),
+              },
+            ];
+          }),
+        );
+      expect(summaries.length, at).toBeGreaterThan(0);
+      for (const summary of summaries) {
+        for (const dot of summary.dots) expect(dot, at).toBeGreaterThan(summary.left + 1);
+        // A fact takes more than one line only when it is longer than the whole line.
+        for (const item of summary.items)
+          if (item.lines > 1) {
+            expect(item.left, `${at}: ${item.text}`).toBeCloseTo(summary.left, 0);
+            expect(item.right, `${at}: ${item.text}`).toBeCloseTo(summary.right, 0);
+          }
+      }
+    }
+  }
+});
+
+test('the Current backlog description keeps its separator on the Open now line', async ({
+  page,
+}) => {
+  await login(page);
+  for (const id of ['repos-overview', 'repos-comparison'] satisfies InventoryId[]) {
+    for (const width of [320, 390]) {
+      const at = `${id} at ${width}px`;
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(pathOf(id));
+      await page.evaluate(() => document.fonts.ready);
+      const label = page.getByText('Open now', { exact: true });
+      // Its one separator stays on the label's line, including at 320px, where the line wraps.
+      const lines = await label.evaluate((element) => {
+        const range = document.createRange();
+        const top = (node: Text, offset: number) => {
+          range.setStart(node, offset);
+          range.setEnd(node, offset + 1);
+          return range.getBoundingClientRect().top;
+        };
+        const description = element.parentElement!.parentElement!;
+        const walker = document.createTreeWalker(description, NodeFilter.SHOW_TEXT);
+        const texts: Text[] = [];
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) texts.push(node as Text);
+        const dots = texts.filter((text) => text.data.includes('·'));
+        const last = texts[texts.length - 1];
+        return {
+          dots: dots.map((text) => top(text, text.data.indexOf('·'))),
+          label: top(element.firstChild as Text, 0),
+          end: top(last, last.data.length - 1),
+        };
+      });
+      if (width === 320) expect(lines.end, at).toBeGreaterThan(lines.label + 1);
+      expect(lines.dots.length, at).toBe(1);
+      expect(Math.abs(lines.dots[0] - lines.label), at).toBeLessThanOrEqual(1);
+    }
+  }
+});
+
+test('the setup card clears the theme button on phones', async ({ page }) => {
+  await page.goto('/auth/setup');
+  const card = page
+    .getByRole('heading', { name: 'Accounts are managed by your administrator', exact: true })
+    .locator('..');
+  const theme = page.getByRole('button', { name: 'Theme settings', exact: true });
+  for (const width of [320, 375, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    const [a, b] = [(await theme.boundingBox())!, (await card.boundingBox())!];
+    const overlaps =
+      a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+    expect(overlaps, `${width}px`).toBe(false);
   }
 });

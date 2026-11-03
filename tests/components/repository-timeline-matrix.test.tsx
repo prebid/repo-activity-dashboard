@@ -274,10 +274,14 @@ it('labels weekly windows with their covered dates instead of repeating two week
   const user = userEvent.setup();
   render(preview(report('reference', 'issuesClosed', { ...request, grouping: 'week' })));
   expect(screen.getByRole('status')).toHaveTextContent('Sep 7, 2026 – Oct 24, 2026');
-  // Weekly headers say a shared month and year once.
-  expect(screen.getByRole('button', { name: 'Sep 7–13, 2026' })).toBeVisible();
-  expect(screen.getByRole('columnheader', { name: 'Sep 28 – Oct 4, 2026' })).toBeVisible();
-  expect(screen.getByRole('columnheader', { name: 'Oct 19–25, 2026 Partial' })).toBeVisible();
+  // Weekly headers say a shared month and year once, each date held together by no-break spaces.
+  expect(screen.getByRole('button', { name: 'Sep\u00a07–13,\u00a02026' })).toBeVisible();
+  expect(
+    screen.getByRole('columnheader', { name: 'Sep\u00a028 – Oct\u00a04,\u00a02026' }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('columnheader', { name: 'Oct\u00a019–25,\u00a02026 Partial' }),
+  ).toBeVisible();
   await user.click(screen.getByRole('button', { name: 'Earlier' }));
   expect(screen.getByRole('status')).toHaveTextContent('Jun 15, 2026 – Sep 6, 2026');
 });

@@ -1,5 +1,5 @@
 'use client';
-import { useState, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ExpandIcon } from '@/components/ui/icons';
@@ -13,6 +13,7 @@ import {
 import styles from './dashboard.module.css';
 import { BrandLogo } from './brand-logo';
 import { LinkPending } from '@/components/navigation/link-pending';
+import { reveal } from '@/components/navigation/view-bar';
 import { followCaptured } from '@/lib/navigation/follow-captured';
 import { contributionLensForLocation } from '@/lib/presentation/contribution-lens';
 import { useContributionEntry } from '@/lib/navigation/use-contribution-entry';
@@ -54,6 +55,15 @@ export function DashboardHeader({
   const [repositoriesOpen, setRepositoriesOpen] = useState(false);
   const navigation = usePendingNavigation();
   const inRepos = activePath.startsWith('/repos/');
+  // At phone width the navigation row scrolls sideways, so the current destination is brought
+  // into view whenever the page or the lens changes.
+  const navigationRow = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const current = navigationRow.current?.querySelector(
+      '[aria-current="page"], [data-active="true"]',
+    );
+    if (current) reveal(current);
+  }, [activePath, lens]);
   // A menu item closes with its menu, so the router follows it and the trigger shows it pending.
   // Modified clicks keep the browser's behaviour.
   function followRepository(event: MouseEvent<HTMLAnchorElement>, href: string) {
@@ -78,7 +88,7 @@ export function DashboardHeader({
           <BrandLogo size="header" />
           <LinkPending />
         </Link>
-        <nav aria-label="Main navigation" className={styles.navigation}>
+        <nav ref={navigationRow} aria-label="Main navigation" className={styles.navigation}>
           <Link
             prefetch={false}
             href={overviewEntry}

@@ -170,8 +170,11 @@ export function AllRepositoriesView({
             }
             description={
               <span className={styles.scope}>
-                <span className={styles.scopeLabel}>Open now</span>
-                <span>· Age, reviews and approvals exclude drafts</span>
+                <span>
+                  <span className={styles.scopeLabel}>Open now</span>
+                  {' ·'}
+                </span>
+                <span>Age, reviews and approvals exclude drafts</span>
               </span>
             }
             visibility={{ value: backlogVisibility, onChange: changeBacklogVisibility }}

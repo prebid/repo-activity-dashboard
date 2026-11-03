@@ -46,12 +46,18 @@ import { tablePageSize } from '@/models/table-query';
  * controller's query, and `none` means the table has no search.
  */
 export type DataTableSearch = 'local' | 'external' | 'none';
+/** A label that leads with a count and its noun, such as "0 approvals". */
+const leadingCount = /^\d+\s+\S+/;
 /**
  * A header label split beside its first or last word, the space staying in the other part:
- * `[first word, rest]` or `[all but the last word, last word]`. The sort glyph keeps to that word.
+ * `[first word, rest]` or `[all but the last word, last word]`. The sort glyph keeps to that word;
+ * a leading count keeps its noun too, so "0 approvals" never parts after its numeral.
  */
 function splitAtEdgeWord(label: string, edge: 'first' | 'last'): [string, string] {
-  const at = edge === 'first' ? label.search(/\s/) : label.search(/\s\S*$/);
+  const at =
+    edge === 'first'
+      ? (leadingCount.exec(label)?.[0].length ?? label.search(/\s/))
+      : label.search(/\s\S*$/);
   if (at < 0) return edge === 'first' ? [label, ''] : ['', label];
   return edge === 'first'
     ? [label.slice(0, at), label.slice(at)]
@@ -170,6 +176,10 @@ export function DataTable<T extends { id: string }>({
   );
   const grouped = sections.some((section) => section.label);
   const pinned = visibleColumns.some((column) => column.pinned);
+  // Whether the first column after the pinned one holds numbers, whose right-aligned values a
+  // narrow screen shows only when the pinned column narrows (data-table.module.css).
+  const besidePinned = visibleColumns[visibleColumns.findIndex((column) => column.pinned) + 1];
+  const numericBesidePinned = pinned && besidePinned?.align === 'right';
   const sized = visibleColumns.some((column) => column.width);
   const growing = visibleColumns.some((column) => column.grow);
   const minimumWidth = visibleColumns.reduce(
@@ -225,6 +235,10 @@ export function DataTable<T extends { id: string }>({
       wrapper.toggleAttribute(
         'data-more',
         node.scrollLeft + node.clientWidth < node.scrollWidth - 1,
+      );
+      wrapper.toggleAttribute(
+        'data-more-below',
+        node.scrollTop + node.clientHeight < node.scrollHeight - 1,
       );
     };
     const thead = node.querySelector('thead')!;
@@ -325,6 +339,7 @@ export function DataTable<T extends { id: string }>({
     // The glyph keeps to the word beside it, so it follows the text of a wrapped label.
     const numeric = column.align === 'right';
     const [head, tail] = splitAtEdgeWord(column.label, numeric ? 'first' : 'last');
+    const counted = numeric && leadingCount.test(column.label);
     const icon = <SortIcon direction={direction} />;
     return (
       <th
@@ -354,7 +369,7 @@ export function DataTable<T extends { id: string }>({
             })
           }
         >
-          <span className={styles.label}>
+          <span className={cn(styles.label, counted && styles.countLabel)}>
             {numeric ? (
               <>
                 <span className={styles.glyphLeads}>
@@ -392,6 +407,8 @@ export function DataTable<T extends { id: string }>({
             <h2 className={styles.title} tabIndex={anchor ? -1 : undefined}>
               {title}
             </h2>
+            {/* A word joiner, so the help button stays on the title's last line in WebKit too. */}
+            {'\u2060'}
             <ColumnDefinitions title={title} columns={visibleColumns} disabled={!interactive} />
           </div>
           {description && <div className={styles.description}>{description}</div>}
@@ -476,6 +493,7 @@ export function DataTable<T extends { id: string }>({
           role="region"
           aria-label={title + ' table scroll area'}
           aria-describedby={overflows ? id + '-scroll-hint' : undefined}
+          data-numeric-beside-pinned={numericBesidePinned ? '' : undefined}
           tabIndex={0}
         >
           <table

@@ -63,6 +63,7 @@
   font-size: var(--prebid-text-body);
   line-height: 1.7;
   margin-top: 10px;
+  text-wrap: balance;
 }
 .form {
   display: grid;
@@ -209,6 +210,12 @@
   line-height: var(--prebid-leading-small);
 }
 
+/* The setup page's card, which renders outside .page, starts below the theme button on phones. */
+@media (max-width: 600px) {
+  .surface > section {
+    margin-top: 32px;
+  }
+}
 @media (max-width: 480px) {
   .card {
     padding: 30px 25px 25px;

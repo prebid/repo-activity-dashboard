@@ -167,6 +167,10 @@ const coreMetricHeadings: Record<ContributionMetric, string> = {
   mergesPerformed: 'Reviewing',
   issuesAuthored: 'Issues',
 };
+/** A core metric's display-only heading, for the report tables and Over time alike. */
+export function coreMetricHeading(id: string): string | undefined {
+  return isReportMetric(id) && isCoreMetric(id) ? coreMetricHeadings[id] : undefined;
+}
 /**
  * Every number column declares one width, so at the table's minimum width their headers wrap
  * alike; above it the table shares the surplus among them.
@@ -175,7 +179,7 @@ function numberColumn(id: string): Pick<DataColumn<unknown>, 'width' | 'align' |
   return {
     width: 126,
     align: 'right',
-    displayGroup: isReportMetric(id) && isCoreMetric(id) ? coreMetricHeadings[id] : undefined,
+    displayGroup: coreMetricHeading(id),
   };
 }
 function metricCell<T extends { metrics: ContributionValues; additionalMetrics: AdditionalValues }>(
@@ -249,10 +253,11 @@ export function contributorColumns(
           </div>
         ),
       };
+    // "Unmapped company" keeps one line.
     if (column.id === 'company')
       return {
         ...column,
-        width: 130,
+        width: 168,
         cell: (row) => (
           <EntityLink
             links={links}
@@ -263,7 +268,8 @@ export function contributorColumns(
           </EntityLink>
         ),
       };
-    if (column.id === 'actorType') return { ...column, width: 110 };
+    // The "Account type" header and its sort icon keep one line, as do two-word types.
+    if (column.id === 'actorType') return { ...column, width: 132 };
     return {
       ...column,
       ...numberColumn(column.id),

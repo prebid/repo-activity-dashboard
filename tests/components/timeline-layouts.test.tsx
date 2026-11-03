@@ -91,7 +91,16 @@ it('renders chronological contribution periods, separate metrics and no unfinish
   expect(screen.getByRole('heading', { name: 'Contributors', level: 1 })).toBeVisible();
   expect(screen.getByRole('link', { name: 'Over time' })).toHaveAttribute('aria-current', 'page');
   const table = screen.getByRole('table');
-  expect(table.querySelectorAll('thead tr')).toHaveLength(1);
+  // The core metrics sit under the Report table's headings, over their plain labels.
+  expect(table.querySelectorAll('thead tr')).toHaveLength(2);
+  expect(within(table).getByRole('columnheader', { name: 'Authoring' })).toHaveAttribute(
+    'colspan',
+    '2',
+  );
+  expect(within(table).getByRole('columnheader', { name: 'Issues' })).toHaveAttribute(
+    'colspan',
+    '1',
+  );
   expect(table.querySelectorAll('tbody tr')).toHaveLength(10);
   const first = table.querySelector<HTMLElement>('tbody tr [data-column="period"]')!;
   expect(first).toHaveTextContent('Jan 2026');
@@ -100,7 +109,7 @@ it('renders chronological contribution periods, separate metrics and no unfinish
   const last = table.querySelector<HTMLElement>('tbody tr:last-child [data-column="period"]')!;
   expect([...last.firstElementChild!.children].map((line) => line.textContent)).toEqual([
     'Oct 2026',
-    'Oct 1–24, 2026',
+    'Oct\u00a01–24,\u00a02026',
     'Partial',
   ]);
   expect(table.querySelector('tbody tr:last-child [data-column="prsAuthored"]')).toHaveTextContent(
@@ -384,10 +393,19 @@ it('prints a full week’s range once and adds covered dates only to a partial w
   const periods = [
     ...screen.getByRole('table').querySelectorAll<HTMLElement>('tbody [data-column="period"]'),
   ].map((cell) => [...cell.firstElementChild!.children].map((line) => line.textContent));
-  expect(periods[0]).toEqual(['Dec 29, 2025 – Jan 4, 2026', 'Jan 1–4, 2026', 'Partial']);
-  expect(periods[1]).toEqual(['Jan 5–11, 2026']);
-  expect(periods).toContainEqual(['Jan 26 – Feb 1, 2026']);
-  expect(periods.at(-1)).toEqual(['Oct 19–25, 2026', 'Oct 19–24, 2026', 'Partial']);
+  // No-break spaces hold each date together, so a wrapped range breaks only around its dash.
+  expect(periods[0]).toEqual([
+    'Dec\u00a029,\u00a02025 – Jan\u00a04,\u00a02026',
+    'Jan\u00a01–4,\u00a02026',
+    'Partial',
+  ]);
+  expect(periods[1]).toEqual(['Jan\u00a05–11,\u00a02026']);
+  expect(periods).toContainEqual(['Jan\u00a026 – Feb\u00a01,\u00a02026']);
+  expect(periods.at(-1)).toEqual([
+    'Oct\u00a019–25,\u00a02026',
+    'Oct\u00a019–24,\u00a02026',
+    'Partial',
+  ]);
 });
 it('keeps the full 500-interval chart independent of the 50-row table page', async () => {
   const user = userEvent.setup();

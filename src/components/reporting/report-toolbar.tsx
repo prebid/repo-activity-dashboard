@@ -131,20 +131,22 @@ export function ReportToolbar({
 
 function Summary({ summary }: { summary: ReportToolbarProps['summary'] }) {
   if (!summary || (!summary.lead && !summary.facts.length)) return null;
+  const items: readonly ReactNode[] = summary.lead
+    ? [summary.lead, ...summary.facts]
+    : summary.facts;
   return (
     <p className={styles.summary}>
-      {summary.lead && <span className={styles.lead}>{summary.lead}</span>}
-      {summary.facts.map((fact, index) => (
+      {items.map((item, index) => (
         <Fragment key={index}>
-          {(index > 0 || Boolean(summary.lead)) && (
-            <>
-              {' '}
+          {index > 0 && ' '}
+          <span className={styles.item}>
+            <span className={index === 0 && summary.lead ? styles.lead : undefined}>{item}</span>
+            {index < items.length - 1 && (
               <span className={styles.separator} aria-hidden="true">
-                ·
-              </span>{' '}
-            </>
-          )}
-          <span>{fact}</span>
+                {' ·'}
+              </span>
+            )}
+          </span>
         </Fragment>
       ))}
     </p>

@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 12px;
   min-width: 0;
-  padding: 16px 20px;
+  padding: 16px 24px;
   border: 1px solid var(--prebid-line);
   border-radius: var(--prebid-radius-panel);
   background: var(--prebid-card);
@@ -46,9 +46,10 @@
   align-items: flex-end;
   gap: 8px;
 }
+/* A zero basis keeps the reset beside the fields: they wrap inside the room it leaves. */
 .controls {
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 0;
   flex-wrap: wrap;
   align-items: flex-end;
   gap: 8px;
@@ -62,6 +63,19 @@
 .reset {
   display: inline-flex;
   margin-left: auto;
+}
+/* Beside a visible legend, a reset-only group puts its reset on the overline's line, as tall as
+   the control row it would otherwise open. */
+.group:has(> .row > .controls:empty) > .legend {
+  width: auto;
+  margin-bottom: 0;
+  line-height: 34px;
+}
+/* Its own width at least, so where the reset does not fit beside the overline it drops below it
+   instead of overflowing a row narrowed by the float. */
+.group:has(> .row > .controls:empty) > .row {
+  clear: none;
+  min-width: max-content;
 }
 /* An empty live region stays in the tree so a later sentence is announced, but takes no room. */
 .status:empty {
@@ -78,13 +92,13 @@
   font-size: var(--prebid-text-small);
   line-height: var(--prebid-leading-small);
 }
-/* Inline flow, so the spaces around each separator stay in the text assistive technology reads. */
+/* Inline flow, so the spaces between items stay in the text assistive technology reads. The
+   summary is prose: its numbers take proportional figures. */
 .summary {
   padding-top: 12px;
   border-top: 1px solid var(--prebid-line-subtle);
   color: var(--prebid-muted);
   font-size: var(--prebid-text-small);
-  font-variant-numeric: var(--prebid-numeric);
   line-height: var(--prebid-leading-small);
   overflow-wrap: anywhere;
 }
@@ -97,12 +111,40 @@
   color: var(--prebid-ink);
   font-weight: 600;
 }
+/* Each fact wraps as a unit, and inside itself only when it is longer than a line. */
+.item {
+  display: inline-block;
+}
+/* The separator keeps to the item before it, so no line starts with one. */
 .separator {
   color: var(--prebid-muted);
+  white-space: nowrap;
+}
+/* A toolbar whose one group holds only its reset sets the reset beside the status line at every
+   width, so the card never opens with a row that holds the reset alone. On phones the sentence
+   wraps in the room the reset leaves. */
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > * {
+  grid-column: 1 / -1;
+}
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > .groups {
+  grid-row: 1;
+  grid-column: 2;
+}
+.toolbar:has(> .groups > .group:only-child > .row > .controls:empty) > .status {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: center;
 }
 @media (max-width: 600px) {
   .toolbar {
     padding: 14px 16px;
+  }
+  .controls {
+    flex-basis: 100%;
   }
   .reset {
     margin-left: 0;

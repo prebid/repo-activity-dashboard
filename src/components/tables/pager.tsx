@@ -41,6 +41,8 @@ export function Pager({
 }: PagerProps) {
   if (pageCount <= 1) return null;
   const text = { ...defaults, ...labels };
+  // Below 360px the buttons show their chevrons alone and keep their words as their names, so
+  // the position text stays on one line between them.
   return (
     <nav aria-label={label} className="flex items-center gap-2">
       <Button
@@ -51,13 +53,13 @@ export function Pager({
         onClick={() => onPageChange(page - 1)}
       >
         <PreviousIcon size={14} />
-        {text.previous}
+        <span className="max-[359px]:sr-only">{text.previous}</span>
       </Button>
       <span
         aria-live="polite"
         className={cn(
           size === 'sm' ? 'text-small' : 'text-body',
-          'text-muted-foreground tabular-nums lining-nums',
+          'whitespace-nowrap text-muted-foreground tabular-nums lining-nums',
         )}
       >
         {text.position(page, pageCount)}
@@ -69,7 +71,7 @@ export function Pager({
         disabled={disabled || page >= pageCount}
         onClick={() => onPageChange(page + 1)}
       >
-        {text.next}
+        <span className="max-[359px]:sr-only">{text.next}</span>
         <NextIcon size={14} />
       </Button>
     </nav>

@@ -91,7 +91,8 @@ jobs:
     needs: [checks, build]
     if: ${{ needs.checks.result == 'success' && needs.build.result == 'success' }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # A WebKit shard has run 29.5 minutes, so 30 left no headroom.
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.checks.outputs.browser_matrix) }}

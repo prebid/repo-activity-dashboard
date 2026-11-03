@@ -139,7 +139,8 @@ const sections = [
 /**
  * A whole page: a stand-in masthead, the page header, and the view bar with record tabs and the
  * section chips, over three anchored panels. Scrolling keeps the masthead and the bar stuck, the
- * current chip follows the scroll, and at 600px and below a Sections menu replaces the chips.
+ * current chip follows the scroll, and a Sections menu replaces the chips where they do not fit
+ * beside the tabs, and always at 600px and below.
  */
 function SectionsSpecimen() {
   const [expanded, setExpanded] = useState(false);

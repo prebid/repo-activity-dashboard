@@ -26,7 +26,7 @@ import {
   ContributionReportViewTabs,
   ContributionSubjectAvatar,
 } from './contribution-header';
-import { ContributionNavigationLink } from './contribution-columns';
+import { ContributionNavigationLink, coreMetricHeading } from './contribution-columns';
 
 /**
  * The links an Over time view takes from its screen, which derives them from the current URL.
@@ -45,7 +45,8 @@ export interface ContributionTimelineNavigation {
 
 /**
  * The Over time metric columns in each lens: every report metric, with the lens's three shown by
- * default (decisions C5 and D22); the rest are in Columns.
+ * default (decisions C5 and D22); the rest are in Columns. Core metrics carry the report table's
+ * display-only headings.
  */
 export const contributionTimelineMetrics: Readonly<
   Record<ContributionLens, TimelineMetricDefinition[]>
@@ -57,6 +58,7 @@ export const contributionTimelineMetrics: Readonly<
         id,
         label,
         group,
+        displayGroup: coreMetricHeading(id),
         description,
         selectionGroup,
         selectionSection,

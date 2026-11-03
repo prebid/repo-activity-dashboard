@@ -105,7 +105,12 @@ test('component catalog themes also reach portaled dialogs', async ({ page }) =>
 async function login(page: import('@playwright/test').Page) {
   await page.goto('/auth/login');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-  await expect(page).toHaveURL(/\/repos$/);
+  // Sign-in lands on All repositories. A bare /repos redirects to the viewer's saved view once
+  // one differs from the defaults, so the query may carry it, as when another tab changed a sort.
+  await expect(page).toHaveURL((url) => url.pathname === '/repos');
+  await expect(
+    page.getByRole('heading', { name: 'All repositories', exact: true, level: 1 }),
+  ).toBeVisible();
 }
 // --prebid-overlay in Dark (#1c2a37); dialogs must not fall back to the card or the canvas.
 const darkOverlay = 'rgb(28, 42, 55)';
@@ -246,6 +251,22 @@ test('style tokens, keyboard focus, themes and accessible foundation', async ({
   await page.setViewportSize({ width: 768, height: 900 });
   await expect(specimen).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath('foundation-narrow.png'), fullPage: true });
+});
+
+test('the example input keeps its label beside or directly above it', async ({ page }) => {
+  await login(page);
+  await page.goto('/foundation');
+  const label = page.getByText('Example input', { exact: true });
+  const field = page.getByRole('textbox', { name: 'Example input', exact: true });
+  for (const width of [320, 768]) {
+    await page.setViewportSize({ width, height: 900 });
+    const [l, f] = [(await label.boundingBox())!, (await field.boundingBox())!];
+    const centre = l.y + l.height / 2;
+    const beside = centre >= f.y && centre <= f.y + f.height;
+    const gap = f.y - (l.y + l.height);
+    const above = gap >= 0 && gap <= 8 && Math.abs(l.x - f.x) <= 1;
+    expect(beside || above, `${width}px`).toBe(true);
+  }
 });
 
 test('repository and column menus close and restore keyboard focus appropriately', async ({

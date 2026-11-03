@@ -2,6 +2,12 @@
 .sections {
   display: flex;
   align-items: center;
+  min-width: 0;
+}
+/* The caption and the chips. */
+.inline {
+  display: flex;
+  align-items: center;
   gap: 10px;
   min-width: 0;
 }
@@ -69,16 +75,53 @@
 .menu {
   display: none;
 }
-/* The menu keeps its button whole; the tabs beside it shrink and scroll instead. */
+/* Where the chips do not fit beside the tabs, as SectionNav measures, the Sections menu replaces
+   them; at 600px and below it always does. The menu keeps its button whole; the tabs beside it
+   shrink and scroll instead. The hidden chips keep their full width, laid out from the menu's
+   right edge towards the start, so the next measure reads it without widening the page. */
+.sections[data-compact] {
+  position: relative;
+  flex-shrink: 0;
+}
+.sections[data-compact] .inline {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: max-content;
+  visibility: hidden;
+  pointer-events: none;
+}
+.sections[data-compact] .menu {
+  display: block;
+}
 @media (max-width: 600px) {
   .sections {
+    position: relative;
     flex-shrink: 0;
   }
-  .caption,
-  .chips {
-    display: none;
+  .inline {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: max-content;
+    visibility: hidden;
+    pointer-events: none;
   }
   .menu {
     display: block;
+  }
+}
+/* The narrowest phones, and from 601 to 700px beside the record tabs: the trigger keeps its name
+   but shows only its icons, so it fits beside a segmented control or the three record tabs. */
+@media (max-width: 375px), (min-width: 601px) and (max-width: 700px) {
+  .menuLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

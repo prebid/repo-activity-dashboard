@@ -315,7 +315,8 @@ it('shows author account types by label, preserved login casing and supplied pro
     'href',
     authors.rows.find((row) => row.id === 'sample-bob')!.profileUrl,
   );
-  expect(within(table).queryByText(/@sample-bob/)).not.toBeInTheDocument();
+  // The link text, which may span several elements, shows the account's own casing.
+  expect(table).not.toHaveTextContent(/@sample-bob/);
   for (const login of ['sample-bob', 'SAMPLE-BOB']) {
     const records = selectRepositoryTimelineSupport(
       mixed,
