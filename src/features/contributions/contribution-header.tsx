@@ -64,7 +64,7 @@ const reviewersTab = { label: 'Reviewers', Icon: ReviewersIcon } as const;
 
 /**
  * Contributors | Companies, or Reviewers | Companies in the Reviewers lens: an overview's subjects,
- * on Report and on Over time.
+ * on Report and on Over time. The Companies lens lists companies only, so it has none.
  */
 export function ContributionAreaTabs({
   area,
@@ -177,7 +177,7 @@ export function ContributionHeader({
         : report.company,
     lens,
   );
-  const subjects = report.kind === 'overview' && (
+  const subjects = report.kind === 'overview' && lens !== 'all' && (
     <ContributionAreaTabs
       area={page.area}
       lens={lens}

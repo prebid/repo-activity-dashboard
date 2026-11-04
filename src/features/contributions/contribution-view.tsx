@@ -35,7 +35,8 @@ const clusterLabels: Record<PopulationRole, string> = {
 };
 /**
  * A focused report's six credit totals in two labelled clusters, Contributor activity and Reviewer
- * activity, the lens's own cluster first; each lists its role's metrics in report order.
+ * activity: Reviewer activity first in the Reviewers lens, Contributor activity first otherwise.
+ * Each lists its role's metrics in report order.
  */
 function ReportTotals({ page, links }: { page: ContributionPage; links: ContributionLinks }) {
   const id = useId();
@@ -280,7 +281,11 @@ export function ContributionView({
         ) : table.kind === 'members' ? (
           <DataTable
             {...tableCommon}
-            title={reviewers ? 'Company members' : 'Company contributors'}
+            title={
+              (page.lens ?? 'contributors') === 'contributors'
+                ? 'Company contributors'
+                : 'Company members'
+            }
             description={
               !page.hideZeroMembers
                 ? 'All included accounts are shown, including those with no counted contributions.'
