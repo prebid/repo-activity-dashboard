@@ -93,7 +93,10 @@ const placeholderValues = [
   'bot',
   'github bot',
 ] as const;
-/** Why a login is Unmapped: a blank company, a placeholder, or a stray file path. */
+/**
+ * Why a login is Unmapped: a blank company, a placeholder, or a stray file path, a value with a
+ * directory separator and a source-file extension.
+ */
 export const unmappedReasons = ['blank', ...placeholderValues, 'file path'] as const;
 export type UnmappedReason = (typeof unmappedReasons)[number];
 const placeholders = new Set<string>(placeholderValues);
@@ -113,7 +116,7 @@ const slug = (name: string) =>
 function attribution(value: string): Attribution {
   const trimmed = value.trim();
   if (!trimmed) return { kind: 'unmapped', reason: 'blank' };
-  if (/^\S*\/\S*$/.test(trimmed) || /\.js$/i.test(trimmed))
+  if (/^[\w.-]+(?:\/[\w.-]+)+\.(?:[cm]?[jt]sx?)$/i.test(trimmed))
     return { kind: 'unmapped', reason: 'file path' };
   let spelling = trimmed;
   // A parenthetical qualifies a name, as in "Name (Parent)"; the name without it is the company.
@@ -139,18 +142,30 @@ export interface CompanySheetImport {
   repeated: number;
   /** Logins left Unmapped, by the placeholder that left them so. */
   unmapped: Record<UnmappedReason, number>;
+  /** The values read as a stray file path, trimmed, without repeats and sorted. */
+  filePaths: string[];
   /** Companies whose sheet values differ from their display name, with those values as written. */
   spellings: { id: string; name: string; values: string[] }[];
+  /** Companies of the previous mapping that keep their id under a different display name. */
+  keptIds: { id: string; previousName: string; name: string }[];
+  /** Companies of the previous mapping that this export no longer lists, with their ids. */
+  droppedIds: { id: string; name: string }[];
 }
 
 /**
  * The mapping from a "Github Mapping – User List" CSV export. Logins are matched lowercased.
  * Placeholder companies leave a login Unmapped. Spellings that differ only in case, spacing,
  * punctuation or a parenthetical merge under the most frequent spelling, ties going to code-unit
- * order. Company ids are ASCII slugs of that name. A login listed with two different companies, a
- * missing column, an invalid login and an id two names would share are refused.
+ * order. A company the previous mapping lists under the same spelling keeps its id, whatever its
+ * display name now is; any other company's id is the ASCII slug of its name. A login listed with two
+ * different companies, a missing column, an invalid login, and a new id that two names would share
+ * or that the previous mapping gave another company are refused.
  */
-export function companyMappingFromSheet(csvText: string, exportedOn: string): CompanySheetImport {
+export function companyMappingFromSheet(
+  csvText: string,
+  exportedOn: string,
+  previous?: CompanyMapping | null,
+): CompanySheetImport {
   if (!calendarDateSchema.safeParse(exportedOn).success)
     throw new Error('Expected the export date as YYYY-MM-DD, not ' + JSON.stringify(exportedOn));
   const [header, ...records] = csvRecords(csvText);
@@ -166,6 +181,7 @@ export function companyMappingFromSheet(csvText: string, exportedOn: string): Co
   const loginColumn = column('Username');
   const companyColumn = column('Company');
   const logins = new Map<string, { line: number; attribution: Attribution }>();
+  const filePaths = new Set<string>();
   let rows = 0;
   let repeated = 0;
   for (const { line, fields } of records) {
@@ -178,6 +194,8 @@ export function companyMappingFromSheet(csvText: string, exportedOn: string): Co
       throw new Error(`CSV line ${line}: ${JSON.stringify(login)} is not a GitHub login.`);
     const key = normalizeGithubLogin(login);
     const row = attribution(fields[companyColumn]);
+    if (row.kind === 'unmapped' && row.reason === 'file path')
+      filePaths.add(fields[companyColumn].trim());
     const listed = logins.get(key);
     if (!listed) {
       logins.set(key, { line, attribution: row });
@@ -226,11 +244,33 @@ export function companyMappingFromSheet(csvText: string, exportedOn: string): Co
     group.values.add(row.value);
   }
 
-  const companies = new Map<string, { name: string; line: number }>();
-  const accounts: [string, string][] = [];
-  const spellings: CompanySheetImport['spellings'] = [];
-  for (const group of groups.values()) {
+  // A company the previous mapping lists keeps its id; the spelling key decides which one it is.
+  const previousByKey = new Map<string, { id: string; name: string }>();
+  for (const company of previous?.companies ?? []) {
+    const key = spellingKey(company.name);
+    const listed = previousByKey.get(key);
+    if (listed)
+      throw new Error(
+        `The previous mapping lists ${JSON.stringify(listed.name)} (${listed.id}) and ${JSON.stringify(company.name)} (${company.id}) as one company.`,
+      );
+    previousByKey.set(key, { id: company.id, name: company.name });
+  }
+  const named = [...groups].map(([key, group]) => {
     const [[name]] = [...group.counts].sort((a, b) => b[1] - a[1] || byCodeUnits(a[0], b[0]));
+    return { group, name, kept: previousByKey.get(key) };
+  });
+  const droppedIds = [...previousByKey]
+    .filter(([key]) => !groups.has(key))
+    .map(([, company]) => company)
+    .sort((a, b) => byCodeUnits(a.id, b.id));
+  const dropped = new Map(droppedIds.map((company) => [company.id, company]));
+
+  const companies = new Map<string, { name: string; line: number; kept: boolean }>();
+  // Kept ids first, so a new company's slug cannot take one.
+  for (const { group, name, kept } of named)
+    if (kept) companies.set(kept.id, { name, line: group.line, kept: true });
+  const ids = named.map(({ group, name, kept }) => {
+    if (kept) return kept.id;
     const id = slug(name);
     if (!id)
       throw new Error(
@@ -241,15 +281,33 @@ export function companyMappingFromSheet(csvText: string, exportedOn: string): Co
         `CSV line ${group.line}: the company ${JSON.stringify(name)} would take the reserved id unmapped.`,
       );
     const taken = companies.get(id);
+    if (taken?.kept)
+      throw new Error(
+        `The company ${JSON.stringify(name)} (CSV line ${group.line}) would take the id ${id}, which ${JSON.stringify(taken.name)} (CSV line ${taken.line}) keeps from the previous mapping.`,
+      );
     if (taken)
       throw new Error(
         `The companies ${JSON.stringify(taken.name)} (CSV line ${taken.line}) and ${JSON.stringify(name)} (CSV line ${group.line}) would share the id ${id}.`,
       );
-    companies.set(id, { name, line: group.line });
+    const gone = dropped.get(id);
+    if (gone)
+      throw new Error(
+        `The company ${JSON.stringify(name)} (CSV line ${group.line}) would take the id ${id}, which the previous mapping gave ${JSON.stringify(gone.name)}.`,
+      );
+    companies.set(id, { name, line: group.line, kept: false });
+    return id;
+  });
+
+  const accounts: [string, string][] = [];
+  const spellings: CompanySheetImport['spellings'] = [];
+  const keptIds: CompanySheetImport['keptIds'] = [];
+  named.forEach(({ group, name, kept }, index) => {
+    const id = ids[index];
     for (const login of group.logins) accounts.push([login, id]);
     const values = [...group.values].sort(byCodeUnits);
     if (values.some((value) => value !== name)) spellings.push({ id, name, values });
-  }
+    if (kept && kept.name !== name) keptIds.push({ id, previousName: kept.name, name });
+  });
   if (!accounts.length) throw new Error('The sheet export maps no login to a company.');
 
   const mapping = companyMappingSchema.parse({
@@ -261,5 +319,15 @@ export function companyMappingFromSheet(csvText: string, exportedOn: string): Co
     accounts: Object.fromEntries(accounts.sort(([a], [b]) => byCodeUnits(a, b))),
   });
   spellings.sort((a, b) => byCodeUnits(a.id, b.id));
-  return { mapping, rows, repeated, unmapped, spellings };
+  keptIds.sort((a, b) => byCodeUnits(a.id, b.id));
+  return {
+    mapping,
+    rows,
+    repeated,
+    unmapped,
+    filePaths: [...filePaths].sort(byCodeUnits),
+    spellings,
+    keptIds,
+    droppedIds,
+  };
 }

@@ -156,11 +156,29 @@ describe('company mapping from the sheet', () => {
 
   it('treats only the listed placeholders as Unmapped', () => {
     const result = companyMappingFromSheet(
-      csv('Username,Company', 'a,Blank', 'b,File Path', 'c,Bots Inc', 'd,lib/util'),
+      csv('Username,Company', 'a,Blank', 'b,File Path', 'c,Bots Inc', 'd,lib/util.js'),
       exportedOn,
     );
     expect(result.mapping.accounts).toEqual({ a: 'blank', b: 'file-path', c: 'bots-inc' });
     expect(result.unmapped['file path']).toBe(1);
+  });
+
+  it('reads only a path with a directory and a source-file extension as a stray file path', () => {
+    const result = companyMappingFromSheet(
+      csv(
+        'Username,Company',
+        'a,lib/util.js',
+        'b,src/kit/Widget.TSX',
+        'c, lib/util.js ',
+        'd,Foo/Bar',
+        'e,Example.js',
+      ),
+      exportedOn,
+    );
+    expect(result.unmapped['file path']).toBe(3);
+    expect(result.filePaths).toEqual(['lib/util.js', 'src/kit/Widget.TSX']);
+    expect(result.mapping.accounts).toEqual({ d: 'foo-bar', e: 'example-js' });
+    expect(companyMappingFromSheet(sheet, exportedOn).filePaths).toEqual(['src/fixture/util.js']);
   });
 
   it('refuses a login listed with two different companies, naming both lines', () => {
@@ -235,6 +253,111 @@ describe('company mapping from the sheet', () => {
     expect(() =>
       companyMappingFromSheet(csv('Username,Company', 'a,None', 'b,'), exportedOn),
     ).toThrow('The sheet export maps no login to a company.');
+  });
+});
+
+describe('company ids across refreshes', () => {
+  const later = '2025-10-01';
+  const header = 'Username,Company';
+
+  it('keeps the id of a company whose most frequent spelling changes', () => {
+    const first = companyMappingFromSheet(
+      csv(header, 'a,Blue Kite Media', 'b,Blue Kite Media', 'c,BlueKite Media'),
+      exportedOn,
+    );
+    expect(first.mapping.companies).toEqual([{ id: 'blue-kite-media', name: 'Blue Kite Media' }]);
+    const refreshed = csv(
+      header,
+      'a,Blue Kite Media',
+      'b,BlueKite Media',
+      'c,BlueKite Media',
+      'd,BlueKite Media',
+    );
+    // On its own the new majority spelling would give another id.
+    expect(companyMappingFromSheet(refreshed, later).mapping.companies).toEqual([
+      { id: 'bluekite-media', name: 'BlueKite Media' },
+    ]);
+
+    const next = companyMappingFromSheet(refreshed, later, first.mapping);
+    expect(next.mapping.companies).toEqual([{ id: 'blue-kite-media', name: 'BlueKite Media' }]);
+    expect(next.mapping.accounts).toEqual({
+      a: 'blue-kite-media',
+      b: 'blue-kite-media',
+      c: 'blue-kite-media',
+      d: 'blue-kite-media',
+    });
+    expect(next.keptIds).toEqual([
+      { id: 'blue-kite-media', previousName: 'Blue Kite Media', name: 'BlueKite Media' },
+    ]);
+    expect(next.droppedIds).toEqual([]);
+    // The id stays on the next refresh too, and an unchanged name is not listed.
+    const again = companyMappingFromSheet(refreshed, later, next.mapping);
+    expect(again.mapping).toEqual(next.mapping);
+    expect(again.keptIds).toEqual([]);
+  });
+
+  it('gives a new company its slug and lists the previous companies an export drops', () => {
+    const first = companyMappingFromSheet(
+      csv(header, 'a,Acme Widgets', 'b,Globex', 'c,Initech'),
+      exportedOn,
+    );
+    const next = companyMappingFromSheet(
+      csv(header, 'a,ACME widgets', 'c,Initrode Labs', 'd,Initech Group'),
+      later,
+      first.mapping,
+    );
+    expect(next.mapping).toEqual({
+      format: 1,
+      exportedOn: later,
+      companies: [
+        { id: 'acme-widgets', name: 'ACME widgets' },
+        { id: 'initech-group', name: 'Initech Group' },
+        { id: 'initrode-labs', name: 'Initrode Labs' },
+      ],
+      accounts: { a: 'acme-widgets', c: 'initrode-labs', d: 'initech-group' },
+    });
+    expect(next.keptIds).toEqual([
+      { id: 'acme-widgets', previousName: 'Acme Widgets', name: 'ACME widgets' },
+    ]);
+    expect(next.droppedIds).toEqual([
+      { id: 'globex', name: 'Globex' },
+      { id: 'initech', name: 'Initech' },
+    ]);
+    // Without a previous mapping nothing is kept or dropped.
+    for (const previous of [undefined, null]) {
+      const fresh = companyMappingFromSheet(csv(header, 'a,ACME widgets'), later, previous);
+      expect(fresh.mapping.companies).toEqual([{ id: 'acme-widgets', name: 'ACME widgets' }]);
+      expect([fresh.keptIds, fresh.droppedIds]).toEqual([[], []]);
+    }
+  });
+
+  it('refuses a new id that a kept or a dropped company holds', () => {
+    // Letters outside ASCII leave the slug, so these two spellings differ but share a slug.
+    const first = companyMappingFromSheet(csv(header, 'a,Kite 日本'), exportedOn);
+    expect(first.mapping.companies).toEqual([{ id: 'kite', name: 'Kite 日本' }]);
+    expect(() =>
+      companyMappingFromSheet(csv(header, 'b,Kite', 'a,Kite 日本'), later, first.mapping),
+    ).toThrow(
+      'The company "Kite" (CSV line 2) would take the id kite, which "Kite 日本" (CSV line 3) keeps from the previous mapping.',
+    );
+    expect(() => companyMappingFromSheet(csv(header, 'b,Kite'), later, first.mapping)).toThrow(
+      'The company "Kite" (CSV line 2) would take the id kite, which the previous mapping gave "Kite 日本".',
+    );
+  });
+
+  it('refuses a previous mapping that lists one company twice', () => {
+    const previous: CompanyMapping = {
+      format: 1,
+      exportedOn,
+      companies: [
+        { id: 'acme', name: 'Acme' },
+        { id: 'acme-co', name: 'ACME' },
+      ],
+      accounts: { a: 'acme', b: 'acme-co' },
+    };
+    expect(() => companyMappingFromSheet(csv(header, 'a,Acme'), later, previous)).toThrow(
+      'The previous mapping lists "Acme" (acme) and "ACME" (acme-co) as one company.',
+    );
   });
 });
 

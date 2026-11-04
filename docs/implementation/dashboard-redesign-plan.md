@@ -1413,13 +1413,13 @@ Approved 2026-11-03 against `b6fcd69`. P7 adds a top-level Companies destination
 11. **Invalid views.** `/contributors?lens=all` and `/reviewers?lens=all` show the Companies heading and recovery link, and the masthead marks Companies. `/contributors/export?lens=all` with the overview entity is refused.
 12. **Company attribution source.**
     - The source is the "Github Mapping – User List" sheet export, not GitHub's self-reported `account_profiles.company`, which would guess (`contributors.md:207`).
-    - The first import uses the 2025-09-12 export. Its conflicting `adserver-online` rows resolve to "Adserver Online" (maintainer, 2026-11-03), and the sheet is to be corrected.
+    - The first import uses the 2025-09-12 export. Its conflicting `adserver-online` rows resolve to "Adserver Online" (maintainer, 2026-11-03), and the sheet is to be corrected. The import refuses conflicts, so the first import needs the conflicting row corrected in the sheet, or in the export, before it runs.
     - Committing the generated file publishes login→company pairs in this public repository. It is committed only with the maintainer's approval (open).
 13. **Mapping rules.**
     - Match: logins are matched case-insensitively.
-    - Unmapped: blank, "None", "independent developer", "Small Pub", bot markers and the stray file path. No "Unknown Organization" pseudo-company. Bots stay classified from the database.
+    - Unmapped: blank, "None", "independent developer", "Small Pub", bot markers and a stray file path: a value with a directory separator and a source-file extension, such as `lib/util.js`, which the import prints. No "Unknown Organization" pseudo-company. Bots stay classified from the database.
     - Spelling merges: case, spacing and trailing-parenthetical variants merge automatically. Corporate lineages (Appnexus/Xandr, Smart Ad Server/Equativ, PubNative/Verve) stay separate.
-    - Ids: bare ASCII slugs of the canonical name, permanent across refreshes. `unmapped` is refused.
+    - Ids: bare ASCII slugs of the canonical name, and permanent: a refresh keeps an existing company's id, matched by its spelling key, even if its chosen display name changes. A company whose spelling key changes (a real rename) gets a new id, and the import lists it. `unmapped` is refused.
     - Conflicts: a login listed twice with different companies is refused, never resolved silently.
     - Prebid is a company. The PMC Reviewer column is out of scope (the Prebid-reviewer mapping).
 14. **One pull request**, with the work split across parallel workers.
@@ -1486,7 +1486,7 @@ No file changes under `src/lib/auth`, `src/middleware.ts`, `src/app/auth`, `src/
 
 ## P7 evidence
 
-Measured at `f0cd2a8` on `p7/integration`, cut from `feature/companies-lens` at `db47f39`: the core step `8fff1c7`; the server, views, shell and company-mapping steps (`3b55133`, `dc8b5d2`, `fcfed20`, `9c9e669`), each merged with a merge commit; `db47f39`, which reads `lens=all` on `/reviewers` as the Companies lens in the masthead and the document title; then the integration commits (inventory, the two-row masthead from 1260px with its specs, the lens and canonical-URL specs, the golden re-record). `bcd55ed` then added one browser test. After the full browser runs, the two-row masthead breakpoint moved from 1260px to 1280px (`7a142b8`) and then to 1279px, recorded under Masthead width; no other file under `src/` or `.storybook/` changed. One row at 1280px is the layout the full runs at `f0cd2a8` exercised: every browser spec that sets no viewport runs at the default 1280x720 of Desktop Chrome and Desktop Safari, where the masthead was one 64px row then and is one row again. The full-run results therefore stand for every width except 1261–1279px, where the masthead is now two rows; only `layout-width.spec.ts` and `view-bar.spec.ts` set a width in that range, and their reruns are under Checks.
+Measured at `f0cd2a8` on `p7/integration`, cut from `feature/companies-lens` at `db47f39`: the core step `8fff1c7`; the server, views, shell and company-mapping steps (`3b55133`, `dc8b5d2`, `fcfed20`, `9c9e669`), each merged with a merge commit; `db47f39`, which reads `lens=all` on `/reviewers` as the Companies lens in the masthead and the document title; then the integration commits (inventory, the two-row masthead from 1260px with its specs, the lens and canonical-URL specs, the golden re-record). `bcd55ed` then added one browser test. After the full browser runs, the two-row masthead breakpoint moved from 1260px to 1280px (`7a142b8`) and then to 1279px, recorded under Masthead width, and the company-mapping import changed, recorded under Company mapping; no other file under `src/` or `.storybook/` changed. One row at 1280px is the layout the full runs at `f0cd2a8` exercised: every browser spec that sets no viewport runs at the default 1280x720 of Desktop Chrome and Desktop Safari, where the masthead was one 64px row then and is one row again. The full-run results therefore stand for every width except 1261–1279px, where the masthead is now two rows; only `layout-width.spec.ts` and `view-bar.spec.ts` set a width in that range, and their reruns are under Checks.
 
 ### Checks
 
@@ -1568,6 +1568,8 @@ Re-recorded on `build:preview`; compared with the P6 record:
 ### Company mapping
 
 The code is connected: database sources read `src/server/company-mapping.json` through `companyMapping()`, and attribution is `current-mapping` when a mapping is loaded. The committed file is the empty form (format 1, `exportedOn` null, no companies, no accounts), because publishing login→company pairs awaits the maintainer (decision 12), so production company attribution stays `not-connected`. Samples are unchanged.
+
+After the full runs, the import changed in two ways (decision 13). `npm run data:companies` reads the committed mapping, when it is not the empty one, and a company it lists under the same spelling key keeps its id even when the export's most frequent spelling changes; the import prints the companies that keep an id under a new display name and the ids the export drops, and refuses a new id that a kept or dropped company holds. A stray file path is now only a value with a directory separator and a source-file extension, and the import prints each one. `company-mapping.test.ts` covers both with invented exports. The 2025-09-12 counts in `contributors.md` were measured before these changes and were not re-measured.
 
 ### Checkpoints
 
