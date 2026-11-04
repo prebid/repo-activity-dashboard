@@ -56,7 +56,7 @@ export function DashboardHeader({
   const [repositoriesOpen, setRepositoriesOpen] = useState(false);
   const navigation = usePendingNavigation();
   const inRepos = activePath.startsWith('/repos/');
-  // From 1120px down the navigation row scrolls sideways when its destinations do not fit, so the
+  // From 1260px down the navigation row scrolls sideways when its destinations do not fit, so the
   // current destination is brought into view whenever the page or the lens changes.
   const navigationRow = useRef<HTMLElement>(null);
   useEffect(() => {
