@@ -101,3 +101,10 @@ export const ReviewersActive: Story = {
     nextjs: { appDirectory: true, navigation: { query: { lens: 'reviewers' } } },
   },
 };
+/** The Companies lens overview: the masthead marks Companies, its fifth item, as the current page. */
+export const CompaniesActive: Story = {
+  args: { pending: false, activePath: '/companies' },
+  parameters: {
+    nextjs: { appDirectory: true, navigation: { query: { lens: 'all' } } },
+  },
+};

@@ -245,6 +245,59 @@ it('gives the Reviewers masthead link the shared scope and the Reviewers lens’
   });
 });
 
+it('gives the Companies masthead link the shared scope and the Companies lens’s own table', () => {
+  function Entry() {
+    return (
+      <a
+        href={useContributionEntry('alice', directory.repositories, '/companies', { lens: 'all' })}
+      >
+        Companies
+      </a>
+    );
+  }
+  seedPreferences(alice, {
+    'contributions.scope': saved(
+      (value) => (value.period = { kind: 'preset', preset: 'last-month' }),
+    ),
+    // The Contributors-lens Companies tab keeps its own choices.
+    'contributions.companies.sort': { sort: 'members', descending: true },
+    'contributions.all.companies.columns': {
+      version: 2,
+      cols: '-issuesAuthored',
+      hideZeroMembers: false,
+      showAllAccounts: false,
+    },
+    'contributions.all.companies.sort': { sort: 'mergesPerformed', descending: true },
+  });
+  // The server renders the bare entry, which keeps the lens.
+  expect(
+    renderToString(
+      <PreferenceBindingProvider binding={alice}>
+        <Entry />
+      </PreferenceBindingProvider>,
+    ),
+  ).toContain('href="/companies?lens=all"');
+  const companies = renderHook(
+    () => useContributionEntry('alice', directory.repositories, '/companies', { lens: 'all' }),
+    { wrapper: session(alice) },
+  );
+  expect(companies.result.current).toBe(
+    '/companies?lens=all&period=last-month&sort=-mergesPerformed&cols=-issuesAuthored',
+  );
+  // A new selectors literal on each render reads the same saved view.
+  companies.rerender();
+  expect(companies.result.current).toBe(
+    '/companies?lens=all&period=last-month&sort=-mergesPerformed&cols=-issuesAuthored',
+  );
+  // Without a viewer the link stays bare.
+  expect(
+    renderHook(
+      () => useContributionEntry(undefined, directory.repositories, '/companies', { lens: 'all' }),
+      { wrapper: session(alice) },
+    ).result.current,
+  ).toBe('/companies?lens=all');
+});
+
 it('reads each entry’s own table: scope and presentation on lists, presentation on subjects', () => {
   const sections: Record<string, unknown> = {
     'contributions.scope': saved((value) => (value.selection.actorTypes = ['human'])),

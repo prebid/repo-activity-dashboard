@@ -95,6 +95,7 @@ export const coveredStories = [
   'navigation-click-feedback--idle',
   'navigation-click-feedback--pending',
   'navigation-click-feedback--reviewers-active',
+  'navigation-click-feedback--companies-active',
   'navigation-page-header--overview',
   'navigation-page-header--breadcrumbs',
   'navigation-page-header--identity',
