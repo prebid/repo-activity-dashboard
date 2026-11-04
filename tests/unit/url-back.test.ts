@@ -176,6 +176,43 @@ describe('the Reviewers lens', () => {
   });
 });
 
+describe('the Companies lens', () => {
+  const companies = (values = {}): UrlView => ({ route: '/companies', segments: {}, values });
+  it('derives /companies?lens=all for its company and person pages', () => {
+    expect(derive(companies({ lens: 'all' }))).toEqual({ kind: 'top' });
+    expect(derive(companies({ lens: 'all', timeline: true, period: 'last-month' }))).toEqual({
+      kind: 'derived',
+      parent: companies({ lens: 'all', period: 'last-month' }),
+    });
+    expect(derive(company({ lens: 'all', view: 'repositories', sort: 'x' }))).toEqual({
+      kind: 'derived',
+      parent: companies({ lens: 'all' }),
+    });
+    // The lens has no people overview: a person page's parent is the Companies overview.
+    expect(derive(contributor({ lens: 'all', repo: ['prebidjs'], sort: 'x' }))).toEqual({
+      kind: 'derived',
+      parent: companies({ lens: 'all', repo: ['prebidjs'] }),
+    });
+    expect(derive(contributor({ lens: 'all', metric: 'prsAuthored' }))).toEqual({
+      kind: 'derived',
+      parent: companies({ lens: 'all' }),
+    });
+    expect(resolveBack(contributor({ lens: 'all', period: 'last-month' }))).toEqual([
+      {
+        available: true,
+        view: companies({ lens: 'all', period: 'last-month' }),
+        href: '/companies?lens=all&period=last-month',
+      },
+    ]);
+  });
+  it('writes - for the derived Companies overview and a path for a company parent', () => {
+    const child = contributor({ lens: 'all' });
+    expect(encodeFrame(child, companies({ lens: 'all' }))).toBe('-');
+    expect(encodeFrame(child, company({ lens: 'all' }))).toBe('/companies/id/company-acme');
+    expect(decodeFrame(child, '/companies/id/company-acme')).toEqual(company({ lens: 'all' }));
+  });
+});
+
 describe('frames', () => {
   it('writes - for a derived parent, ~ for its differences and a path for another route', () => {
     expect(encodeFrame(repoPage(), summary())).toBe('-');

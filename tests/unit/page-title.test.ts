@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   contributionPageTitle,
+  contributionQueryLens,
   contributionSubjectTitle,
   defaultPageTitle,
   repositoriesPageTitle,
@@ -159,6 +160,27 @@ describe('contributionPageTitle', () => {
       reportMetricLabel('mergesPerformed') + ' · Alice · Reviewers',
     ],
     ['companies', acme, 'lens=reviewers', 'Example Acme · Companies · Reviewers'],
+    // The Companies lens (P7 decision 9): every title gains " · All activity".
+    ['companies', 'overview', 'lens=all', 'Companies · All activity'],
+    ['companies', 'overview', 'timeline&lens=all', 'Over time · Companies · All activity'],
+    [
+      'companies',
+      'overview',
+      'lens=all&metric=mergesPerformed',
+      reportMetricLabel('mergesPerformed') + ' · Companies · All activity',
+    ],
+    ['companies', acme, 'lens=all', 'Example Acme · Companies · All activity'],
+    [
+      'companies',
+      acme,
+      'lens=all&view=repositories',
+      'By repository · Example Acme · All activity',
+    ],
+    ['companies', null, 'lens=all', 'Unmapped company · Companies · All activity'],
+    ['contributors', alice, 'lens=all', 'Alice · Companies · All activity'],
+    ['contributors', alice, 'timeline&lens=all', 'Over time · Alice · All activity'],
+    // The invalid /contributors?lens=all view is titled as the Companies overview (decision 11).
+    ['contributors', 'overview', 'lens=all', 'Companies · All activity'],
   ] as const)('titles %s %o with ?%s as %s', (area, subject, search, title) => {
     expect(contributionPageTitle(area, subject, query(search))).toBe(title);
   });
@@ -171,5 +193,27 @@ describe('contributionPageTitle', () => {
       title,
     );
     expect(contributionSubjectTitle('contributors', 'overview', 'reviewers')).toBe('Reviewers');
+  });
+  it('names the Companies lens’s overview Companies in either area', () => {
+    expect(contributionSubjectTitle('contributors', 'overview', 'all')).toBe('Companies');
+    expect(contributionSubjectTitle('companies', 'overview', 'all')).toBe('Companies');
+    expect(contributionSubjectTitle('contributors', alice, 'all')).toBe('Alice');
+    // An explicit lens wins over the query's, as /reviewers passes its own.
+    expect(contributionPageTitle('companies', 'overview', query(''), 'all')).toBe(
+      'Companies · All activity',
+    );
+    expect(contributionPageTitle('contributors', 'overview', query('lens=all'), 'reviewers')).toBe(
+      'Reviewers',
+    );
+  });
+  it('reads the raw query lens, valid or not, as the masthead does', () => {
+    for (const [search, lens] of [
+      ['', 'contributors'],
+      ['lens=reviewers', 'reviewers'],
+      ['lens=all', 'all'],
+      ['lens=companies', 'contributors'],
+      ['lens=contributors', 'contributors'],
+    ] as const)
+      expect(contributionQueryLens(query(search)), search).toBe(lens);
   });
 });

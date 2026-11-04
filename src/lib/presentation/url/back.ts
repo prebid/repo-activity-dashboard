@@ -179,9 +179,12 @@ function renamed(values: UrlValues, names: Record<string, string>) {
     if (values[from] !== undefined) result[to] = values[from];
   return result;
 }
-/** A contribution subject's area overview at its scope, under its lens. */
+/**
+ * A contribution subject's area overview at its scope, under its lens. The Companies lens has no
+ * people overview, so its person pages derive /companies with `lens=all`.
+ */
 function contributionOverview(route: UrlRoute, scope: Record<string, UrlValue>): UrlView {
-  if (route === '/companies/[...identity]')
+  if (route === '/companies/[...identity]' || scope.lens === 'all')
     return { route: '/companies', segments: {}, values: scope };
   const { lens, ...rest } = scope;
   return {

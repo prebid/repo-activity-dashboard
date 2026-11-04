@@ -11,6 +11,7 @@ import type {
 } from '@/models/contribution-settings';
 import type { TableQuery } from '@/models/table-query';
 import type { ContributionLens } from '@/models/contribution-lens';
+import { contributionOverviewPath } from './contribution-lens';
 import type { UrlView } from './url/back';
 import { parseQuery } from './url/codec';
 import {
@@ -43,7 +44,8 @@ type Values = Record<string, UrlValue>;
 
 /**
  * The route and segments a report target opens; the people overview is /reviewers in the Reviewers
- * lens, and every other route carries the lens as `lens=reviewers`.
+ * lens, and every other route carries the lens as `lens=reviewers`. The Companies lens has no people
+ * overview: both areas open /companies, and every route carries `lens=all`.
  */
 export function contributionTarget(
   target: ContributionTarget,
@@ -53,15 +55,7 @@ export function contributionTarget(
   segments: UrlSegments;
 } {
   if (typeof target === 'string')
-    return {
-      route:
-        target === 'companies'
-          ? '/companies'
-          : lens === 'reviewers'
-            ? '/reviewers'
-            : '/contributors',
-      segments: {},
-    };
+    return { route: contributionOverviewPath(target, lens), segments: {} };
   if (target.kind === 'contributor')
     return { route: '/contributors/[accountId]', segments: { accountId: [target.accountId] } };
   return {
@@ -77,13 +71,16 @@ export function contributionReportRoute(
 ) {
   return contributionTarget(focus.kind === 'overview' ? area : focus, lens);
 }
-/** The `lens` value a route takes for a lens: none on the people overviews, whose route is the lens. */
+/**
+ * The `lens` value a route takes for a lens: none for the default lens, and none on the people
+ * overviews, whose route is the lens.
+ */
 export function contributionLensValues(
   route: UrlRoute,
   lens: ContributionLens = 'contributors',
 ): Values {
-  return lens === 'reviewers' && route !== '/reviewers' && route !== '/contributors'
-    ? { lens: 'reviewers' }
+  return lens !== 'contributors' && route !== '/reviewers' && route !== '/contributors'
+    ? { lens }
     : {};
 }
 

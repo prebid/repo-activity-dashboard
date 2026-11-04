@@ -420,6 +420,44 @@ describe('the Reviewers lens', () => {
   });
 });
 
+describe('the Companies lens', () => {
+  it('carries `lens=all` on Companies, company, person, Over time and export views', () => {
+    for (const [route, query] of [
+      ['/companies', 'lens=all'],
+      ['/companies', 'timeline&lens=all'],
+      ['/companies', 'lens=all&metric=mergesPerformed'],
+      ['/contributors/[accountId]', 'lens=all'],
+      ['/companies/[...identity]', 'view=repositories&lens=all'],
+      ['/companies/export', 'entity=overview&layout=summary&columns=name&lens=all'],
+    ] as const)
+      expect(canonical(route, query).values.lens, route + '?' + query).toBe('all');
+    // The people overviews' route is their lens; `lens` is not a spelling of either.
+    expect(parseQuery('/contributors', 'lens=all').kind).toBe('invalid');
+    expect(parseQuery('/reviewers', 'lens=all').kind).toBe('invalid');
+    expect(parseQuery('/companies', 'lens=companies').kind).toBe('invalid');
+  });
+  it('opens /companies?lens=all as an entry and omits the lens’s defaults', () => {
+    expect(isEntry('/companies', { lens: 'all' })).toBe(true);
+    expect(isEntry('/companies', { timeline: true, lens: 'all' })).toBe(true);
+    expect(isEntry('/companies', { lens: 'all', period: 'last-month' })).toBe(false);
+    // Selectors keep registry order: Over time is `timeline&lens=all`.
+    expect(serializeQuery('/companies', { lens: 'all', timeline: true })).toBe('timeline&lens=all');
+    expect(withoutDefaults('/companies', { lens: 'all', sort: '-authoredPrsMerged' })).toEqual({
+      lens: 'all',
+    });
+    expect(
+      withoutDefaults('/companies', {
+        lens: 'all',
+        cols: ['-reviewerContributions'],
+        sort: '-reviewerContributions',
+      }),
+    ).toEqual({ lens: 'all', cols: ['-reviewerContributions'], sort: '-reviewerContributions' });
+    expect(urlHref('/companies', {}, { lens: 'all' }, { explicit: true })).toBe(
+      '/companies?lens=all&v=1',
+    );
+  });
+});
+
 it('accepts every sample account and company ID as a literal list item', () => {
   for (const scenario of contributionSampleScenarios) {
     const directory = contributionDirectorySample(scenario);

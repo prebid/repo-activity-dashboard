@@ -183,7 +183,7 @@ export const urlParams: readonly UrlParam[] = [
     values: ['members', 'repositories'],
   }),
   param('lens', 'enum', 'selector', contributionScopes, {
-    values: ['contributors', 'reviewers'],
+    values: ['contributors', 'reviewers', 'all'],
     exceptRoutes: ['/contributors', '/reviewers'],
   }),
   param('sample', 'enum', 'selector', repositoryTimelines, {

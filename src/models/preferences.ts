@@ -31,7 +31,7 @@ export const preferenceSectionKeys = {
     'timeline-support.authors.issues.sort',
   ],
   contributions: [
-    // The report scope, shared by both lenses, Companies and their Timelines.
+    // The report scope, shared by every lens, Companies and their Timelines.
     'contributions.scope',
     // Columns and sort per contribution table kind.
     'contributions.details.columns',
@@ -69,6 +69,18 @@ export const preferenceSectionKeys = {
     'timeline.reviewers.companies.overview',
     'timeline.reviewers.companies.contributor',
     'timeline.reviewers.companies.company',
+    // The Companies lens (`lens=all`): columns and sort per table kind it can show. Its people
+    // table is unreachable, because `lens` is refused on /contributors and /reviewers.
+    'contributions.all.companies.columns',
+    'contributions.all.companies.sort',
+    'contributions.all.members.columns',
+    'contributions.all.members.sort',
+    'contributions.all.repositories.columns',
+    'contributions.all.repositories.sort',
+    // The Companies lens: Timeline presentation for the views it can show.
+    'timeline.all.companies.overview',
+    'timeline.all.companies.company',
+    'timeline.all.contributors.contributor',
   ],
 } as const satisfies Record<PreferenceCookieName, readonly string[]>;
 

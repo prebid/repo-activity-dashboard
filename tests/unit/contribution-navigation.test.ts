@@ -94,6 +94,60 @@ it('keeps the Reviewers lens through people, company, metric and Over time links
     }),
   ).toBe('/contributors?v=1');
 });
+it('keeps the Companies lens through company, person and metric links', () => {
+  const alice = { kind: 'contributor', accountId: 'account-alice' } as const;
+  const acme = { kind: 'company', companyId: 'company-acme' } as const;
+  const all = (target: Parameters<typeof contributionHref>[0], returnTo?: string) =>
+    contributionHref(target, 'reference', returnTo, undefined, undefined, 'all');
+  // The lens has no people overview: both areas open /companies?lens=all.
+  expect(contributionPath('contributors', 'all')).toBe('/companies');
+  expect(contributionPath('companies', 'all')).toBe('/companies');
+  expect(contributionPath(alice, 'all')).toBe('/contributors/account-alice');
+  expect(all('companies')).toBe('/companies?lens=all&v=1');
+  expect(all('contributors')).toBe('/companies?lens=all&v=1');
+  // From the overview a company and a person derive it as their parent, so neither needs a frame.
+  expect(all(acme, '/companies?lens=all')).toBe('/companies/id/company-acme?lens=all');
+  const person = all(alice, '/companies?lens=all')!;
+  expect(person).toBe('/contributors/account-alice?lens=all');
+  const [parent] = resolveBack(contributionViewOf(person)!);
+  expect(parent).toMatchObject({ available: true, href: '/companies?lens=all&v=1' });
+  // From a company page the person keeps the company as its parent.
+  const member = all(alice, '/companies/id/company-acme?lens=all')!;
+  expect(member).toBe('/contributors/account-alice?lens=all&back=/companies/id/company-acme');
+  expect(
+    resolveBack(contributionViewOf(member)!).map((view) => view.available && view.href),
+  ).toEqual(['/companies/id/company-acme?lens=all&v=1', '/companies?lens=all&v=1']);
+  const report = selectContributions(contributionSample(), undefined, alice);
+  const metric = contributionMetricHref(
+    alice,
+    'reference',
+    report.context,
+    'mergesPerformed',
+    person,
+    undefined,
+    undefined,
+    'all',
+  )!;
+  // The frame's baseline already holds `lens=all`, from the derived Companies overview.
+  expect(metric).toBe(
+    '/contributors/account-alice?lens=all&metric=mergesPerformed&back=/contributors/account-alice',
+  );
+  expect(resolveBack(contributionViewOf(metric)!)[0]).toMatchObject({
+    available: true,
+    href: '/contributors/account-alice?lens=all&v=1',
+  });
+  // A saved Show all choice belongs to the Reviewers lens and never rides on a Companies link.
+  expect(
+    contributionHref(
+      'companies',
+      'reference',
+      undefined,
+      undefined,
+      { companies: { showAllAccounts: true } },
+      'all',
+    ),
+  ).toBe('/companies?lens=all&v=1');
+});
 it('carries the parent report as a back frame without accepting external return destinations', () => {
   const parent = '/companies/id/company-acme?view=repositories&sample=large&page=2';
   const href = contributionHref(

@@ -130,6 +130,8 @@ it('reads the Reviewers lens, and answers a misplaced Show all or snapshot with 
     [at('all', '/companies'), undefined],
     [{ lens: 'reviewers', all: true }, company],
     [at('metric=prsAuthored&all', '/reviewers'), undefined],
+    // Show all belongs to the Reviewers lens; the Companies lens already lists any activity.
+    [at('lens=all&all', '/companies'), undefined],
   ] as const)
     expect((await contributions('companies', values, focus)).status).toBe('invalid');
   expect(

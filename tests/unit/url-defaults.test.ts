@@ -21,6 +21,7 @@ import { repositoryColumnDefaults } from '@/lib/presentation/repository-page-pre
 import { stableJson } from '../support/golden-urls';
 import { repositoryCatalog } from '@/config/repositories';
 import { activityMetricIds, backlogMetricIds } from '@/models/repository-overview';
+import { contributionMetricIds } from '@/models/contributions';
 import { repositoryTimelineFamilyMetrics } from '@/models/repository-timeline';
 import type { RepositoryPageSource } from '@/models/repository-page';
 
@@ -103,6 +104,26 @@ describe('column tables', () => {
       'approvalContributions',
       'mergesPerformed',
     ]);
+    // The Companies lens shows the six credits in report order, on tables and Over time.
+    const credits = [
+      'prsAuthored',
+      'authoredPrsMerged',
+      'reviewerContributions',
+      'approvalContributions',
+      'mergesPerformed',
+      'issuesAuthored',
+    ];
+    expect(shown(contributionColumnTable('companies', 'all'))).toEqual([
+      'name',
+      'members',
+      ...credits,
+    ]);
+    expect(shown(contributionColumnTable('members', 'all'))).toEqual([
+      'name',
+      'actorType',
+      ...credits,
+    ]);
+    expect(shown(contributionTimelineColumnTable('all'))).toEqual(credits);
     expect(shown(contributionDetailColumnTable('prComments'))).toContain('lastAt');
     expect(shown(contributionDetailColumnTable('prsAuthored'))).not.toContain('lastAt');
     expect(shown(contributionDetailColumnTable('unknown'))).not.toContain('lastAt');
@@ -127,6 +148,9 @@ describe('column tables', () => {
       new Set(['reviewerContributions', 'approvalContributions', 'mergesPerformed']),
     );
     expect(columnTableOf('/companies', {})?.ids[1]).toBe('members');
+    expect(
+      shown(columnTableOf('/companies/[...identity]', { lens: 'all', view: 'repositories' })!),
+    ).toEqual(['name', ...contributionMetricIds]);
     expect(columnTableOf('/contributors', { metric: 'prsAuthored' })?.ids[0]).toBe('record');
     expect(columnTableOf('/repos', {})).toBeNull();
     expect(contributionTableOf('/reviewers', {})).toBe('contributors');
@@ -183,6 +207,9 @@ describe('defaultValue', () => {
       [['/reviewers', 'sort', {}], '-reviewerContributions'],
       [['/contributors', 'sort', { metric: 'prsAuthored' }], '-creditedAt'],
       [['/companies/export', 'sort', { lens: 'reviewers' }], '-reviewerContributions'],
+      [['/companies', 'sort', { lens: 'all' }], '-authoredPrsMerged'],
+      [['/companies/export', 'sort', { lens: 'all' }], '-authoredPrsMerged'],
+      [['/companies', 'sort', { lens: 'all', timeline: true }], 'period'],
       [['/repos', 'sort', {}], undefined],
       [['/repos', 'dsort', { timeline: true, detail: 'x' }], undefined],
       [['/repos', 'metric', { timeline: true }], ['prsOpened']],
@@ -210,6 +237,10 @@ describe('defaultValue', () => {
     expect(lensOf('/reviewers', {})).toBe('reviewers');
     expect(lensOf('/companies', { lens: 'reviewers' })).toBe('reviewers');
     expect(lensOf('/companies', {})).toBe('contributors');
+    expect(lensOf('/companies', { lens: 'all' })).toBe('all');
+    expect(lensOf('/contributors/[accountId]', { lens: 'all' })).toBe('all');
+    // The route is the lens on /reviewers.
+    expect(lensOf('/reviewers', { lens: 'all' })).toBe('reviewers');
     expect(recordKindOf({ metric: 'issuesClosed' })).toBe('issues');
     expect(recordKindOf({ metric: 'openIssues' })).toBe('issues');
     expect(recordKindOf({ metric: 'prsOpened' })).toBe('prs');
