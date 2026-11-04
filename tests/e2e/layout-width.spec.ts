@@ -239,7 +239,7 @@ test('Accounts sits beside the width and theme buttons for administrators', asyn
   }
 });
 
-test("an administrator's masthead keeps one row down to 1281px and takes two rows from 1280px", async ({
+test("an administrator's masthead keeps one row down to 1280px and takes two rows from 1279px", async ({
   page,
 }) => {
   await page.goto(
@@ -264,10 +264,10 @@ test("an administrator's masthead keeps one row down to 1281px and takes two row
 
   // One 64px row: the brand, the five destinations and the account group, left to right inside
   // the gutters, each clear of the one before it.
-  await page.setViewportSize({ width: 1281, height: 800 });
+  await page.setViewportSize({ width: 1280, height: 800 });
   expect((await header.boundingBox())!.height).toBe(64);
   const row = await boxes([brand, ...destinations, ...accountGroup]);
-  expect(row[0].x).toBeGreaterThanOrEqual(gutter(1281, 'wide') - 0.5);
+  expect(row[0].x).toBeGreaterThanOrEqual(gutter(1280, 'wide') - 0.5);
   for (let index = 1; index < row.length; index++)
     expect(row[index].x, 'control ' + index).toBeGreaterThanOrEqual(
       row[index - 1].x + row[index - 1].width - 0.5,
@@ -277,7 +277,7 @@ test("an administrator's masthead keeps one row down to 1281px and takes two row
     expect(box.y + box.height, 'control ' + index).toBeLessThanOrEqual(64);
   }
   const last = row[row.length - 1];
-  expect(last.x + last.width).toBeLessThanOrEqual(1281 - gutter(1281, 'wide') + 0.5);
+  expect(last.x + last.width).toBeLessThanOrEqual(1280 - gutter(1280, 'wide') + 0.5);
   expect(await header.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
   // The account name takes the shortage as an ellipsis and still shows six characters.
   const shown = await accountGroup[3].evaluate((button) => {
@@ -300,7 +300,7 @@ test("an administrator's masthead keeps one row down to 1281px and takes two row
 
   // Two rows: the brand and the account group, with the width switch still offered, over the
   // five destinations.
-  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.setViewportSize({ width: 1279, height: 800 });
   expect((await header.boundingBox())!.height).toBe(100);
   await expect(width).toBeVisible();
   const navigation = (await page
@@ -317,7 +317,7 @@ test("an administrator's masthead keeps one row down to 1281px and takes two row
         second[index - 1].x + second[index - 1].width - 0.5,
       );
   }
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1280);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1279);
 });
 
 test("an administrator's first masthead row fits from 320px without overlapping or cutting off the avatar", async ({

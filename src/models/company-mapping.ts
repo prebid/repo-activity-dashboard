@@ -10,8 +10,10 @@ import { calendarDateSchema } from './reporting-period';
  */
 
 /**
- * Company ids are bare ASCII slugs. They are stored in saved scopes and URLs, so they stay the same
- * across refreshes; `unmapped` is the Unmapped bucket's URL token.
+ * Company ids are bare ASCII slugs, stored in saved scopes and URLs, and permanent: a refresh keeps
+ * an existing company's id, matched by its spelling key, even if its chosen display name changes. A
+ * company whose spelling key changes (a real rename) gets a new id, and the import lists the id it
+ * drops. `unmapped` is the Unmapped bucket's URL token.
  */
 export const companyMappingIdSchema = z
   .string()
