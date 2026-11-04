@@ -557,9 +557,11 @@ it('reads the Companies lens over any activity: no Show all, no reviewer notice,
     [...screen.getByRole('table').querySelectorAll('tbody tr [data-column="name"]')].map(
       (cell) => cell.textContent,
     );
-  const view = render(<Preview data={page({ area: 'companies' })} />);
+  const contributors = render(<Preview data={page({ area: 'companies' })} />);
   const contributorsLens = listed();
-  view.rerender(<Preview data={page({ lens: 'all', area: 'companies' })} />);
+  contributors.unmount();
+  // A fresh mount, so the table is sorted by the Companies lens's own default.
+  const view = render(<Preview data={page({ lens: 'all', area: 'companies' })} />);
   expect(screen.getByRole('heading', { name: 'Companies', level: 1 })).toBeVisible();
   const companies = screen.getByRole('region', { name: 'Companies' });
   // The same companies, in the same order, as the Contributors lens lists, the unmapped row too.
@@ -607,6 +609,20 @@ it('names company members in the Companies lens and hides only members with ever
   expect(screen.getByRole('region', { name: 'Company members' })).toHaveTextContent(
     'All included accounts are shown, including those with no counted contributions.',
   );
+  // Eve, of Example Acme, has every total known zero: hidden with Hide zero on, listed with it off.
+  const acme = { kind: 'company', companyId: 'company-acme' } as const;
+  view.rerender(
+    <Preview data={page({ area: 'companies', focus: acme, hideZeroMembers: true, lens: 'all' })} />,
+  );
+  const acmeMembers = screen.getByRole('region', { name: 'Company members' });
+  expect(within(acmeMembers).queryByRole('link', { name: /^Eve/ })).toBeNull();
+  expect(within(acmeMembers).getByRole('link', { name: /^Alice/ })).toBeVisible();
+  view.rerender(<Preview data={page({ area: 'companies', focus: acme, lens: 'all' })} />);
+  expect(
+    within(screen.getByRole('region', { name: 'Company members' })).getByRole('link', {
+      name: /^Eve/,
+    }),
+  ).toBeVisible();
 });
 it('closes an open export when the listed population changes', async () => {
   const user = userEvent.setup();
