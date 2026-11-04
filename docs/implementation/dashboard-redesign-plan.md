@@ -17,14 +17,14 @@ Status: decisions approved 2026-10-31. P0 checkpoints approved 2026-11-01 (see `
 | --- | --- | --- |
 | PR base | Redesign pull requests branch from and target `main`. `codex/frontend-rebuild` (`d5a7020`) is contained in `main` and receives no new work. | `docs/product/README.md:36`, `:101` (this change) |
 | Masthead | Navy `#17232e` in both themes with a 3px Prebid-blue top rule; logo only, no product name beside it. | — (P4) |
-| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. At 600px and below the top navigation uses the 13px body size at 100% width, so its four destinations fit one row at 390px (P6). | `foundation-contracts.md` `## What visually locked means` (P1) |
+| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. At 600px and below the top navigation uses the 13px body size at 100% width (P6). Its five destinations do not fit one row there: at 390px the navigation row's scroll width is 445px in Chromium and WebKit on macOS and 468px in Chromium on Linux against its 390px width, so the row scrolls sideways and keeps the current destination in view. From 1260px down the masthead takes two rows, and the navigation row scrolls wherever its destinations do not fit; above 1260px it is one row, where an administrator's account name keeps at least six characters before its ellipsis (P7, amended). | `foundation-contracts.md` `## What visually locked means` (P1) |
 | Colour roles | Orange `#ffad32` means act and "you are here" (primary action; nav, tab and sort underline). Blue means links, selection, group rules, the row-hover bar and charts. The amber "Data as of" chip is the one other warm accent. | `login.md:50` already requires orange primary actions (P1, P2) |
 | Page header | Title flush left on every page with one meta line beneath; amber "Data as of" chip on the right; tabs and "On this page" section chips centred in a sticky view bar. Contribution pages drop the eyebrow and subtitle. | `all-repositories.md:232`, `repository-detail.md:32`, `all-repositories-plan.md:55` (its "new navigation system" clause only) (P4, amended) |
 | Sample-data notice | A "Sample data" chip in each page header's Data source, beside "Data as of", while reports read prepared samples (`reportingDataIsSample` in `src/config/reporting.ts`); the frame row stays removed. Re-added 2026-11-02 at the maintainer's request. | `all-repositories-plan.md:38`, `acceptance-matrix.md:26` (amended) |
 | Headline totals | Not added now; the `all-repositories-plan.md:55` clause "Do not add charts, headline KPI cards" stands. | — |
 | URLs | A URL records only fields that differ from fixed, versioned product defaults; an absent field never means a saved preference. A bare entry URL such as `/repos` redirects to the viewer's saved view only when that view differs from the defaults. Return context travels as a short `back=` frame only when the parent is not the derived default. Old links are decoded by the frozen current readers and answered with a 307 to the new form. | `foundation-contracts.md:21`, `:124`; `all-repositories-plan.md:78`, `:81`; `timeline-reporting-plan.md:85`, `:89`; `contributors.md:332`, `:372`, `:380`. `contributors.md:373` and `foundation-contracts.md:130` stay and govern the `back=` limit (P5) |
 | Preferences | Per-viewer preferences move from localStorage to validated cookies the server reads, so the first render is final. No new AWS storage; named server-stored views are a later milestone. | `foundation-contracts.md:18`, `:21` (its restoration and preference-identity sentences), `:36`, `:120`, `:126`, `:128`, `:130`, and a new `## Preference cookies` section; `all-repositories-plan.md:80`, `:82`, `:83`; `repository-detail.md:240`; `contributors.md:371`, `:372` (its scenario clause), `:380`; `timeline-reporting-plan.md:85` (P5b, amended) |
-| Contributions IA | Top navigation reads Contributors and Reviewers: two lenses over one report with shared filters and a Companies tab in each, each lens showing three default credit columns. Merges performed belongs to the Reviewer set. Reviewer-only row eligibility ships as a later step. | `contributors.md:29`, `:40`, `:70`, `:76`, `:274`, `:276`, `:324`–`:332`, `:377` (P6) |
+| Contributions IA | Top navigation reads Contributors, Reviewers and Companies: three lenses over one report with shared filters. Contributors and Reviewers each keep their Companies tab (`/companies` and `/companies?lens=reviewers`) and show three default credit columns. Companies is a third lens, `lens=all`: the same company rows as the Contributors-lens Companies tab with the six credits, sorted by Authored PRs merged, and no subject tabs; company and person pages carry the lens (P7, amended). Merges performed belongs to the Reviewer set. Reviewer-only row eligibility ships as a later step. | `contributors.md:29`, `:40`, `:70`, `:76`, `:274`, `:276`, `:324`–`:332`, `:377` (P6); `contributors.md` (P7) |
 | Deferred | Per-visit panel collapse; a condensed title with Back to top inside the stuck view bar; server-stored named views. | — |
 
 ## Architecture rules
@@ -168,7 +168,7 @@ Tests most likely affected: accessible names that include the typed sort glyph (
 
 ### P4 — Shell, page header and in-page navigation
 
-- Masthead: `--shell-height` 64px, sticky at the top (at 1000px and below, a 56px row plus a 44px navigation row; 1120px and below from P6, when a fourth destination joined the row); navigation labels in Mona Sans; header icon buttons 36×36 with a visible pressed state; an account menu (28px avatar, name, email, role, Change password outside preview builds, Sign out).
+- Masthead: `--shell-height` 64px, sticky at the top (at 1000px and below, a 56px row plus a 44px navigation row; 1120px and below from P6, when a fourth destination joined the row; 1260px and below from P7, when a fifth did); navigation labels in Mona Sans; header icon buttons 36×36 with a visible pressed state; an account menu (28px avatar, name, email, role, Change password outside preview builds, Sign out).
 - `PageHeader`: back link and title flush left, one meta line, the "Data as of" chip on the right inside `aside aria-label="Data source"`. Header rows have fixed heights so sibling tabs never move the toolbar; existing h1, region, tab-navigation and button accessible names are kept; the `ReportToolbar` summary row is the one place each page states its scope.
 - `ViewBar`: a fixed 44px bar holding the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; sticky at `top: var(--shell-height)`; `scroll-padding-top` equals the masthead height plus 44px plus 12px; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry. A "Sections" menu replaces the chips at 600px and below, and above 600px wherever the chips do not fit beside the tabs, as `SectionNav` measures (from the final visual inspection; 600px alone before it). P4 sets `--sticky-offset` for P3's sticky table headers.
 - Remove the frame's sample-data row. Merge the two contribution tab rows into the view bar.
@@ -1483,6 +1483,96 @@ No file changes under `src/lib/auth`, `src/middleware.ts`, `src/app/auth`, `src/
 
 - Masthead widths for five destinations; they are measured at Checkpoint B.
 - Amplify and CloudFront forwarding of a 41-section contributions cookie (the open P5b premise).
+
+## P7 evidence
+
+Measured at `f0cd2a8` on `p7/integration`, cut from `feature/companies-lens` at `db47f39`: the core step `8fff1c7`; the server, views, shell and company-mapping steps (`3b55133`, `dc8b5d2`, `fcfed20`, `9c9e669`), each merged with a merge commit; `db47f39`, which reads `lens=all` on `/reviewers` as the Companies lens in the masthead and the document title; then the integration commits (inventory, the 1260px masthead with its specs, the lens and canonical-URL specs, the golden re-record). `bcd55ed` then added one browser test. No file under `src/` or `.storybook/` changed after the builds below.
+
+### Checks
+
+| Check | Result |
+| --- | --- |
+| `npm run check` | exit 0; 199 test files, 3,138 tests, each verified as an individual pass |
+| `npm run test:accounts` | exit 0; 34 tests in 2 files |
+| `npm run audit:dependencies` | exit 0; 864 dependencies audited, none blocking; the one accepted advisory is the existing `minimatch` exception in `dependency-audit.md` |
+| `npm run build:production:fixture`, `npm run test:production` | exit 0; 13 tests in 4 files |
+| `npm run build:preview`, `npm run build:storybook` | exit 0 |
+| Full browser suite, Chromium | 854 passed in 19.5 minutes; `check-test-results.mjs playwright` verified 854 |
+| Full browser suite, WebKit | 853 passed in 25.6 minutes (the golden URL record runs in Chromium only); the checker verified 853 |
+| `contribution-lenses.spec.ts` after the full runs, Chromium and WebKit | 12 passed in each; the checker verified 12 each |
+
+The three new stories (`contributions-pages--companies-lens`, `timelines-layouts--companies-lens`, `navigation-click-feedback--companies-active`) passed the story-coverage spec with axe in Light and Dark, and the four new inventory views passed the document-title and inventory-design (Light and Dark) specs and the inventory-wide URL-budget spec, in both engines. The one test added after the full runs, that every metric stays addable in the Companies lens, changed only that spec file.
+
+Specs changed to follow the product before the full runs, which then had no failure:
+
+- `layout-width.spec.ts`: the masthead has five destinations. At 390px they keep their order on one row that scrolls sideways, each can be scrolled into view, and the page does not scroll. At 320px and 390px the current destination is inside the row and the viewport on the four Companies-lens views, three Reviewers-lens views, `/contributors` and `/companies`. An administrator's masthead is one 64px row at 1261px, with at least six characters of the account name before its ellipsis, and two rows at 1260px.
+- `view-bar.spec.ts`: the view bar sits under a 64px masthead at 1280px and 1261px and under a 100px one at 1260px.
+- `contribution-lenses.spec.ts`: without JavaScript exactly one masthead destination is marked on eight routes, Companies on `/companies?lens=all`, `/companies/id/company-acme?lens=all` and `/contributors/account-alice?lens=all`; the masthead's Companies link is followed with no document request and no hydration error; the Companies overview shows the six credits sorted by Authored PRs merged, "Columns · All credits" and Report and Over time without subject tabs; a company link keeps `lens=all`, and its "Back to Companies" crumb returns to the lens. After the full runs: its Columns menu locks only "Company (required)", and All columns shows all 39 metrics.
+- `canonical-urls.spec.ts`: a bare `/companies?lens=all` with a saved scope and Companies-lens sort answers 307 to `/companies?lens=all&period=last-month&sort=-mergesPerformed`, ignoring a saved Companies-tab sort; without a saved view it renders at its own address.
+
+### Exit
+
+- Six-credit table and every metric addable: `contribution-lenses.spec.ts` in Chromium and WebKit.
+- Exactly one masthead destination marked: without JavaScript on eight routes in `contribution-lenses.spec.ts`, and over 21 location rows in `dashboard-header.test.tsx`. No browser spec asserts it over every inventory view.
+- Both existing Companies tabs render as before: their recorded links change only by the masthead link (below), `/companies` still marks Contributors and `/companies?lens=reviewers` Reviewers, and their existing specs pass.
+- Company attribution from the mapping: `activity-database.test.ts` covers `current-mapping` with a mapping and `not-connected` without one, and `company-mapping.test.ts` the contract and the sheet conversion; no build rendered a non-empty mapping.
+
+### Masthead width (decision 4)
+
+Measured with Playwright 1.64.1 on `build:preview` and on the Storybook administrator story `repositories-all-repositories--administration`, whose account name is "Alice (sample)" (14 characters, 88–89px). The preview identities are viewers, and the preview build sends administration pages to `/repos`, so the administrator masthead was measured in the story the spec uses; a signed-in viewer on `/companies?lens=all` was measured too. Linux is the `mcr.microsoft.com/playwright:v1.64.1-noble` image on aarch64; CI runs x86_64. Each cell is the navigation row's scroll and client width (`sw/cw`) on two rows, or, on one row, whether every control is clear of the one before it and how many characters of the name show before its ellipsis.
+
+With the two-row masthead at 1120px and below, the administrator's one row did not fit at 1121px:
+
+| Width | Chromium, macOS | WebKit, macOS | Chromium, Linux |
+| --- | --- | --- | --- |
+| 1121 | overlaps by 30.5px; name 0 of 14 | overlaps by 30.5px; name 0 of 14 | overlaps by 64px; name 0 of 14 |
+| 1200 | clear; name 0 of 14 | clear; name 0 of 14 | clear; name 0 of 14 |
+| 1228 | clear; name 6 of 14 | clear; name 6 of 14 | clear; name 0 of 14 |
+| 1260 | clear; name 10 of 14 | clear; name 10 of 14 | clear; name 6 of 14 |
+| 1280 | clear; name 14 of 14 | clear; name 14 of 14 | clear; name 9 of 14 |
+
+A 1px scan from 1121 to 1400px put every control clear from 1152px on macOS and 1185px on Linux, six characters of the name from 1228px on macOS and 1260px on Linux, and the whole name from 1271px and 1304px. The two-row breakpoint therefore moved to 1260px in `dashboard.module.css` and `prebid.css`. At that breakpoint:
+
+| Width | Chromium, macOS | WebKit, macOS | Chromium, Linux |
+| --- | --- | --- | --- |
+| 390 | two rows; nav 445/390, scrolls | two rows; nav 445/390, scrolls | two rows; nav 468/390, scrolls |
+| 601 | two rows; nav 603/601, scrolls | two rows; nav 603/601, scrolls | two rows; nav 631/601, scrolls |
+| 768, 1000, 1120, 1121, 1200, 1260 | two rows; nav fits | two rows; nav fits | two rows; nav fits |
+| 1261 | one row, clear; name 10 of 14 | one row, clear; name 10 of 14 | one row, clear; name 6 of 14 |
+| 1280 | one row, clear; name 14 of 14 | one row, clear; name 14 of 14 | one row, clear; name 9 of 14 |
+
+A signed-in viewer, without the Accounts link, has a one-row masthead at 1261px and 1280px with the whole name in all three. The page never scrolled sideways at any measured width.
+
+### Golden URL set
+
+Re-recorded on `build:preview`; compared with the P6 record:
+
+- 41 → 45 views; 1,754 → 1,957 recorded anchors; 282 → 350 per-view link kinds; 93 → 94 distinct link kinds, none removed. The new kind is `/companies?detail&interval&lens&snap&timeline`, the Companies-lens Over time cell links.
+- Each of the 37 existing report views gains the bare `/companies?lens=all` masthead link and nothing else: 35 as a new `/companies?lens` kind, and `companies-reviewers` and `company-detail-reviewers` as a second anchor of that kind, whose first example is now the masthead link. The four sign-in pages are unchanged.
+- The four Companies-lens views record only links that carry `lens=all` and the bare masthead links (`/repos`, `/contributors`, `/reviewers`).
+- The longest href is still 221 characters; no kind is over 300 or holds `%25`. The scope-change record is unchanged. `legacy-urls.json`, `golden-url-states.json` and `golden-url-canonical.json` have no diff against `b6fcd69`.
+- `tests/unit/golden-urls.test.ts` checks that each of the 17 recorded Companies-lens URLs parses as canonical and serializes to itself, as it does for the 34 Reviewers-lens URLs.
+
+### URL defaults
+
+`tests/fixtures/golden/url-defaults-v1.json` gains 9 lines and loses none against `b6fcd69`: `lensMetricColumns.all`, the six credits in report order, and `contributions.sort.all`, `-authoredPrsMerged` (decision 5).
+
+### Company mapping
+
+The code is connected: database sources read `src/server/company-mapping.json` through `companyMapping()`, and attribution is `current-mapping` when a mapping is loaded. The committed file is the empty form (format 1, `exportedOn` null, no companies, no accounts), because publishing login→company pairs awaits the maintainer (decision 12), so production company attribution stays `not-connected`. Samples are unchanged.
+
+### Checkpoints
+
+- Checkpoint A: pending maintainer review of `contributions-pages--companies-lens`, `timelines-layouts--companies-lens` and `navigation-click-feedback--companies-active`.
+- Checkpoint B: pending. After-captures of `companies-all`, `companies-timeline-all`, `company-detail-all`, `contributor-detail-all`, `companies` and `reviewers` at 390, 768 and 1440px in Light and Dark (36 cells; 768px through a wrapper that adds its viewport height to `capture-views.mjs`) and the masthead measurements are kept outside the repository. No before-captures from the base worktree were taken.
+
+### Not run
+
+- Checkpoints A and B: no visual sign-off of the new stories, the Companies-lens pages, or the two-row masthead now used from 1121 to 1260px.
+- Chromium on CI's x86_64 Linux: the masthead was measured on aarch64; at 1261px the administrator's name keeps exactly six characters there.
+- Before-captures on the base worktree.
+- A non-empty company mapping in any build: no page was rendered with `current-mapping` from a database source.
+- Amplify and CloudFront limits for the 41-section contributions cookie (the P5b premise remains open).
 
 ## Appendix A: findings by phase
 
