@@ -75,7 +75,9 @@ import CompaniesPage, {
   generateMetadata as companiesMetadata,
 } from '@/app/(dashboard)/companies/page';
 import CompanyPage from '@/app/(dashboard)/companies/[...identity]/page';
-import ReviewersPage from '@/app/(dashboard)/reviewers/page';
+import ReviewersPage, {
+  generateMetadata as reviewersMetadata,
+} from '@/app/(dashboard)/reviewers/page';
 
 const defaults = defaultContributionSettings(contributionSample());
 const lastMonth: ContributionSettings = {
@@ -364,6 +366,16 @@ it('renders an address it rejects in the lens its query names, as the title and 
       masthead: 'Companies',
     },
     {
+      path: '/reviewers',
+      search: { lens: 'all' },
+      open: (search) => ReviewersPage({ searchParams: Promise.resolve(search) }),
+      title: (search) => reviewersMetadata({ searchParams: Promise.resolve(search) }),
+      heading: 'Companies',
+      recovery: ['Open companies', '/companies?lens=all'],
+      document: 'Companies · All activity',
+      masthead: 'Companies',
+    },
+    {
       path: '/companies',
       search: { lens: 'all', all: '' },
       open: (search) => CompaniesPage({ searchParams: Promise.resolve(search) }),
@@ -406,7 +418,7 @@ it('renders an address it rejects in the lens its query names, as the title and 
     );
     expect((await title(search)).title, address).toBe(document);
     const main = screen.getByRole('navigation', { name: 'Main navigation' });
-    for (const name of ['Contributors', 'Reviewers'] as const)
+    for (const name of ['Contributors', 'Reviewers', 'Companies'] as const)
       expect(within(main).getByRole('link', { name }), address + ' ' + name).toHaveAttribute(
         'data-active',
         String(name === masthead),

@@ -123,8 +123,8 @@ it.each([
   ['/contributors/account-alice', 'lens=all', 'Companies', false],
   // Not a Companies-lens spelling (the invalid view), which still names the Companies lens.
   ['/contributors', 'lens=all', 'Companies', false],
-  // On /reviewers the pathname names the lens.
-  ['/reviewers', 'lens=all', 'Reviewers', true],
+  // The invalid /reviewers?lens=all names the Companies lens, which has no current page there.
+  ['/reviewers', 'lens=all', 'Companies', false],
 ] as const)('on %s?%s marks %s (current page: %s)', (path, search, active, current) => {
   query.search = search;
   header(path);

@@ -137,7 +137,8 @@ describe('lens presentation', () => {
       ['/contributors/account-alice', query('lens=all'), 'all'],
       // The invalid /contributors?lens=all view reads Companies, as its title and heading do.
       ['/contributors', query('lens=all'), 'all'],
-      ['/reviewers', query('lens=all'), 'reviewers'],
+      // The invalid /reviewers?lens=all view reads Companies too.
+      ['/reviewers', query('lens=all'), 'all'],
       ['/repos', query('lens=all'), 'contributors'],
       ['/companies', query('lens=companies'), 'contributors'],
     ] as const)

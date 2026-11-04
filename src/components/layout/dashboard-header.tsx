@@ -142,7 +142,7 @@ export function DashboardHeader({
             href={reviewersEntry}
             className={styles.navItem}
             data-active={lens === 'reviewers'}
-            aria-current={activePath === '/reviewers' ? 'page' : undefined}
+            aria-current={activePath === '/reviewers' && lens === 'reviewers' ? 'page' : undefined}
           >
             Reviewers
             <LinkPending />

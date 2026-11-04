@@ -21,17 +21,18 @@ import { screenOf } from './url/registry';
 
 /**
  * The lens a location shows: `/reviewers`, or `lens=reviewers` on another contribution route, is
- * the Reviewers lens; `lens=all` on a /contributors or /companies path is the Companies lens;
- * anything else is Contributors. `search` is a page's query, or null where no query is known
- * (Storybook without a router).
+ * the Reviewers lens; `lens=all` on a contribution route, /reviewers included, is the Companies
+ * lens, as the invalid view and its title read it; anything else is Contributors. `search` is a
+ * page's query, or null where no query is known (Storybook without a router).
  */
 export function contributionLensForLocation(
   pathname: string,
   search: Pick<URLSearchParams, 'get'> | null,
 ): ContributionLens {
-  if (pathname === '/reviewers' || pathname.startsWith('/reviewers/')) return 'reviewers';
-  if (!/^\/(?:contributors|companies)(?:\/|$)/.test(pathname)) return 'contributors';
   const lens = search?.get('lens');
+  if (pathname === '/reviewers' || pathname.startsWith('/reviewers/'))
+    return lens === 'all' ? 'all' : 'reviewers';
+  if (!/^\/(?:contributors|companies)(?:\/|$)/.test(pathname)) return 'contributors';
   return lens === 'reviewers' || lens === 'all' ? lens : 'contributors';
 }
 /**
