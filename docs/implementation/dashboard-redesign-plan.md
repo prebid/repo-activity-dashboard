@@ -263,14 +263,15 @@ Recorded on `build:preview` / `start:preview` of `8119ede` at 1440×900 and the 
 
 | Phase | Status | Pull request | Checkpoint A | Checkpoint B |
 | --- | --- | --- | --- | --- |
-| P0 | Checkpoints approved; one pull request with P1 and P2 | — | Approved 2026-11-01 | Approved 2026-11-01 |
+| P0 | Merged; one pull request with P1 and P2 | #16 | Approved 2026-11-01 | Approved 2026-11-01 |
 | P0b | Closed: premise does not hold (2026-11-02). `prefetch={false}` and Architecture rule 10 are unchanged. | — | — | — |
-| P1 | Checkpoints approved; same pull request as P0 | — | Approved 2026-11-01 | Approved 2026-11-01 |
-| P2 | Checkpoints approved; same pull request as P0 and P1 | — | Approved 2026-11-01 | Approved 2026-11-01 |
+| P1 | Merged; same pull request as P0 | #16 | Approved 2026-11-01 | Approved 2026-11-01 |
+| P2 | Merged; same pull request as P0 and P1 | #16 | Approved 2026-11-01 | Approved 2026-11-01 |
 | P3 | Merged | #20 | — | — |
 | P4 | Merged | #18 | — | — |
-| P5 | P5a and P5b merged; P5c–P5e in one pull request, in review | #19, #21; P5c–P5e pull request | — | — |
-| P6 | P6a–P6c integrated for one pull request, stacked on P5c–P5e (see `## P6 evidence`) | — | Pending | Pending |
+| P5 | Merged | #19, #21, #23 | — | — |
+| P6 | Merged (see `## P6 evidence`); final visual inspection fixes merged in #25 | #24 | Not signed off (`## P6 evidence`, Not run) | Not signed off |
+| P7 | Companies lens and company mapping: plan approved 2026-11-03 (see `## P7 plan`) | — | Pending | Pending |
 
 ## P0 plan
 
@@ -1360,6 +1361,128 @@ An independent review of the fixes found one introduced problem and seven smalle
 | Chromium on Linux (Playwright 1.64.1 image, aarch64), a probe outside the repository | Approval headers one line with 4px or more to spare; no record tab cut from 601 to 768px; chip thresholds as recorded above |
 
 After-fix captures of the 13 changed views at 320, 375, 390, 768, 1366 and 1440px, and of 5 view-bar views at 640 and 700px, in Light, are kept outside the repository. Not run in this round: the other browser specs, Dark captures, `npm run test:accounts`, `npm run test:production` and `npm run audit:dependencies`; the Linux probe ran on aarch64, not CI's x86_64 runners.
+
+## P7 plan
+
+Approved 2026-11-03 against `b6fcd69`. P7 adds a top-level Companies destination as a third contribution lens, and connects company attribution for database sources from the "Github Mapping – User List" sheet. It ships as one pull request.
+
+### Scope
+
+- **Companies lens.**
+  - The lens value is `all`. The masthead's fifth item, Companies, comes after Reviewers and opens `/companies?lens=all` in the viewer's saved view.
+  - The overview lists the same companies as the Contributors-lens Companies view: any-metric eligibility, `contributions.ts:60-73`.
+  - Default columns: Company, Included accounts and the six credits, under the existing Authoring, Reviewing and Issues headings.
+  - Default sort: Authored PRs merged, descending. Column set: All credits.
+  - The view bar shows only Report | Over time, with no subject tabs. Over time shows the six credits, sorted by Period.
+  - Company pages (`/companies/id/<id>?lens=all`) and person pages (`/contributors/<id>?lens=all`) carry the lens, so the masthead, defaults and crumbs stay in Companies.
+  - The existing Companies tabs, `/companies` and `/companies?lens=reviewers`, keep every URL, default, saved section, title and masthead marking.
+- **Company mapping.**
+  - `npm run data:companies -- <csv> --exported <YYYY-MM-DD>` writes `src/server/company-mapping.json` from a sheet export.
+  - The file holds only lowercased logins, company ids and display names: no names, notes, membership or PMC reviewer data.
+  - Database sources read it through `src/server/company-mapping.ts`. The contract is `src/models/company-mapping.ts`.
+  - Attribution becomes `current-mapping` when a mapping is loaded. Samples are unchanged.
+  - Moving the sheet to AWS later replaces only how the file reaches the build: a build-time copy to the same path.
+
+### Decisions (2026-11-03)
+
+1. **Consolidated means defaults, not rows.** Same rows as the Contributors-lens Companies view, the six credits side by side, sorted by Authored PRs merged. No combined cross-role total (`contributors.md:289`) and no headline totals (`:24` above).
+2. **Address.** The lens is the query value `lens=all`, carried to company and person pages, exports and Over time. No new route; bare `/companies` keeps its v1 meaning. Over time is `/companies?timeline&lens=all`.
+3. **Masthead position.** Companies is fifth, after Reviewers.
+4. **Masthead width.**
+   - Phones: five labels do not fit one row at 390px, so at 600px and below the row scrolls, and `reveal()` keeps the current destination in view.
+   - 601–1120px: the navigation row scrolls the same way.
+   - Above 1120px: the one-row breakpoint is set from measurement in Chromium and WebKit on macOS and in Chromium in the Linux Playwright image. If the administrator's account name can take the overflow as an ellipsis, 1120px stays; otherwise `dashboard.module.css` and `prebid.css` move together.
+5. **v1 defaults.** They gain additive keys only, `lensMetricColumns.all` and `contributions.sort.all`, for a value that was invalid before. No existing value changes, and `url-defaults-v1.json` changes by additions only. The `defaults.ts` header and `foundation-contracts.md` record the rule.
+6. **Lens model.**
+   - `lensRole` becomes `PopulationRole | null`, with `all: null`.
+   - `lensDefaultSort.all` is Authored PRs merged; `lensColumnSet.all` is `credits`.
+   - The lens value `all` is unrelated to the `all` flag (Show all) and to the All columns set id. The `all` flag is invalid with `lens=all`, on pages and exports.
+7. **Population controls under `lens=all`.**
+   - Hide zero reads all 39 metrics, as "Hide zero totals".
+   - The "No reviewer activity in this scope" callout never shows.
+   - The CSV records "Report lens: all" and "Listed accounts: All accounts with activity".
+8. **Saved sections.** Nine new sections, reachable ones only, take `dashboard-contributions` from 32 to 41:
+   - `contributions.all.{companies,members,repositories}.{columns,sort}`
+   - `timeline.all.companies.overview`, `timeline.all.companies.company`, `timeline.all.contributors.contributor`
+   - The people table is unreachable, because `lens` is refused on `/contributors` and `/reviewers`.
+   - The scope and supporting sections stay shared.
+9. **Titles.**
+   - Companies-lens titles gain " · All activity", for example "Companies · All activity" and "Example Acme · Companies · All activity".
+   - No existing title changes. The h1 stays "Companies". The members table is titled "Company members".
+10. **Back parent.** A person page in the Companies lens derives `/companies?lens=all`, so its crumb reads "Back to Companies".
+11. **Invalid views.** `/contributors?lens=all` and `/reviewers?lens=all` show the Companies heading and recovery link, and the masthead marks Companies. `/contributors/export?lens=all` with the overview entity is refused.
+12. **Company attribution source.**
+    - The source is the "Github Mapping – User List" sheet export, not GitHub's self-reported `account_profiles.company`, which would guess (`contributors.md:207`).
+    - The first import uses the 2025-09-12 export. Its conflicting `adserver-online` rows resolve to "Adserver Online" (maintainer, 2026-11-03), and the sheet is to be corrected.
+    - Committing the generated file publishes login→company pairs in this public repository. It is committed only with the maintainer's approval (open).
+13. **Mapping rules.**
+    - Match: logins are matched case-insensitively.
+    - Unmapped: blank, "None", "independent developer", "Small Pub", bot markers and the stray file path. No "Unknown Organization" pseudo-company. Bots stay classified from the database.
+    - Spelling merges: case, spacing and trailing-parenthetical variants merge automatically. Corporate lineages (Appnexus/Xandr, Smart Ad Server/Equativ, PubNative/Verve) stay separate.
+    - Ids: bare ASCII slugs of the canonical name, permanent across refreshes. `unmapped` is refused.
+    - Conflicts: a login listed twice with different companies is refused, never resolved silently.
+    - Prebid is a company. The PMC Reviewer column is out of scope (the Prebid-reviewer mapping).
+14. **One pull request**, with the work split across parallel workers.
+
+### Lens comparison sites
+
+`git grep -n -P "(\blens\b|lensOf\([^)]*\)|get\('lens'\)|values\.lens|routeLens)\s*(===|!==)\s*'(reviewers|contributors)'" -- src ':!*.test.*' ':!*.stories.*'` lists 36 lines in 17 files at `b6fcd69`. Each file has one owning step.
+
+| Step | File: lines | Disposition for `all` |
+| --- | --- | --- |
+| Core | `url/defaults.ts:105` | `lensOf` returns `all` for `lens=all` |
+| Core | `presentation/contribution-lens.ts:32, 43, 56, 69` | location lens reads `all`; section and timeline prefixes `all.`; overview path and crumb labels |
+| Core | `contribution-url.ts:60, 85, 206` | target and lens values for `all`; Show all stays Reviewers-only |
+| Core | `contribution-navigation.ts:34` | `all` path |
+| Core | `page-title.ts:37, 109, 123` | query lens `all`; " · All activity" suffix; invalid heading |
+| Core | `url/back.ts:188` | person parent `/companies?lens=all` |
+| Core | `contributions.ts:66, 308` | unchanged: any-metric population, no reviewer filter |
+| A | `server/reporting.ts:137, 147` | parse `all`; `all` flag stays Reviewers-only |
+| A | `server/timeline-preview.ts:127, 242, 271` | accept, parse and section-prefix `all` |
+| A | `url/timeline.ts:95`, `url/legacy/decode.ts:505` | carry `lens=all` (named exception to the frozen reader, as in P6) |
+| A | `contribution-export.ts:125, 130, 227, 229, 315` | `all` parse and href; people-overview refusal; CSV values |
+| A | `app/_screens/contribution-route.tsx:70` | route lens `all`; invalid view as decision 11 |
+| B | `contribution-header.tsx:89` | no subject tabs for `all` |
+| B | `contribution-view.tsx:44, 76, 151` | contributor cluster first; no callout; "Company members" |
+| B | `app/_screens/contributions-screen.tsx:268` | unchanged: Hide zero reads all metrics |
+| C | `dashboard-header.tsx:131, 133, 143` | Companies item marked for `all`; Contributors and Reviewers unchanged |
+
+### Order
+
+1. **Core** (serial): lens model, v1 defaults keys, registry values, preference keys, the Core rows above, their unit tests and the `url-defaults-v1.json` re-record.
+2. **Parallel groups** on disjoint files:
+   - A: server and URL round trip.
+   - B: views (`contribution-header.tsx`, `contribution-view.tsx`, `contributions-screen.tsx`, `timeline-screens.tsx`, `contribution-timeline-view.tsx`).
+   - C: shell (`dashboard-header.tsx`, `use-contribution-entry.ts`, `dashboard.module.css`, `prebid.css`).
+   - D: company mapping (`src/models/company-mapping.ts`, `src/server/company-mapping.ts`, `scripts/export-company-mapping.ts`, `package.json`, `src/server/activity-contributions.ts`).
+3. **Integration**:
+   - Inventory views `/companies?lens=all`, `/companies?timeline&lens=all`, `/companies/id/company-acme?lens=all` and `/contributors/account-alice?lens=all`.
+   - Titles and counts.
+   - The golden URL re-record: existing views gain only the Companies masthead link kind; `legacy-urls.json`, `golden-url-states.json` and `golden-url-canonical.json` are unchanged.
+   - Browser specs and the story list.
+   - Document amendments: `:20`, `:27` and `:171` above; `contributors.md`; `foundation-contracts.md`; `docs/product/README.md`.
+4. **Gates**:
+   - Self-review and one independent review.
+   - Checkpoints A and B, with the masthead measurements.
+   - `npm run check:all`.
+   - `## P7 evidence`.
+   - CI `quality` on the exact head, with non-zero Chromium and WebKit case counts.
+
+### Authentication freeze
+
+No file changes under `src/lib/auth`, `src/middleware.ts`, `src/app/auth`, `src/app/api/auth`, `src/features/authentication`, `src/features/administration`, `tests/accounts` or `tests/production`. `src/lib/presentation/navigation.ts` and `src/components/layout/toolbar.tsx` do not change either. `safeReturnPath` already allows every `/companies` path.
+
+### Exit
+
+- The Companies lens reproduces the six-credit Companies table, and every metric stays addable.
+- Exactly one masthead destination is marked on every inventory view.
+- Both existing Companies tabs render as before.
+- A database source with the mapping reports `current-mapping` with mapped companies in `report()` and `directory()`. Without the mapping it stays `not-connected`.
+
+### Unverified premises (P7)
+
+- Masthead widths for five destinations; they are measured at Checkpoint B.
+- Amplify and CloudFront forwarding of a 41-section contributions cookie (the open P5b premise).
 
 ## Appendix A: findings by phase
 
