@@ -193,6 +193,23 @@ test('the Companies lens lists companies with the six credits and keeps the lens
   await expect(page).toHaveTitle('Companies · All activity');
 });
 
+test('every metric stays addable in the Companies lens', async ({ page }) => {
+  await login(page);
+  await page.goto('/companies?lens=all');
+  await page.getByRole('button', { name: 'Columns · All credits', exact: true }).click();
+  // No metric is locked in the menu; only the required identity column is.
+  const locked = columnsMenu(page).getByRole('menuitemcheckbox', { disabled: true });
+  await expect(locked).toHaveCount(1);
+  await expect(locked).toHaveAccessibleName('Company (required)');
+  await columnsMenu(page).getByRole('menuitemradio', { name: 'All columns', exact: true }).click();
+  await expect(
+    page.getByRole('button', { name: 'Columns · All columns', exact: true }),
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect.poll(async () => (await visibleMetrics(page)).length).toBe(39);
+  expect(new Set(await visibleMetrics(page))).toEqual(metrics);
+});
+
 test('/reviewers opens the Reviewer set sorted by Reviewer contributions', async ({ page }) => {
   await login(page);
   await page.goto('/reviewers');
