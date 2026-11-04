@@ -431,20 +431,13 @@ describe('current record', () => {
     const url = new URL(href, origin);
     return url.pathname === '/reviewers' || url.searchParams.get('lens') === 'reviewers';
   });
-
-  it('records Reviewers-lens links on each contribution route', () => {
-    expect(
-      new Set(reviewersLens.map((href) => matchRoute(new URL(href, origin).pathname)?.route)),
-    ).toEqual(
-      new Set([
-        '/reviewers',
-        '/companies',
-        '/contributors/[accountId]',
-        '/companies/[...identity]',
-      ]),
-    );
-  });
-  it.each(reviewersLens)('%s parses as canonical and serializes to itself', (href) => {
+  // The Companies lens: every route that carries `lens=all`.
+  const companiesLens = [...recorded].filter(
+    (href) => new URL(href, origin).searchParams.get('lens') === 'all',
+  );
+  const routesOf = (hrefs: readonly string[]) =>
+    new Set(hrefs.map((href) => matchRoute(new URL(href, origin).pathname)?.route));
+  function roundTrips(href: string) {
     const url = new URL(href, origin);
     const matched = matchRoute(url.pathname);
     expect(matched).not.toBeNull();
@@ -456,5 +449,23 @@ describe('current record', () => {
         hash: url.hash ? url.hash.slice(1) : undefined,
       }),
     ).toBe(href);
+  }
+
+  it('records Reviewers-lens links on each contribution route', () => {
+    expect(routesOf(reviewersLens)).toEqual(
+      new Set([
+        '/reviewers',
+        '/companies',
+        '/contributors/[accountId]',
+        '/companies/[...identity]',
+      ]),
+    );
   });
+  it.each(reviewersLens)('%s parses as canonical and serializes to itself', roundTrips);
+  it('records Companies-lens links on each contribution route that accepts the lens', () => {
+    expect(routesOf(companiesLens)).toEqual(
+      new Set(['/companies', '/contributors/[accountId]', '/companies/[...identity]']),
+    );
+  });
+  it.each(companiesLens)('%s parses as canonical and serializes to itself', roundTrips);
 });

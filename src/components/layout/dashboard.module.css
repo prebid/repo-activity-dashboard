@@ -217,11 +217,13 @@
   outline-offset: 2px;
 }
 
-/* A 56px row for the brand and account controls over a 44px navigation row. Four destinations
-   beside an administrator's account group needed about 1,064px on one row, so the masthead takes
-   two rows from 1120px down; --shell-height in prebid.css follows the same width. The row holds
-   five destinations and scrolls sideways below the width they fit, with no visible scrollbar. */
-@media (max-width: 1120px) {
+/* A 56px row for the brand and account controls over a 44px navigation row. Five destinations
+   beside an administrator's account group, with six characters of the account name left before
+   its ellipsis, needed 1,260px on one row in Chromium on Linux (1,228px in Chromium and WebKit on
+   macOS), so the masthead takes two rows from 1260px down; --shell-height in prebid.css follows
+   the same width. The row scrolls sideways below the width its destinations fit, with no visible
+   scrollbar. */
+@media (max-width: 1260px) {
   .headerInner {
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: calc(var(--shell-row-height) - var(--masthead-rule)) var(--shell-nav-height);
@@ -257,7 +259,7 @@
   }
 }
 /* Phone width: the account name and the Sign out label leave the row but keep naming their
-   controls. The navigation row scrolls sideways as it does from 1120px down. */
+   controls. The navigation row scrolls sideways as it does from 1260px down. */
 @media (max-width: 600px) {
   .surface {
     --dashboard-gutter: 16px;
