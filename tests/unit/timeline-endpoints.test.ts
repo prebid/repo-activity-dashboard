@@ -432,3 +432,15 @@ it('exports series rows in the table sort order and Over time without repository
   expect(contributors.records.find((row) => row.Period === 'Oct 2026')!['PRs authored']).toBe('6');
   expect(contributors.records.reduce((sum, row) => sum + Number(row['PRs authored']), 0)).toBe(8);
 });
+it('records the Companies lens in its Over time export, as it records the Reviewers lens', async () => {
+  for (const [href, lens] of [
+    ['/companies?timeline&lens=all', 'all'],
+    ['/companies/id/company-acme?timeline&lens=all', 'all'],
+    ['/companies?timeline&lens=reviewers', 'reviewers'],
+    ['/companies?timeline', 'contributors'],
+  ] as const) {
+    const csv = await exportCsv(href, ['period', 'reviewerContributions']);
+    expect(csv.records.length, href).toBeGreaterThan(0);
+    expect(new Set(csv.records.map((row) => row['Report lens'])), href).toEqual(new Set([lens]));
+  }
+});

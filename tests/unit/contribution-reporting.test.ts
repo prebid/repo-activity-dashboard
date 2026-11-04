@@ -11,6 +11,9 @@ vi.mock('next/navigation', () => ({
 import { contributions } from '@/server/reporting';
 import { parseQuery } from '@/lib/presentation/url/codec';
 import type { UrlRoute } from '@/lib/presentation/url/registry';
+import { contributionColumnVisibility } from '@/lib/presentation/contribution-url';
+import { defaultValue } from '@/lib/presentation/url/defaults';
+import { contributionMetricIds } from '@/models/contributions';
 /** A canonical query's registry values, as the page helper hands them to the report. */
 function at(query: string, route: UrlRoute = '/contributors') {
   const parsed = parseQuery(route, query);
@@ -140,6 +143,54 @@ it('reads the Reviewers lens, and answers a misplaced Show all or snapshot with 
   ).toBe('invalid');
   expect((await contributions('contributors', at('at=2026-10-24T12:00Z'))).status).toBe('ready');
   expect((await contributions('contributors', at('at=2026-10-01'))).status).toBe('invalid');
+});
+
+it('reads the Companies lens: the same companies, six credits by default, Authored PRs merged first', async () => {
+  const values = at('lens=all', '/companies');
+  const lens = await contributions('companies', values);
+  const contributorsLens = await contributions('companies', at('', '/companies'));
+  if (
+    lens.status !== 'ready' ||
+    lens.page.report.kind !== 'overview' ||
+    contributorsLens.status !== 'ready' ||
+    contributorsLens.page.report.kind !== 'overview'
+  )
+    throw Error('Expected overviews');
+  expect(lens.page).toMatchObject({ lens: 'all', area: 'companies' });
+  // Any activity qualifies, so there is no reviewer population and no Show all switch.
+  expect(lens.page.report.population).toBeUndefined();
+  expect(lens.page).not.toHaveProperty('allAccounts');
+  expect(reportRows(lens.page.report, 'companies')).toEqual(
+    reportRows(contributorsLens.page.report, 'companies'),
+  );
+  // The page's table reads the lens's defaults: the six credits, sorted by Authored PRs merged.
+  const visibility = contributionColumnVisibility('/companies', values)!;
+  expect(contributionMetricIds.filter((id) => visibility[id])).toEqual(contributionMetricIds);
+  expect(defaultValue('/companies', 'sort', values)).toBe('-authoredPrsMerged');
+  // `cols` diffs against those defaults: hiding a credit the Contributors lens hides is valid here.
+  const hidden = at('lens=all&cols=-reviewerContributions', '/companies');
+  expect((await contributions('companies', hidden)).status).toBe('ready');
+  expect(contributionColumnVisibility('/companies', hidden)?.reviewerContributions).toBe(false);
+  // Company and person pages carry the lens; a person's parent is the Companies-lens overview.
+  const company = await contributions('companies', at('lens=all', '/companies/[...identity]'), {
+    kind: 'company',
+    companyId: 'company-acme',
+  });
+  // The parent at default scope is an entry, so the crumb pins it to the v1 defaults.
+  expect(company.status === 'ready' && company.page).toMatchObject({
+    lens: 'all',
+    returnTo: '/companies?lens=all&v=1',
+    returnLabel: 'Back to Companies',
+  });
+  const person = await contributions('contributors', at('lens=all', '/contributors/[accountId]'), {
+    kind: 'contributor',
+    accountId: 'account-alice',
+  });
+  expect(person.status === 'ready' && person.page).toMatchObject({
+    lens: 'all',
+    returnTo: '/companies?lens=all&v=1',
+    returnLabel: 'Back to Companies',
+  });
 });
 
 it('filters before company aggregation and keeps actor selection on focused reports', async () => {

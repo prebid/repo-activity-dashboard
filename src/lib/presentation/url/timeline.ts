@@ -91,9 +91,10 @@ function timelinePairs(
   if (!options.entry) pairs.push(['timeline.state', '1']);
   const sample = text(values.sample);
   if (sample) pairs.push(['sample', sample]);
-  // The Reviewers lens keeps its own Over time presentation; /reviewers is the lens without `lens`.
-  if (screen === 'contributionTimeline' && lensOf(route, values) === 'reviewers')
-    pairs.push(['lens', 'reviewers']);
+  // The Reviewers and Companies lenses keep their own Over time presentation; /reviewers is the
+  // Reviewers lens without `lens`.
+  const lens = lensOf(route, values);
+  if (screen === 'contributionTimeline' && lens !== 'contributors') pairs.push(['lens', lens]);
   if (values.gap === true) pairs.push(['timeline.gap', '1']);
   const period = text(values.period);
   // A contribution Timeline writes its period with the rest of its scope.
