@@ -233,6 +233,42 @@ it('names the crumb after an overview parent and the people tab after the Review
   expect(companies.pathname).toBe('/companies');
   expect(companies.searchParams.get('lens')).toBe('reviewers');
 });
+it('gives the Companies lens overview Report | Over time only, without subject tabs', () => {
+  render(
+    <ContributionHeader
+      page={{
+        sample: 'reference',
+        area: 'companies',
+        breakdown: 'members',
+        lens: 'all',
+        returnTo: null,
+        report: selectContributions(contributionSample(), undefined, undefined, {
+          area: 'companies',
+          lens: 'all',
+        }),
+      }}
+      links={{
+        sample: 'reference',
+        lens: 'all',
+        currentHref: '/companies?lens=all',
+        timelineHref: '/companies?timeline&lens=all',
+      }}
+    />,
+  );
+  expect(screen.getByRole('heading', { level: 1, name: 'Companies' })).toBeVisible();
+  expect(screen.queryByRole('navigation', { name: 'Contribution reports' })).toBeNull();
+  const modes = screen.getByRole('navigation', { name: 'Report view' });
+  expect(modes.closest('[data-view-bar]')).not.toBeNull();
+  expect(within(modes).getByRole('link', { name: 'Report' })).toHaveAttribute(
+    'href',
+    '/companies?lens=all',
+  );
+  expect(within(modes).getByRole('link', { name: 'Over time' })).toHaveAttribute(
+    'href',
+    '/companies?timeline&lens=all',
+  );
+  expect(within(modes).getAllByRole('link')).toHaveLength(2);
+});
 it('shows Back to report unavailable, with the reason, when its back frame cannot be restored', () => {
   render(header({ kind: 'contributor', accountId: 'account-alice' }, null));
   const trail = screen.getByRole('navigation', { name: 'Contribution breadcrumb' });

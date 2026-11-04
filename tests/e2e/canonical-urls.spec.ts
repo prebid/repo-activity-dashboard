@@ -223,6 +223,31 @@ test('old links and entries with a differing saved view answer 307 once; others 
     status: 200,
     location: null,
   });
+  // The Companies lens opens its own saved sort with the shared scope; the Companies tab's saved
+  // sort is not its view.
+  const companies = [
+    cookie('contributions', {
+      'contributions.scope': JSON.parse(serializeContributionPreferences(lastMonth)) as unknown,
+      'contributions.companies.sort': { sort: 'name', descending: false },
+      'contributions.all.companies.sort': { sort: 'mergesPerformed', descending: true },
+    }),
+  ];
+  expect(await answers(request, session, companies, '/companies?lens=all')).toEqual({
+    status: 307,
+    location: '/companies?lens=all&period=last-month&sort=-mergesPerformed',
+  });
+  expect(
+    await answers(
+      request,
+      session,
+      companies,
+      '/companies?lens=all&period=last-month&sort=-mergesPerformed',
+    ),
+  ).toEqual({ status: 200, location: null });
+  expect(await answers(request, session, [], '/companies?lens=all')).toEqual({
+    status: 200,
+    location: null,
+  });
 });
 
 test('Back serves each entry’s own view after a saved-view change', async ({ page }) => {

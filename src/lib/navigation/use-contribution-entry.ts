@@ -86,25 +86,30 @@ export function savedContributionEntry(
     return null;
   return { scope: contributionScopeValues(settings), presentation };
 }
+const noSelectors: UrlValues = {};
 /**
- * A masthead lens link: `/contributors` or `/reviewers` in the viewer's saved explicit form after
- * hydration (the shared scope and that lens's table), so an ordinary click opens the saved view in
- * one request.
+ * A masthead lens link: `/contributors`, `/reviewers`, or `/companies` with the lens among its
+ * `selectors` (`{ lens: 'all' }`), in the viewer's saved explicit form after hydration (the shared
+ * scope and that lens's table), so an ordinary click opens the saved view in one request.
  */
 export function useContributionEntry(
   viewerId: string | undefined,
   enabledRepositories: readonly { id: string }[],
-  route: '/contributors' | '/reviewers' = '/contributors',
+  route: '/contributors' | '/reviewers' | '/companies' = '/contributors',
+  selectors: UrlValues = noSelectors,
 ): string {
   const key = enabledRepositories.map((repo) => repo.id).join(' ');
   const known = useMemo(() => new Set(key.split(' ')), [key]);
+  // Callers pass a fresh literal each render; the key keeps the saved-view reader stable.
+  const selectorsKey = JSON.stringify(selectors);
+  const entry = useMemo(() => JSON.parse(selectorsKey) as UrlValues, [selectorsKey]);
   // Only the signed-in viewer's saved view applies; a page without one links bare.
   const saved = useCallback(
     (read: Read) =>
-      viewerId === undefined ? null : savedContributionEntry(route, {}, {}, read, known),
-    [known, viewerId, route],
+      viewerId === undefined ? null : savedContributionEntry(route, {}, entry, read, known),
+    [known, viewerId, route, entry],
   );
-  return useEntryHref(route, saved, { viewerId });
+  return useEntryHref(route, saved, { viewerId, selectors: entry });
 }
 /**
  * A contribution crumb whose parent is an area entry (an overview at the default scope, reached

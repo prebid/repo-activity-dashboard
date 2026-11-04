@@ -75,7 +75,9 @@ import CompaniesPage, {
   generateMetadata as companiesMetadata,
 } from '@/app/(dashboard)/companies/page';
 import CompanyPage from '@/app/(dashboard)/companies/[...identity]/page';
-import ReviewersPage from '@/app/(dashboard)/reviewers/page';
+import ReviewersPage, {
+  generateMetadata as reviewersMetadata,
+} from '@/app/(dashboard)/reviewers/page';
 
 const defaults = defaultContributionSettings(contributionSample());
 const lastMonth: ContributionSettings = {
@@ -205,6 +207,44 @@ it('serves /reviewers: the saved Reviewers view, its reviewer population and its
   expect(historyWrites).not.toHaveBeenCalled();
 });
 
+it('serves the Companies lens at /companies?lens=all: its own saved view, six credits and sort', async () => {
+  seedPreferences(alice, {
+    'contributions.scope': stored(lastMonth),
+    'contributions.companies.sort': { sort: 'name', descending: false },
+    'contributions.all.companies.sort': { sort: 'mergesPerformed', descending: true },
+  });
+  // The entry opens the lens's own saved sort and the shared scope, not the Companies tab's sort.
+  await expect(route({ lens: 'all' }, CompaniesPage)).rejects.toThrow(
+    'redirect /companies?lens=all&period=last-month&sort=-mergesPerformed',
+  );
+  render(await route({ lens: 'all', v: '1' }, CompaniesPage));
+  expect(screen.getByRole('heading', { level: 1, name: 'Companies' })).toBeInTheDocument();
+  const table = screen.getByRole('table', { name: 'Companies' });
+  for (const name of [
+    'PRs authored',
+    'Authored PRs merged',
+    'Reviewer contributions',
+    'Approval contributions',
+    'Merges performed',
+    'Issues authored',
+  ])
+    expect(within(table).getByRole('columnheader', { name }), name).toBeInTheDocument();
+  expect(within(table).getByRole('columnheader', { name: 'Authored PRs merged' })).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
+  // Each company's report and supporting records open in the lens.
+  const links = within(table).getAllByRole('link');
+  expect(links.length).toBeGreaterThan(1);
+  for (const link of links)
+    expect(query(link.getAttribute('href')!), link.getAttribute('href')!).toMatchObject({
+      lens: 'all',
+    });
+  // Show all belongs to the Reviewers lens.
+  expect(screen.queryByRole('switch', { name: /^Show all/ })).toBeNull();
+  expect(historyWrites).not.toHaveBeenCalled();
+});
+
 it('labels a company roster’s Hide zero by lens and keeps the lens on its breakdown and crumb', async () => {
   const company = async (search: Record<string, string>) => {
     const element = (await CompanyPage({
@@ -250,11 +290,19 @@ it('renders the invalid view for an unknown parameter and for Show all outside t
     expect(historyWrites).not.toHaveBeenCalled();
     view.unmount();
   }
-  render(await route({ lens: 'reviewers' }, ReviewersPage));
+  const reviewers = render(await route({ lens: 'reviewers' }, ReviewersPage));
   expect(screen.getByRole('heading', { level: 1, name: 'Reviewers' })).toBeInTheDocument();
   expect(screen.getByRole('link', { name: 'Open reviewers' })).toHaveAttribute(
     'href',
     '/reviewers',
+  );
+  reviewers.unmount();
+  // The Companies lens has no people overview, so `lens=all` names it on /reviewers too.
+  render(await route({ lens: 'all' }, ReviewersPage));
+  expect(screen.getByRole('heading', { level: 1, name: 'Companies' })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Open companies' })).toHaveAttribute(
+    'href',
+    '/companies?lens=all',
   );
 });
 it('renders an address it rejects in the lens its query names, as the title and the masthead do', async () => {
@@ -271,7 +319,7 @@ it('renders an address it rejects in the lens its query names, as the title and 
     heading: string;
     recovery: [string, string];
     document: string;
-    masthead: 'Contributors' | 'Reviewers';
+    masthead: 'Contributors' | 'Reviewers' | 'Companies';
   }[] = [
     // `lens` is not a /contributors parameter: the address names the Reviewers lens anyway.
     {
@@ -304,6 +352,38 @@ it('renders an address it rejects in the lens its query names, as the title and 
       recovery: ['Open reviewers', '/reviewers'],
       document: 'Alice · Reviewers',
       masthead: 'Reviewers',
+    },
+    // The Companies lens has no people overview; its Show all is invalid, as on every lens but
+    // Reviewers.
+    {
+      path: '/contributors',
+      search: { lens: 'all' },
+      open: (search) => ContributorsPage({ searchParams: Promise.resolve(search) }),
+      title: (search) => contributorsMetadata({ searchParams: Promise.resolve(search) }),
+      heading: 'Companies',
+      recovery: ['Open companies', '/companies?lens=all'],
+      document: 'Companies · All activity',
+      masthead: 'Companies',
+    },
+    {
+      path: '/reviewers',
+      search: { lens: 'all' },
+      open: (search) => ReviewersPage({ searchParams: Promise.resolve(search) }),
+      title: (search) => reviewersMetadata({ searchParams: Promise.resolve(search) }),
+      heading: 'Companies',
+      recovery: ['Open companies', '/companies?lens=all'],
+      document: 'Companies · All activity',
+      masthead: 'Companies',
+    },
+    {
+      path: '/companies',
+      search: { lens: 'all', all: '' },
+      open: (search) => CompaniesPage({ searchParams: Promise.resolve(search) }),
+      title: (search) => companiesMetadata({ searchParams: Promise.resolve(search) }),
+      heading: 'Companies',
+      recovery: ['Open companies', '/companies?lens=all'],
+      document: 'Companies · All activity',
+      masthead: 'Companies',
     },
     {
       path: '/contributors',
@@ -338,7 +418,7 @@ it('renders an address it rejects in the lens its query names, as the title and 
     );
     expect((await title(search)).title, address).toBe(document);
     const main = screen.getByRole('navigation', { name: 'Main navigation' });
-    for (const name of ['Contributors', 'Reviewers'] as const)
+    for (const name of ['Contributors', 'Reviewers', 'Companies'] as const)
       expect(within(main).getByRole('link', { name }), address + ' ' + name).toHaveAttribute(
         'data-active',
         String(name === masthead),

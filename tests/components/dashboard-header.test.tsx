@@ -65,7 +65,7 @@ it('leads with Overview and marks only the active main-navigation destination', 
   const navigation = screen.getByRole('navigation', { name: 'Main navigation' });
   expect(
     [...navigation.querySelectorAll('a, button')].map((item) => item.textContent?.trim()),
-  ).toEqual(['Overview', 'Repositories', 'Contributors', 'Reviewers']);
+  ).toEqual(['Overview', 'Repositories', 'Contributors', 'Reviewers', 'Companies']);
   // Without a signed-in viewer's saved view, each lens opens its bare overview.
   expect(within(navigation).getByRole('link', { name: 'Contributors' })).toHaveAttribute(
     'href',
@@ -74,6 +74,10 @@ it('leads with Overview and marks only the active main-navigation destination', 
   expect(within(navigation).getByRole('link', { name: 'Reviewers' })).toHaveAttribute(
     'href',
     '/reviewers',
+  );
+  expect(within(navigation).getByRole('link', { name: 'Companies' })).toHaveAttribute(
+    'href',
+    '/companies?lens=all',
   );
   expect(within(navigation).getByRole('link', { name: 'Overview' })).toHaveAttribute(
     'aria-current',
@@ -112,10 +116,19 @@ it.each([
   ['/companies/id/company-acme', 'lens=reviewers&view=repositories', 'Reviewers', false],
   // Not a Reviewers-lens spelling (the invalid view), but never two marked destinations.
   ['/contributors', 'lens=reviewers', 'Reviewers', false],
+  ['/repos', 'lens=all', null, false],
+  ['/companies', 'lens=all', 'Companies', true],
+  ['/companies', 'lens=all&timeline', 'Companies', true],
+  ['/companies/id/company-acme', 'lens=all', 'Companies', false],
+  ['/contributors/account-alice', 'lens=all', 'Companies', false],
+  // Not a Companies-lens spelling (the invalid view), which still names the Companies lens.
+  ['/contributors', 'lens=all', 'Companies', false],
+  // The invalid /reviewers?lens=all names the Companies lens, which has no current page there.
+  ['/reviewers', 'lens=all', 'Companies', false],
 ] as const)('on %s?%s marks %s (current page: %s)', (path, search, active, current) => {
   query.search = search;
   header(path);
-  for (const name of ['Contributors', 'Reviewers'] as const) {
+  for (const name of ['Contributors', 'Reviewers', 'Companies'] as const) {
     const link = screen.getByRole('link', { name });
     expect(link, name).toHaveAttribute('data-active', String(name === active));
     if (name === active && current) expect(link, name).toHaveAttribute('aria-current', 'page');
@@ -126,6 +139,9 @@ it("opens each lens in the viewer's saved view of that lens", () => {
   seedPreferences(alice, {
     'contributions.contributors.sort': { sort: 'name', descending: false },
     'contributions.reviewers.contributors.sort': { sort: 'mergesPerformed', descending: true },
+    // The Contributors-lens Companies tab keeps its own choice.
+    'contributions.companies.sort': { sort: 'members', descending: true },
+    'contributions.all.companies.sort': { sort: 'reviewerContributions', descending: true },
   });
   render(
     <PreferenceBindingProvider binding={alice}>
@@ -145,6 +161,10 @@ it("opens each lens in the viewer's saved view of that lens", () => {
     'href',
     '/reviewers?sort=-mergesPerformed',
   );
+  expect(screen.getByRole('link', { name: 'Companies' })).toHaveAttribute(
+    'href',
+    '/companies?lens=all&sort=-reviewerContributions',
+  );
 });
 it('lists exactly the enabled repositories in the Repositories menu and marks the current one', async () => {
   header('/repos/prebidjs');
@@ -161,7 +181,14 @@ it('lists exactly the enabled repositories in the Repositories menu and marks th
 });
 it('gives each header destination an idle pending indicator, but not the menu items that close on click', async () => {
   header('/repos', true);
-  for (const name of ['Repository activity', 'Overview', 'Contributors', 'Reviewers', 'Accounts'])
+  for (const name of [
+    'Repository activity',
+    'Overview',
+    'Contributors',
+    'Reviewers',
+    'Companies',
+    'Accounts',
+  ])
     expect(screen.getByRole('link', { name }).lastElementChild).toHaveAttribute(
       'data-pending',
       'false',

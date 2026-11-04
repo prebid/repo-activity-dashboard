@@ -7,10 +7,12 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { periodActivity } from '@/mocks/repository-activity';
 import { repositoryRecordSample } from '@/mocks/repository-records';
 import type { RepositoryRecordSource } from '@/mocks/record-source';
+import { companyMappingSchema } from '@/models/company-mapping';
 import { reportingBranchSchema } from '@/models/repository-overview';
 
 vi.mock('server-only', () => ({}));
 const {
+  activityDatabase,
   databaseInstant,
   decodeActivitySnapshot,
   encodeActivitySnapshot,
@@ -19,7 +21,8 @@ const {
   repositoryRecords,
 } = await import('@/server/activity-database');
 const committedSnapshot = (await import('@/server/activity-snapshot.json')).default;
-const { contributionRecords } = await import('@/server/activity-contributions');
+const { contributionRecords, databaseContributions } =
+  await import('@/server/activity-contributions');
 
 const schema = readFileSync(join(__dirname, '../fixtures/github-activity-db-schema.sql'), 'utf8');
 const directories: string[] = [];
@@ -66,7 +69,9 @@ const asOf = '2026-10-24T12:00:00.000Z';
  * Prebid agent as a GitHub bot since the agent mapping is not connected; a second repository for
  * drafts and records after the clock; and one repository whose last sync was time limited.
  */
-function referenceDatabase(options: { version?: number; finished?: boolean } = {}) {
+function referenceDatabase(
+  options: { version?: number; finished?: boolean; logins?: string[] } = {},
+) {
   const directory = mkdtempSync(join(tmpdir(), 'activity-database-'));
   directories.push(directory);
   const path = join(directory, 'activity.db');
@@ -90,6 +95,8 @@ function referenceDatabase(options: { version?: number; finished?: boolean } = {
     user('prebid-agent[bot]', 'Bot'),
     user('other-bot[bot]', 'Bot'),
   ];
+  // Accounts with no activity, for company attribution.
+  for (const login of options.logins ?? []) user(login);
   const repository = (githubId: number, name: string, outcome = 'complete') => {
     const id = insert(database, 'repositories', {
       github_id: githubId,
@@ -366,6 +373,62 @@ describe('activity database contributions', () => {
       ['reviewerContributions', 'other-bot[bot]', 'repo-prebidjs-pr-105'],
       ['reviewerContributions', 'prebid-agent[bot]', 'repo-prebidjs-pr-105'],
     ]);
+  });
+
+  it('leaves every account Unmapped without a company mapping', () => {
+    const source = databaseContributions(activityDatabase(referenceDatabase()).loaded, null);
+    const report = source.report('reference', period);
+    expect(report.companyAttribution).toBe('not-connected');
+    for (const view of [report, source.directory('reference')]) {
+      expect(view.companies).toEqual([]);
+      expect(view.accounts.map((account) => account.companyId)).toEqual(
+        view.accounts.map(() => null),
+      );
+    }
+  });
+
+  it('attributes accounts to the companies the mapping lists for their lowercased login', () => {
+    const mapping = companyMappingSchema.parse({
+      format: 1,
+      exportedOn: '2026-10-01',
+      companies: [
+        { id: 'example-acme', name: 'Example Acme' },
+        { id: 'example-globex', name: 'Example Globex' },
+        { id: 'example-initech', name: 'Example Initech' },
+      ],
+      accounts: {
+        alice: 'example-acme',
+        bob: 'example-acme',
+        'erin-case': 'example-globex',
+        'absent-login': 'example-initech',
+      },
+    });
+    const { loaded } = activityDatabase(
+      referenceDatabase({ logins: ['Erin-Case', 'constructor'] }),
+    );
+    const source = databaseContributions(loaded, mapping);
+    const report = source.report('reference', period);
+    expect(report.companyAttribution).toBe('current-mapping');
+    for (const view of [report, source.directory('reference')]) {
+      expect(
+        Object.fromEntries(view.accounts.map((account) => [account.login, account.companyId])),
+      ).toEqual({
+        alice: 'example-acme',
+        bob: 'example-acme',
+        carol: null,
+        drew: null,
+        'prebid-agent[bot]': null,
+        'other-bot[bot]': null,
+        'Erin-Case': 'example-globex',
+        // A login that names an Object prototype property is not read as mapped.
+        constructor: null,
+      });
+      // Only companies with an account in the file: the absent login's company is left out.
+      expect(view.companies).toEqual([
+        { id: 'example-acme', name: 'Example Acme' },
+        { id: 'example-globex', name: 'Example Globex' },
+      ]);
+    }
   });
 
   it('keeps unknown review history and uncollected data explicit', () => {

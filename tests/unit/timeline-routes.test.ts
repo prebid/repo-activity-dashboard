@@ -105,6 +105,15 @@ describe('Timeline pages from registry values', () => {
       returnTo: '/reviewers?v=1',
       returnLabel: 'Back to Reviewers',
     });
+    // A person in the Companies lens returns to the Companies-lens overview.
+    const companiesLens = await timelineView(view('/contributors/account-alice?timeline&lens=all'));
+    expect(
+      companiesLens.status === 'ready' && 'reportHref' in companiesLens && companiesLens,
+    ).toMatchObject({
+      reportHref: '/contributors/account-alice?lens=all&v=1',
+      returnTo: '/companies?lens=all&v=1',
+      returnLabel: 'Back to Companies',
+    });
     const lost = await timelineView(view('/contributors/account-alice?timeline&back=-&back=!'));
     expect(lost.status === 'ready' && 'reportHref' in lost && lost).toMatchObject({
       returnTo: null,
@@ -170,6 +179,34 @@ describe('Timeline pages from registry values', () => {
         ],
       },
     });
+    // So does the Companies lens, whose saved metrics diff against the six credits.
+    expect(
+      await timelineEntryValues(
+        view('/companies?timeline&lens=all'),
+        snapshot('contributions', { 'timeline.companies.overview': week }),
+      ),
+    ).toBeNull();
+    const credits = [
+      'prsAuthored',
+      'authoredPrsMerged',
+      'reviewerContributions',
+      'approvalContributions',
+      'mergesPerformed',
+      'issuesAuthored',
+    ];
+    const comments = { version: 1, query: 'timeline.columns=prComments' };
+    for (const [href, section] of [
+      ['/companies?timeline&lens=all', 'timeline.all.companies.overview'],
+      ['/companies/id/company-acme?timeline&lens=all', 'timeline.all.companies.company'],
+      ['/contributors/account-alice?timeline&lens=all', 'timeline.all.contributors.contributor'],
+    ] as const)
+      expect(
+        await timelineEntryValues(view(href), snapshot('contributions', { [section]: comments })),
+        href,
+      ).toEqual({
+        scope: {},
+        presentation: { cols: [...credits.map((id) => '-' + id), 'prComments'] },
+      });
   });
 });
 
@@ -195,14 +232,19 @@ describe('supporting views from registry values', () => {
     );
     expect(matrixless).toMatchObject({ status: 'invalid', parentHref: '/repos/prebidjs?timeline' });
   });
-  it('load a Reviewers-lens cell under its lens’s Timeline', async () => {
+  it('load a Reviewers- or Companies-lens cell under its lens’s Timeline', async () => {
     const timeline = await timelineView(view('/companies?timeline&lens=reviewers'));
     if (timeline.status !== 'ready' || !('report' in timeline)) throw Error('Expected Over time');
     const cell =
       '&detail=reviewerContributions&interval=month:2026-10-01&snap=' +
       timeline.report.source.scenarioId +
       '@2026-10-24T12:00Z';
-    for (const parent of ['/companies?timeline&lens=reviewers', '/reviewers?timeline']) {
+    for (const parent of [
+      '/companies?timeline&lens=reviewers',
+      '/reviewers?timeline',
+      '/companies?timeline&lens=all',
+      '/contributors/account-alice?timeline&lens=all',
+    ]) {
       const support = await loadTimelineSupport(view(parent + cell));
       expect(support.status, parent).toBe('ready');
     }

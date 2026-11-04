@@ -1,9 +1,12 @@
-// The two lenses over one contribution report (P6): Contributors and Reviewers. Each lens lists the
-// accounts of one population role and shows that role's three credit metrics by default.
+// The three lenses over one contribution report: Contributors and Reviewers (P6), and Companies
+// (P7, value `all`). Contributors and Reviewers each list the accounts of one population role and
+// show that role's three credit metrics by default. The Companies lens lists any activity and shows
+// both roles' credits. The lens value `all` is unrelated to the `all` flag (Show all) and to the
+// All columns set id.
 import { contributionMetricIds, type ContributionMetric } from './contributions';
 import type { ReportMetric } from './contribution-metrics';
 
-export const contributionLenses = ['contributors', 'reviewers'] as const;
+export const contributionLenses = ['contributors', 'reviewers', 'all'] as const;
 export type ContributionLens = (typeof contributionLenses)[number];
 export function isContributionLens(value: unknown): value is ContributionLens {
   return contributionLenses.some((lens) => lens === value);
@@ -11,9 +14,11 @@ export function isContributionLens(value: unknown): value is ContributionLens {
 
 /** The role a credit gives an account in a lens's population. */
 export type PopulationRole = 'contributor' | 'reviewer';
-export const lensRole: Readonly<Record<ContributionLens, PopulationRole>> = {
+/** The population role a lens lists; null for the Companies lens, which lists any activity. */
+export const lensRole: Readonly<Record<ContributionLens, PopulationRole | null>> = {
   contributors: 'contributor',
   reviewers: 'reviewer',
+  all: null,
 };
 /**
  * Each role's credit metrics, in report order. A self-merge is a Merges performed credit, so it is
@@ -35,6 +40,7 @@ export const lensDefaultSort: Readonly<
 > = {
   contributors: { sort: 'authoredPrsMerged', descending: true },
   reviewers: { sort: 'reviewerContributions', descending: true },
+  all: { sort: 'authoredPrsMerged', descending: true },
 };
 
 /** The Column set choice: a role's three metrics, the six credits, or every column. */
@@ -58,4 +64,5 @@ export const columnSetMetrics: Readonly<
 export const lensColumnSet: Readonly<Record<ContributionLens, ColumnSetId>> = {
   contributors: 'contributor',
   reviewers: 'reviewer',
+  all: 'credits',
 };

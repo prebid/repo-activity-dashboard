@@ -528,4 +528,40 @@ describe('canonical Timeline pages', () => {
         lens,
       ).toBe('invalid');
   });
+  it('reads the Companies lens, which keeps its own Over time presentation', async () => {
+    for (const [href, path, section] of [
+      ['/companies?timeline&lens=all', '/companies', 'timeline.all.companies.overview'],
+      [
+        '/companies/id/company-acme?timeline&lens=all',
+        '/companies/id/company-acme',
+        'timeline.all.companies.company',
+      ],
+      [
+        '/contributors/account-alice?timeline&lens=all',
+        '/contributors/account-alice',
+        'timeline.all.contributors.contributor',
+      ],
+    ] as const) {
+      const result = await timelineView(view(href), {
+        preferences: preferenceSnapshot(
+          'contributions',
+          { accountId: 'sample-viewer', authVersion: 0 },
+          undefined,
+        ),
+      });
+      if (result.status !== 'ready') throw Error('Expected a Timeline: ' + href);
+      expect(result.controls, href).toMatchObject({ lens: 'all', path, href });
+      expect(result.controls.preferences?.presentation.section, href).toBe(section);
+    }
+    // The lens has no people overview, so a Timeline query cannot name it there; it names the
+    // lens once.
+    for (const [area, lens] of [
+      ['contributors', 'lens=all'],
+      ['companies', 'lens=all&lens=all'],
+    ] as const)
+      expect(
+        (await contributionTimelinePreview(area, new URLSearchParams('timeline=1&' + lens))).status,
+        area + ' ' + lens,
+      ).toBe('invalid');
+  });
 });

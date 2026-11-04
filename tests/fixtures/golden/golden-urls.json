@@ -48,6 +48,11 @@
           "example": "/companies/id/company-acme?metric=prsAuthored",
           "longest": 53
         },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?timeline&v": {
           "count": 1,
           "example": "/companies?timeline&v=1",
@@ -82,6 +87,48 @@
       "requested": "/companies",
       "route": "/companies"
     },
+    "companies-all": {
+      "address": "/companies?lens=all",
+      "links": {
+        "/companies/[...identity]?lens": {
+          "count": 4,
+          "example": "/companies/id/company-acme?lens=all",
+          "longest": 37
+        },
+        "/companies/[...identity]?lens&metric": {
+          "count": 24,
+          "example": "/companies/id/company-acme?lens=all&metric=prsAuthored",
+          "longest": 66
+        },
+        "/companies?lens": {
+          "count": 2,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
+        "/companies?lens&timeline&v": {
+          "count": 1,
+          "example": "/companies?timeline&lens=all&v=1",
+          "longest": 32
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        }
+      },
+      "requested": "/companies?lens=all",
+      "route": "/companies"
+    },
     "companies-reviewers": {
       "address": "/companies?lens=reviewers",
       "links": {
@@ -96,8 +143,8 @@
           "longest": 72
         },
         "/companies?lens": {
-          "count": 1,
-          "example": "/companies?lens=reviewers",
+          "count": 2,
+          "example": "/companies?lens=all",
           "longest": 25
         },
         "/companies?lens&timeline&v": {
@@ -142,6 +189,11 @@
           "example": "/companies?timeline&detail=prsAuthored&interval=month:2026-01-01&snap=contributions-reference-v2@2026-10-24T12:00Z",
           "longest": 120
         },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?timeline&v": {
           "count": 2,
           "example": "/companies?timeline&v=1",
@@ -176,6 +228,48 @@
       "requested": "/companies?timeline",
       "route": "/companies"
     },
+    "companies-timeline-all": {
+      "address": "/companies?timeline&lens=all",
+      "links": {
+        "/companies?detail&interval&lens&snap&timeline": {
+          "count": 60,
+          "example": "/companies?timeline&lens=all&detail=prsAuthored&interval=month:2026-01-01&snap=contributions-reference-v2@2026-10-24T12:00Z",
+          "longest": 133
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
+        "/companies?lens&timeline&v": {
+          "count": 1,
+          "example": "/companies?timeline&lens=all&v=1",
+          "longest": 32
+        },
+        "/companies?lens&v": {
+          "count": 1,
+          "example": "/companies?lens=all&v=1",
+          "longest": 23
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        }
+      },
+      "requested": "/companies?timeline&lens=all",
+      "route": "/companies"
+    },
     "company-detail": {
       "address": "/companies/id/company-acme",
       "links": {
@@ -203,6 +297,11 @@
           "count": 1,
           "example": "/companies/id/company-acme?view=repositories",
           "longest": 44
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
         },
         "/contributors": {
           "count": 1,
@@ -233,6 +332,63 @@
       "requested": "/companies/id/company-acme",
       "route": "/companies/[...identity]"
     },
+    "company-detail-all": {
+      "address": "/companies/id/company-acme?lens=all",
+      "links": {
+        "/companies/[...identity]?back&lens&metric": {
+          "count": 6,
+          "example": "/companies/id/company-acme?lens=all&metric=prsAuthored&back=/companies/id/company-acme",
+          "longest": 96
+        },
+        "/companies/[...identity]?lens": {
+          "count": 2,
+          "example": "/companies/id/company-acme?lens=all",
+          "longest": 35
+        },
+        "/companies/[...identity]?lens&timeline&v": {
+          "count": 1,
+          "example": "/companies/id/company-acme?timeline&lens=all&v=1",
+          "longest": 48
+        },
+        "/companies/[...identity]?lens&view": {
+          "count": 1,
+          "example": "/companies/id/company-acme?view=repositories&lens=all",
+          "longest": 53
+        },
+        "/companies?lens": {
+          "count": 2,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/contributors/[accountId]?back&lens": {
+          "count": 3,
+          "example": "/contributors/account-alice?lens=all&back=/companies/id/company-acme",
+          "longest": 68
+        },
+        "/contributors/[accountId]?back&lens&metric": {
+          "count": 18,
+          "example": "/contributors/account-alice?lens=all&metric=prsAuthored&back=/companies/id/company-acme",
+          "longest": 97
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        }
+      },
+      "requested": "/companies/id/company-acme?lens=all",
+      "route": "/companies/[...identity]"
+    },
     "company-detail-reviewers": {
       "address": "/companies/id/company-acme?lens=reviewers",
       "links": {
@@ -257,8 +413,8 @@
           "longest": 59
         },
         "/companies?lens": {
-          "count": 1,
-          "example": "/companies?lens=reviewers",
+          "count": 2,
+          "example": "/companies?lens=all",
           "longest": 25
         },
         "/contributors": {
@@ -323,6 +479,11 @@
           "example": "/companies/id/company-acme?view=repositories",
           "longest": 44
         },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -365,6 +526,11 @@
           "example": "/companies/id/company-acme?v=1",
           "longest": 30
         },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -391,6 +557,11 @@
           "count": 1,
           "example": "/companies/id/company-acme?back=/contributors/account-alice",
           "longest": 59
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
         },
         "/contributors": {
           "count": 2,
@@ -431,6 +602,58 @@
       "requested": "/contributors/account-alice",
       "route": "/contributors/[accountId]"
     },
+    "contributor-detail-all": {
+      "address": "/contributors/account-alice?lens=all",
+      "links": {
+        "/companies/[...identity]?back&lens": {
+          "count": 1,
+          "example": "/companies/id/company-acme?lens=all&back=/contributors/account-alice",
+          "longest": 68
+        },
+        "/companies?lens": {
+          "count": 2,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
+        "/contributors": {
+          "count": 1,
+          "example": "/contributors",
+          "longest": 13
+        },
+        "/contributors/[accountId]?back&lens&metric": {
+          "count": 6,
+          "example": "/contributors/account-alice?lens=all&metric=prsAuthored&back=/contributors/account-alice",
+          "longest": 98
+        },
+        "/contributors/[accountId]?back&lens&metric&repo": {
+          "count": 12,
+          "example": "/contributors/account-alice?lens=all&repo=prebidjs&metric=prsAuthored&back=/contributors/account-alice~-repo",
+          "longest": 122
+        },
+        "/contributors/[accountId]?lens": {
+          "count": 1,
+          "example": "/contributors/account-alice?lens=all",
+          "longest": 36
+        },
+        "/contributors/[accountId]?lens&timeline&v": {
+          "count": 1,
+          "example": "/contributors/account-alice?timeline&lens=all&v=1",
+          "longest": 49
+        },
+        "/repos": {
+          "count": 2,
+          "example": "/repos",
+          "longest": 6
+        },
+        "/reviewers": {
+          "count": 1,
+          "example": "/reviewers",
+          "longest": 10
+        }
+      },
+      "requested": "/contributors/account-alice?lens=all",
+      "route": "/contributors/[accountId]"
+    },
     "contributor-detail-reviewers": {
       "address": "/contributors/account-alice?lens=reviewers",
       "links": {
@@ -438,6 +661,11 @@
           "count": 1,
           "example": "/companies/id/company-acme?lens=reviewers&back=/contributors/account-alice",
           "longest": 74
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
         },
         "/contributors": {
           "count": 1,
@@ -486,6 +714,11 @@
           "example": "/companies/id/company-acme?back=/contributors/account-alice~timeline",
           "longest": 68
         },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 2,
           "example": "/contributors",
@@ -527,6 +760,11 @@
           "count": 1,
           "example": "/companies/id/company-beacon?lens=reviewers&back=/contributors/account-finn",
           "longest": 75
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
         },
         "/contributors": {
           "count": 1,
@@ -574,6 +812,11 @@
           "count": 7,
           "example": "/companies/id/company-beacon?back=/contributors",
           "longest": 47
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
         },
         "/companies?v": {
           "count": 1,
@@ -627,6 +870,11 @@
           "example": "/companies/id/company-beacon?back=/contributors",
           "longest": 47
         },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?v": {
           "count": 1,
           "example": "/companies?v=1",
@@ -674,6 +922,11 @@
     "contributors-timeline": {
       "address": "/contributors?timeline",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?timeline&v": {
           "count": 1,
           "example": "/companies?timeline&v=1",
@@ -716,6 +969,11 @@
     "contributors-timeline-empty": {
       "address": "/contributors?timeline&sample=empty",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?sample&timeline&v": {
           "count": 1,
           "example": "/companies?timeline&sample=empty&v=1",
@@ -758,6 +1016,11 @@
     "contributors-timeline-missing": {
       "address": "/contributors?timeline&sample=missing",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?sample&timeline&v": {
           "count": 1,
           "example": "/companies?timeline&sample=missing&v=1",
@@ -795,6 +1058,11 @@
     "foundation": {
       "address": "/foundation",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -817,6 +1085,11 @@
     "repo-approvals-metric": {
       "address": "/repos/prebidjs?metric=humanApprovals0",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -854,6 +1127,11 @@
     "repo-author": {
       "address": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=prAuthors",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -901,6 +1179,11 @@
     "repo-author-issues": {
       "address": "/repos/prebidjs/authors/sample-author-2?period=this-year&at=2026-10-24T12:00Z&metric=issueAuthors",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -948,6 +1231,11 @@
     "repo-authors-metric": {
       "address": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=prAuthors",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -995,6 +1283,11 @@
     "repo-credits-metric": {
       "address": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=agentFeedbackCredits",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1037,6 +1330,11 @@
     "repo-detail": {
       "address": "/repos/prebidjs",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1074,6 +1372,11 @@
     "repo-docs-open-issues": {
       "address": "/repos/prebiddocs?view=issues",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1111,6 +1414,11 @@
     "repo-duration-metric": {
       "address": "/repos/prebidjs?period=this-month&at=2026-10-24T12:00Z&metric=medianMergeDays",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1153,6 +1461,11 @@
     "repo-issues-tab": {
       "address": "/repos/prebidjs?view=issues",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1190,6 +1503,11 @@
     "repo-open-issues-metric": {
       "address": "/repos/prebidjs?view=issues&v=1",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1227,6 +1545,11 @@
     "repo-timeline": {
       "address": "/repos/prebidjs?timeline",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1269,6 +1592,11 @@
     "repo-timeline-issues-week": {
       "address": "/repos/prebidjs?timeline&view=issues&group=week",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1311,6 +1639,11 @@
     "repos-comparison": {
       "address": "/repos?repo=prebidjs,prebidserver&period2=last-month&age=30,60,90",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1368,6 +1701,11 @@
     "repos-overview": {
       "address": "/repos",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1420,6 +1758,11 @@
     "repos-timeline": {
       "address": "/repos?timeline",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1457,6 +1800,11 @@
     "repos-timeline-mixed-quarter": {
       "address": "/repos?timeline&sample=mixed&group=quarter",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1494,6 +1842,11 @@
     "repos-timeline-week-state": {
       "address": "/repos?timeline&repo=prebidserver&group=week",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/contributors": {
           "count": 1,
           "example": "/contributors",
@@ -1540,6 +1893,11 @@
           "count": 6,
           "example": "/companies/id/company-acme?lens=reviewers&back=/reviewers",
           "longest": 59
+        },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
         },
         "/companies?lens&v": {
           "count": 1,
@@ -1593,6 +1951,11 @@
           "example": "/companies/id/company-acme?lens=reviewers&sample=large&back=/reviewers",
           "longest": 70
         },
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?lens&sample&v": {
           "count": 1,
           "example": "/companies?lens=reviewers&sample=large&v=1",
@@ -1645,6 +2008,11 @@
     "reviewers-timeline": {
       "address": "/reviewers?timeline",
       "links": {
+        "/companies?lens": {
+          "count": 1,
+          "example": "/companies?lens=all",
+          "longest": 19
+        },
         "/companies?lens&timeline&v": {
           "count": 1,
           "example": "/companies?timeline&lens=reviewers&v=1",

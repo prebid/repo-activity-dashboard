@@ -44,6 +44,7 @@ export function DashboardHeader({
   // redirect; they are bare on the server. Each lens link opens its own lens's saved table.
   const contributorsEntry = useContributionEntry(viewerId, enabled, '/contributors');
   const reviewersEntry = useContributionEntry(viewerId, enabled, '/reviewers');
+  const companiesEntry = useContributionEntry(viewerId, enabled, '/companies', { lens: 'all' });
   // The lens is in the query, which this layout-level header reads from the router: the server
   // render sees the request's query, and a query-only navigation re-renders the header.
   const lens = contributionLensForLocation(activePath, useSearchParams());
@@ -55,8 +56,8 @@ export function DashboardHeader({
   const [repositoriesOpen, setRepositoriesOpen] = useState(false);
   const navigation = usePendingNavigation();
   const inRepos = activePath.startsWith('/repos/');
-  // At phone width the navigation row scrolls sideways, so the current destination is brought
-  // into view whenever the page or the lens changes.
+  // From 1279px down the navigation row scrolls sideways when its destinations do not fit, so the
+  // current destination is brought into view whenever the page or the lens changes.
   const navigationRow = useRef<HTMLElement>(null);
   useEffect(() => {
     const current = navigationRow.current?.querySelector(
@@ -141,9 +142,19 @@ export function DashboardHeader({
             href={reviewersEntry}
             className={styles.navItem}
             data-active={lens === 'reviewers'}
-            aria-current={activePath === '/reviewers' ? 'page' : undefined}
+            aria-current={activePath === '/reviewers' && lens === 'reviewers' ? 'page' : undefined}
           >
             Reviewers
+            <LinkPending />
+          </Link>
+          <Link
+            prefetch={false}
+            href={companiesEntry}
+            className={styles.navItem}
+            data-active={lens === 'all'}
+            aria-current={activePath === '/companies' && lens === 'all' ? 'page' : undefined}
+          >
+            Companies
             <LinkPending />
           </Link>
         </nav>

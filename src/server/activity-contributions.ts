@@ -3,6 +3,7 @@ import { repositoryCatalog } from '@/config/repositories';
 import { validateContributionSource } from '@/lib/presentation/contribution-source';
 import { inDateRange, resolveReportingPeriod } from '@/lib/presentation/reporting-period';
 import { timelineRangeCoverage } from '@/lib/presentation/reporting-timeline';
+import type { CompanyMapping } from '@/models/company-mapping';
 import {
   additionalMetricIds,
   changeStatIds,
@@ -19,7 +20,7 @@ import {
   type ContributionRecord,
   type ContributionSource,
 } from '@/models/contributions';
-import { githubLoginSchema } from '@/models/github-account';
+import { githubLoginSchema, normalizeGithubLogin } from '@/models/github-account';
 import { reportingBranchSchema } from '@/models/repository-overview';
 import type { PeriodSelection } from '@/models/reporting-period';
 import type { Count } from '@/models/reporting-measurement';
@@ -35,12 +36,15 @@ import {
   type LoadedDatabase,
   type PullRequestFacts,
 } from './activity-database';
+import { companyMapping } from './company-mapping';
 
 /**
  * Contribution reports from the activity database: the repository views' reading of each pull
  * request, credited once per account, record and metric at its first qualifying date (see the
- * contribution contract in docs/product/contributors.md). Issues, inline and issue comments, the
- * company mapping and the Prebid agent mapping are not connected yet.
+ * contribution contract in docs/product/contributors.md). Companies come from the company mapping
+ * (`companyMapping()`) when one is connected: an account it lists by lowercased login belongs to
+ * that company, and every other account is Unmapped. Issues, inline and issue comments and the
+ * Prebid agent mapping are not connected yet.
  */
 
 export const companyNotConnected = 'Company mapping not connected';
@@ -55,7 +59,10 @@ const fileStatuses: Partial<Record<string, ChangeStat>> = {
   CHANGED: 'filesTypeChanged',
 };
 
-function contributionAccount(account: Account): ContributionAccount | null {
+function contributionAccount(
+  account: Account,
+  companies: ReadonlyMap<string, string>,
+): ContributionAccount | null {
   if (!githubLoginSchema.safeParse(account.login).success) return null;
   return {
     id: account.id,
@@ -63,7 +70,7 @@ function contributionAccount(account: Account): ContributionAccount | null {
     profileUrl: 'https://github.com/' + encodeURIComponent(account.login),
     name: account.name?.trim().slice(0, 200) || account.login,
     actorType: account.type === 'User' ? 'human' : account.type === 'Bot' ? 'bot' : 'unknown',
-    companyId: null,
+    companyId: companies.get(normalizeGithubLogin(account.login)) ?? null,
   };
 }
 
@@ -123,11 +130,11 @@ interface History {
 }
 
 /** Every credit, comment and merged volume in the file, before a report selects its range. */
-function history(loaded: LoadedDatabase): History {
+function history(loaded: LoadedDatabase, companies: ReadonlyMap<string, string>): History {
   const accounts = new Map<string, ContributionAccount>();
   const byLogin = new Map<string, string>();
   for (const account of loaded.accountDirectory) {
-    const row = contributionAccount(account);
+    const row = contributionAccount(account, companies);
     if (!row) continue;
     accounts.set(row.id, row);
     if (!byLogin.has(row.login.toLowerCase())) byLogin.set(row.login.toLowerCase(), row.id);
@@ -231,8 +238,20 @@ function history(loaded: LoadedDatabase): History {
   };
 }
 
-export function databaseContributions(loaded: LoadedDatabase): ContributionRecordSource {
-  const all = history(loaded);
+/**
+ * Contribution reports over `loaded`. With a company mapping, attribution is the current mapping and
+ * the companies are those its accounts in this file belong to; without one, company attribution is
+ * not connected and every account is Unmapped.
+ */
+export function databaseContributions(
+  loaded: LoadedDatabase,
+  mapping: CompanyMapping | null,
+): ContributionRecordSource {
+  // A Map, so a login that names an Object prototype property is never read as mapped.
+  const all = history(loaded, new Map(Object.entries(mapping?.accounts ?? {})));
+  const referenced = new Set(all.accounts.map((account) => account.companyId));
+  const companies = (mapping?.companies ?? []).filter((company) => referenced.has(company.id));
+  const companyAttribution = mapping ? 'current-mapping' : 'not-connected';
   const repositories = repositoryCatalog
     .filter((row) => row.enabled)
     .map((row) => ({
@@ -279,11 +298,11 @@ export function databaseContributions(loaded: LoadedDatabase): ContributionRecor
       source: 'database',
       scenarioId,
       asOf: loaded.asOf,
-      companyAttribution: 'not-connected',
+      companyAttribution,
       period,
       range,
       accounts: all.accounts,
-      companies: [],
+      companies,
       repositories,
       records: all.records.filter((row) => ids.has(row.id)),
       credits,
@@ -321,11 +340,7 @@ export function databaseContributions(loaded: LoadedDatabase): ContributionRecor
     kind: 'database',
     asOf: loaded.asOf,
     report: (_scenario, period) => report(period ?? { kind: 'preset', preset: 'this-year' }),
-    directory: (): ContributionDirectory => ({
-      accounts: all.accounts,
-      companies: [],
-      repositories,
-    }),
+    directory: (): ContributionDirectory => ({ accounts: all.accounts, companies, repositories }),
     timeline: () => ({ contributions: report(whole), availableRanges: availability }),
   };
 }
@@ -342,6 +357,6 @@ export function contributionRecords(
   if (!data) return sampleContributionRecords;
   const { loaded } = data;
   let source = sources.get(loaded);
-  if (!source) sources.set(loaded, (source = databaseContributions(loaded)));
+  if (!source) sources.set(loaded, (source = databaseContributions(loaded, companyMapping())));
   return source;
 }

@@ -61,6 +61,9 @@ function Preview({
     focus,
     { area: view === 'companies' ? 'companies' : 'contributors', breakdown, lens, allAccounts },
   );
+  // The overview a focused report in this lens returns to.
+  const overview =
+    lens === 'all' ? '/companies?lens=all' : lens === 'reviewers' ? '/reviewers' : '/contributors';
   return (
     <DashboardFrame navigation={<span>Prebid · Contributions</span>}>
       {view === 'error' ? (
@@ -76,13 +79,11 @@ function Preview({
             allAccounts,
             // A focused report opened from its lens's overview names that overview.
             returnTo:
-              area === 'companies'
+              area === 'companies' && lens !== 'all'
                 ? '/companies' + (lens === 'reviewers' ? '?lens=reviewers' : '')
-                : lens === 'reviewers'
-                  ? '/reviewers'
-                  : '/contributors',
+                : overview,
             returnLabel:
-              area === 'companies'
+              area === 'companies' || lens === 'all'
                 ? 'Back to Companies'
                 : lens === 'reviewers'
                   ? 'Back to Reviewers'
@@ -130,7 +131,7 @@ function Preview({
           links={{
             sample,
             lens,
-            currentHref: lens === 'reviewers' ? '/reviewers' : '/contributors',
+            currentHref: overview,
             settings: {
               period: source.period,
               selection: { ...defaultContributionSelection(source), actorTypes },
@@ -187,3 +188,4 @@ export const NoReviewerActivity: Story = {
   args: { lens: 'reviewers', view: 'person', accountId: 'account-finn' },
 };
 export const CompanyReviewers: Story = { args: { lens: 'reviewers', view: 'company' } };
+export const CompaniesLens: Story = { args: { lens: 'all', view: 'companies' } };

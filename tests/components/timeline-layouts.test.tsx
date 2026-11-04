@@ -274,6 +274,45 @@ it('reads Over time in the Reviewers lens: its title, people tab, crumb and defa
     '/reviewers',
   );
 });
+it('reads Over time in the Companies lens: the six credits under their headings, no area tabs', () => {
+  render(
+    <ContributionTimelineView
+      report={selectContributionTimeline(contributionTimelineSample('reference'), request)}
+      area="companies"
+      lens="all"
+      href="/companies?timeline&lens=all"
+      reportHref="/companies?lens=all"
+    />,
+  );
+  expect(screen.getByRole('heading', { level: 1, name: 'Companies' })).toBeVisible();
+  expect(screen.queryByRole('navigation', { name: 'Contribution reports' })).toBeNull();
+  expect(screen.getByRole('link', { name: 'Over time' })).toHaveAttribute('aria-current', 'page');
+  const table = screen.getByRole('table');
+  expect(
+    [...table.querySelectorAll('tbody tr:first-child [data-column]')].map((cell) =>
+      cell.getAttribute('data-column'),
+    ),
+  ).toEqual([
+    'period',
+    'prsAuthored',
+    'authoredPrsMerged',
+    'reviewerContributions',
+    'approvalContributions',
+    'mergesPerformed',
+    'issuesAuthored',
+  ]);
+  for (const [heading, span] of [
+    ['Authoring', '2'],
+    ['Reviewing', '3'],
+    ['Issues', '1'],
+  ])
+    expect(within(table).getByRole('columnheader', { name: heading })).toHaveAttribute(
+      'colspan',
+      span,
+    );
+  // Over time is ordered by Period, earliest first.
+  expect(table.querySelector('tbody tr [data-column="period"]')).toHaveTextContent('Jan 2026');
+});
 it('keeps focused identity/profile destinations and company wording', () => {
   const view = render(
     contribution('reference', { kind: 'contributor', accountId: 'account-alice' }),

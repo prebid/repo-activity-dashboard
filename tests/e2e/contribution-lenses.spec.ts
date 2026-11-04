@@ -3,7 +3,8 @@ import type { Page } from '@playwright/test';
 import { readCsv } from '../support/csv';
 import { reportMetricIds } from '../../src/models/contribution-metrics';
 
-// The Contributors and Reviewers lenses over one contribution report (Phase 6).
+// The Contributors and Reviewers lenses over one contribution report (Phase 6), and the Companies
+// lens, lens=all (Phase 7).
 
 async function login(page: Page) {
   await page.goto('/auth/login');
@@ -12,7 +13,8 @@ async function login(page: Page) {
 }
 const masthead = (page: Page) =>
   page.getByRole('navigation', { name: 'Main navigation', exact: true });
-const lensLink = (page: Page, name: 'Contributors' | 'Reviewers') =>
+const lensNames = ['Contributors', 'Reviewers', 'Companies'] as const;
+const lensLink = (page: Page, name: (typeof lensNames)[number]) =>
   masthead(page).getByRole('link', { name, exact: true });
 const rows = (page: Page) => page.getByRole('table').first().locator('tbody tr');
 const columnsButton = (page: Page) => page.getByRole('button', { name: /^Columns · / });
@@ -74,16 +76,23 @@ test('the masthead reads the lens on the server render and follows in-app naviga
   });
   try {
     const html = await noScript.newPage();
-    for (const [path, on, off] of [
-      ['/reviewers', 'Reviewers', 'Contributors'],
-      ['/companies?lens=reviewers', 'Reviewers', 'Contributors'],
-      ['/contributors/account-alice?lens=reviewers', 'Reviewers', 'Contributors'],
-      ['/companies', 'Contributors', 'Reviewers'],
-      ['/contributors/account-alice', 'Contributors', 'Reviewers'],
+    for (const [path, on] of [
+      ['/reviewers', 'Reviewers'],
+      ['/companies?lens=reviewers', 'Reviewers'],
+      ['/contributors/account-alice?lens=reviewers', 'Reviewers'],
+      ['/companies', 'Contributors'],
+      ['/contributors/account-alice', 'Contributors'],
+      ['/companies?lens=all', 'Companies'],
+      ['/companies/id/company-acme?lens=all', 'Companies'],
+      ['/contributors/account-alice?lens=all', 'Companies'],
     ] as const) {
       expect((await html.goto(path))?.status(), path).toBe(200);
-      await expect(lensLink(html, on), path).toHaveAttribute('data-active', 'true');
-      await expect(lensLink(html, off), path).toHaveAttribute('data-active', 'false');
+      // Exactly one destination is marked.
+      for (const name of lensNames)
+        await expect(lensLink(html, name), path + ' ' + name).toHaveAttribute(
+          'data-active',
+          String(name === on),
+        );
     }
   } finally {
     await noScript.close();
@@ -115,8 +124,90 @@ test('the masthead reads the lens on the server render and follows in-app naviga
   await expect(page).toHaveURL(/\/reviewers$/);
   await expect(lensLink(page, 'Reviewers')).toHaveAttribute('aria-current', 'page');
   await expect(page).toHaveTitle('Reviewers');
+  await lensLink(page, 'Companies').click();
+  await expect(page).toHaveURL(/\/companies\?lens=all$/);
+  await expect(lensLink(page, 'Companies')).toHaveAttribute('aria-current', 'page');
+  await expect(lensLink(page, 'Reviewers')).toHaveAttribute('data-active', 'false');
+  await expect(lensLink(page, 'Contributors')).toHaveAttribute('data-active', 'false');
+  await expect(page).toHaveTitle('Companies · All activity');
   expect(documents).toEqual([]);
   expect(hydration).toEqual([]);
+});
+
+test('the Companies lens lists companies with the six credits and keeps the lens on their pages', async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto('/companies?lens=all');
+  await expect(
+    page.getByRole('heading', { name: 'Companies', level: 1, exact: true }),
+  ).toBeVisible();
+  await expect(page).toHaveTitle('Companies · All activity');
+  const table = page.getByRole('table', { name: 'Companies', exact: true });
+  await expect(table).toBeVisible();
+  expect(await visibleMetrics(page)).toEqual(allCredits);
+  for (const name of [
+    'PRs authored',
+    'Authored PRs merged',
+    'Reviewer contributions',
+    'Approval contributions',
+    'Merges performed',
+    'Issues authored',
+  ])
+    await expect(table.getByRole('columnheader', { name, exact: true }), name).toBeVisible();
+  await expect(
+    table.getByRole('columnheader', { name: 'Authored PRs merged', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  await expect(
+    page.getByRole('button', { name: 'Columns · All credits', exact: true }),
+  ).toBeVisible();
+  // The lens has no subject tabs: the view bar holds Report and Over time only.
+  await expect(
+    page.getByRole('navigation', { name: 'Contribution reports', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole('navigation', { name: 'Report view', exact: true }).getByRole('link'),
+  ).toHaveText(['Report', 'Over time']);
+  await expect(lensLink(page, 'Companies')).toHaveAttribute('aria-current', 'page');
+  // The rows are sorted by Authored PRs merged, largest first.
+  const merged = (
+    await rows(page).locator('[data-column="authoredPrsMerged"]').allTextContents()
+  ).map((text) => Number(text.replace(/[^0-9]/g, '')));
+  expect(merged.length).toBeGreaterThan(1);
+  expect(merged).toEqual([...merged].sort((a, b) => b - a));
+  // A company link carries the lens, and its crumb returns to the Companies lens.
+  await table.getByRole('link', { name: 'Example Acme', exact: true }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Example Acme', level: 1, exact: true }),
+  ).toBeVisible();
+  expect(new URL(page.url()).pathname).toBe('/companies/id/company-acme');
+  expect(new URL(page.url()).searchParams.get('lens')).toBe('all');
+  await expect(page).toHaveTitle('Example Acme · Companies · All activity');
+  await expect(lensLink(page, 'Companies')).toHaveAttribute('data-active', 'true');
+  await expect(page.getByRole('table', { name: 'Company members', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Back to Companies', exact: true }).click();
+  await expect(page).toHaveURL(/\/companies\?lens=all(&v=1)?$/);
+  await expect(
+    table.getByRole('columnheader', { name: 'Authored PRs merged', exact: true }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  await expect(page).toHaveTitle('Companies · All activity');
+});
+
+test('every metric stays addable in the Companies lens', async ({ page }) => {
+  await login(page);
+  await page.goto('/companies?lens=all');
+  await page.getByRole('button', { name: 'Columns · All credits', exact: true }).click();
+  // No metric is locked in the menu; only the required identity column is.
+  const locked = columnsMenu(page).getByRole('menuitemcheckbox', { disabled: true });
+  await expect(locked).toHaveCount(1);
+  await expect(locked).toHaveAccessibleName('Company (required)');
+  await columnsMenu(page).getByRole('menuitemradio', { name: 'All columns', exact: true }).click();
+  await expect(
+    page.getByRole('button', { name: 'Columns · All columns', exact: true }),
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect.poll(async () => (await visibleMetrics(page)).length).toBe(39);
+  expect(new Set(await visibleMetrics(page))).toEqual(metrics);
 });
 
 test('/reviewers opens the Reviewer set sorted by Reviewer contributions', async ({ page }) => {

@@ -4,8 +4,11 @@ import { contributionSample } from '@/mocks/contributions';
 import {
   childViewHref,
   contributionColumnVisibility,
+  contributionLensValues,
+  contributionReportRoute,
   contributionScopeInput,
   contributionScopeValues,
+  contributionTarget,
   contributionViewOf,
   savedPresentationValues,
 } from '@/lib/presentation/contribution-url';
@@ -117,6 +120,69 @@ it('writes a table’s saved presentation as explicit fields on the links that o
   expect(savedPresentationValues('/contributors', { metric: 'prComments' }, saved)).toEqual({});
   expect(savedPresentationValues('/contributors', { metric: 'prsAuthored' }, saved)).toEqual({
     cols: ['lastAt'],
+  });
+});
+
+it('opens Companies-lens targets on /companies and carries `lens=all` on every other route', () => {
+  const alice = { kind: 'contributor', accountId: 'account-alice' } as const;
+  const acme = { kind: 'company', companyId: 'company-acme' } as const;
+  // The lens has no people overview: the people area's overview is the Companies overview.
+  expect(contributionTarget('companies', 'all')).toEqual({ route: '/companies', segments: {} });
+  expect(contributionTarget('contributors', 'all')).toEqual({ route: '/companies', segments: {} });
+  expect(contributionReportRoute('contributors', undefined, 'all').route).toBe('/companies');
+  expect(contributionReportRoute('contributors', alice, 'all')).toEqual({
+    route: '/contributors/[accountId]',
+    segments: { accountId: ['account-alice'] },
+  });
+  expect(contributionReportRoute('companies', acme, 'all')).toEqual({
+    route: '/companies/[...identity]',
+    segments: { identity: ['id', 'company-acme'] },
+  });
+  for (const route of [
+    '/companies',
+    '/contributors/[accountId]',
+    '/companies/[...identity]',
+  ] as const)
+    expect(contributionLensValues(route, 'all'), route).toEqual({ lens: 'all' });
+  expect(contributionLensValues('/companies', 'reviewers')).toEqual({ lens: 'reviewers' });
+  // The default lens is never written, and a people overview's route is its lens.
+  expect(contributionLensValues('/companies', 'contributors')).toEqual({});
+  for (const lens of ['reviewers', 'all'] as const) {
+    expect(contributionLensValues('/contributors', lens), lens).toEqual({});
+    expect(contributionLensValues('/reviewers', lens), lens).toEqual({});
+  }
+});
+
+it('shows the six credits by default in the Companies lens and keeps Show all Reviewers-only', () => {
+  const credits = [
+    'prsAuthored',
+    'authoredPrsMerged',
+    'reviewerContributions',
+    'approvalContributions',
+    'mergesPerformed',
+    'issuesAuthored',
+  ];
+  const visible = (href: string) => {
+    const { route, values } = view(href);
+    const columns = contributionColumnVisibility(route, values)!;
+    return Object.keys(columns).filter((id) => columns[id]);
+  };
+  expect(visible('/companies?lens=all')).toEqual(['name', 'members', ...credits]);
+  expect(visible('/companies/id/company-acme?lens=all')).toEqual(['name', 'actorType', ...credits]);
+  expect(visible('/contributors/account-alice?lens=all')).toEqual(['name', ...credits]);
+  const saved = {
+    companies: {
+      showAllAccounts: true,
+      columns: { prComments: true, issuesAuthored: false },
+      sort: { sort: 'mergesPerformed', descending: true },
+    },
+  };
+  expect(savedPresentationValues('/companies', { lens: 'all' }, saved)).toEqual({
+    cols: ['-issuesAuthored', 'prComments'],
+    sort: '-mergesPerformed',
+  });
+  expect(savedPresentationValues('/companies', { lens: 'reviewers' }, saved)).toMatchObject({
+    all: true,
   });
 });
 

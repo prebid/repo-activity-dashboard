@@ -1,5 +1,7 @@
 // The frozen v1 URL defaults. An absent field means its v1 default, never a saved preference, so
-// these values must not change: a later default is a new version (`v=2`) with its own table.
+// these values must not change: a later default is a new version (`v=2`) with its own table. A key
+// may be added for a value that was invalid before; an existing value never changes. The Companies
+// lens (`lens=all`, P7) added `lensMetricColumns.all` and `contributions.sort.all` this way.
 import { repositoryCatalog } from '@/config/repositories';
 import { insightMetrics } from '@/models/repository-insights';
 import { backlogMetricIds } from '@/models/repository-overview';
@@ -34,10 +36,21 @@ const supportOnly: ReadonlySet<string> = new Set(
 
 export const urlVersion = '1';
 
-/** Contribution lenses: each shows three metric columns by default (decision C5). */
+/**
+ * Contribution lenses' default metric columns: each role lens shows its three credits (decision
+ * C5); the Companies lens shows the six credits in report order.
+ */
 export const lensMetricColumns = {
   contributors: ['prsAuthored', 'authoredPrsMerged', 'issuesAuthored'],
   reviewers: ['reviewerContributions', 'approvalContributions', 'mergesPerformed'],
+  all: [
+    'prsAuthored',
+    'authoredPrsMerged',
+    'reviewerContributions',
+    'approvalContributions',
+    'mergesPerformed',
+    'issuesAuthored',
+  ],
 } as const;
 export type UrlLens = keyof typeof lensMetricColumns;
 
@@ -81,7 +94,11 @@ export const urlDefaultsV1 = {
   },
   contributionTimeline: { sort: 'period' },
   contributions: {
-    sort: { contributors: '-authoredPrsMerged', reviewers: '-reviewerContributions' },
+    sort: {
+      contributors: '-authoredPrsMerged',
+      reviewers: '-reviewerContributions',
+      all: '-authoredPrsMerged',
+    },
     detailsSort: '-creditedAt',
     identityColumns: {
       contributors: ['name', 'actorType', 'company'],
@@ -102,7 +119,8 @@ export function allRepositorySlugs(): readonly string[] {
 const str = (value: UrlValue | undefined) => (typeof value === 'string' ? value : undefined);
 /** The lens a screen's values select; the route decides for `/reviewers`. */
 export function lensOf(route: UrlRoute, values: UrlValues): UrlLens {
-  return route === '/reviewers' || values.lens === 'reviewers' ? 'reviewers' : 'contributors';
+  if (route === '/reviewers' || values.lens === 'reviewers') return 'reviewers';
+  return values.lens === 'all' ? 'all' : 'contributors';
 }
 /** The record kind of a repository record list: the metric's kind, else the `view`. */
 export function recordKindOf(values: UrlValues): 'prs' | 'issues' {

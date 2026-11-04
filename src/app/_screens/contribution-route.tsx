@@ -15,7 +15,7 @@ import { contributionQueryLens, contributionSubjectTitle } from '@/lib/presentat
 import type { PageSearchParams } from '@/lib/presentation/search-params';
 import { legacySearchParams, urlHref } from '@/lib/presentation/url/codec';
 import type { ContributionArea } from '@/models/contribution-page';
-import type { ContributionLens } from '@/models/contribution-lens';
+import { isContributionLens, type ContributionLens } from '@/models/contribution-lens';
 import type { ContributionFocus } from '@/models/contributions';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { PageHeader } from '@/components/navigation/page-header';
@@ -49,7 +49,8 @@ function InvalidContributionView({
  * A contribution report page after the URL helper: a report or an Over time view renders from its
  * registry values, in a lens. `lens` names the Reviewers lens of /reviewers, whose route is the
  * lens; elsewhere the values' `lens` decides, and for an address the helper rejects, the raw
- * `query`'s, as the document title and the masthead read it.
+ * `query`'s, as the document title and the masthead read it. The Companies lens has no people
+ * overview, so a rejected `lens=all` names it on /reviewers too.
  */
 export async function ContributionRoute({
   area,
@@ -64,14 +65,14 @@ export async function ContributionRoute({
   focus?: ContributionFocus;
   lens?: ContributionLens;
 }) {
+  if (page.status === 'invalid') {
+    const named = contributionQueryLens(legacySearchParams(query));
+    return (
+      <InvalidContributionView area={area} lens={named === 'all' ? named : (routeLens ?? named)} />
+    );
+  }
   const lens: ContributionLens =
-    routeLens ??
-    (page.status === 'canonical'
-      ? page.values.lens === 'reviewers'
-        ? 'reviewers'
-        : 'contributors'
-      : contributionQueryLens(legacySearchParams(query)));
-  if (page.status === 'invalid') return <InvalidContributionView area={area} lens={lens} />;
+    routeLens ?? (isContributionLens(page.values.lens) ? page.values.lens : 'contributors');
   const { route, segments } = contributionReportRoute(area, focus, lens);
   if (page.values.timeline === true)
     return <TimelineRoute view={{ route, segments, values: page.values }} entry={page.entry} />;

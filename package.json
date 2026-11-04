@@ -28,6 +28,7 @@
     "audit:dependencies": "node scripts/audit-dependencies.mjs",
     "auth:operator": "node --conditions=react-server --import tsx scripts/auth-operator.ts",
     "data:snapshot": "node --conditions=react-server --import tsx scripts/export-activity-snapshot.ts",
+    "data:companies": "node --conditions=react-server --import tsx scripts/export-company-mapping.ts",
     "preview:storybook": "vite preview --outDir storybook-static --host 127.0.0.1 --port 6007 --strictPort",
     "build:preview": "node scripts/app.mjs build preview",
     "start:preview": "node scripts/app.mjs start preview",

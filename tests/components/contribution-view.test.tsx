@@ -552,6 +552,78 @@ it('names company members in the Reviewers lens and hides only known-zero review
     }),
   ).toBeVisible();
 });
+it('reads the Companies lens over any activity: no Show all, no reviewer notice, Contributor activity first', () => {
+  const listed = () =>
+    [...screen.getByRole('table').querySelectorAll('tbody tr [data-column="name"]')].map(
+      (cell) => cell.textContent,
+    );
+  const contributors = render(<Preview data={page({ area: 'companies' })} />);
+  const contributorsLens = listed();
+  contributors.unmount();
+  // A fresh mount, so the table is sorted by the Companies lens's own default.
+  const view = render(<Preview data={page({ lens: 'all', area: 'companies' })} />);
+  expect(screen.getByRole('heading', { name: 'Companies', level: 1 })).toBeVisible();
+  const companies = screen.getByRole('region', { name: 'Companies' });
+  // The same companies, in the same order, as the Contributors lens lists, the unmapped row too.
+  expect(listed()).toEqual(contributorsLens);
+  expect(listed()).toHaveLength(4);
+  expect(
+    within(companies).getByRole('columnheader', { name: 'Authored PRs merged' }),
+  ).toHaveAttribute('aria-sort', 'descending');
+  expect(screen.queryByRole('switch')).toBeNull();
+  expect(screen.queryByRole('navigation', { name: 'Contribution reports' })).toBeNull();
+  // Known-zero reviewer totals are not news here: the empty list is about all activity.
+  view.rerender(<Preview data={page({ lens: 'all', area: 'companies', sample: 'empty' })} />);
+  expect(
+    screen.getByRole('heading', { name: 'No counted contributions in this period' }),
+  ).toBeVisible();
+  expect(screen.queryByRole('complementary', { name: 'Reviewer activity' })).toBeNull();
+  const finn = { kind: 'contributor', accountId: 'account-finn' } as const;
+  view.rerender(<Preview data={page({ lens: 'all', focus: finn })} />);
+  expect(screen.queryByRole('complementary', { name: 'Reviewer activity' })).toBeNull();
+  expect(totalsClusters().map(([name]) => name)).toEqual([
+    'Contributor activity',
+    'Reviewer activity',
+  ]);
+});
+it('names company members in the Companies lens and hides only members with every total known zero', () => {
+  const beacon = { kind: 'company', companyId: 'company-beacon' } as const;
+  const view = render(
+    <Preview
+      data={page({ area: 'companies', focus: beacon, hideZeroMembers: true, lens: 'all' })}
+    />,
+  );
+  expect(screen.queryByRole('region', { name: 'Company contributors' })).toBeNull();
+  const members = screen.getByRole('region', { name: 'Company members' });
+  expect(members).toHaveTextContent(
+    'Known-zero totals are hidden; accounts with incomplete metrics remain visible.',
+  );
+  // Finn has no reviewer credit but an issue, so every metric counts and he stays.
+  expect(within(members).getByRole('link', { name: /^Finn/ })).toBeVisible();
+  expect(within(members).getByRole('link', { name: /^Carol/ })).toBeVisible();
+  expect(totalsClusters().map(([name]) => name)).toEqual([
+    'Contributor activity',
+    'Reviewer activity',
+  ]);
+  view.rerender(<Preview data={page({ area: 'companies', focus: beacon, lens: 'all' })} />);
+  expect(screen.getByRole('region', { name: 'Company members' })).toHaveTextContent(
+    'All included accounts are shown, including those with no counted contributions.',
+  );
+  // Eve, of Example Acme, has every total known zero: hidden with Hide zero on, listed with it off.
+  const acme = { kind: 'company', companyId: 'company-acme' } as const;
+  view.rerender(
+    <Preview data={page({ area: 'companies', focus: acme, hideZeroMembers: true, lens: 'all' })} />,
+  );
+  const acmeMembers = screen.getByRole('region', { name: 'Company members' });
+  expect(within(acmeMembers).queryByRole('link', { name: /^Eve/ })).toBeNull();
+  expect(within(acmeMembers).getByRole('link', { name: /^Alice/ })).toBeVisible();
+  view.rerender(<Preview data={page({ area: 'companies', focus: acme, lens: 'all' })} />);
+  expect(
+    within(screen.getByRole('region', { name: 'Company members' })).getByRole('link', {
+      name: /^Eve/,
+    }),
+  ).toBeVisible();
+});
 it('closes an open export when the listed population changes', async () => {
   const user = userEvent.setup();
   const view = render(<Preview data={page({ lens: 'reviewers' })} />);

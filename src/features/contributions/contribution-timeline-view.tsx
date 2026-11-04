@@ -45,9 +45,9 @@ export interface ContributionTimelineNavigation {
 }
 
 /**
- * The Over time metric columns in each lens: every report metric, with the lens's three shown by
- * default (decisions C5 and D22); the rest are in Columns. Core metrics carry the report table's
- * display-only headings.
+ * The Over time metric columns in each lens: every report metric, with the lens's metrics shown by
+ * default (decisions C5 and D22): a role's three, or the six credits in the Companies lens. The
+ * rest are in Columns. Core metrics carry the report table's display-only headings.
  */
 export const contributionTimelineMetrics: Readonly<
   Record<ContributionLens, TimelineMetricDefinition[]>

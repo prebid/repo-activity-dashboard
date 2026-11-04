@@ -17,7 +17,7 @@ import {
 import { instantIso } from '@/lib/presentation/url/period';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
-import type { ContributionLens } from '@/models/contribution-lens';
+import { isContributionLens, type ContributionLens } from '@/models/contribution-lens';
 import { contributionBackLabel } from '@/lib/presentation/contribution-lens';
 import { repositoryOverviewSamples } from '@/mocks/repository-overview';
 import { readDrilldownSelection, summaryReturnTo } from '@/lib/presentation/repository-drilldown';
@@ -127,14 +127,15 @@ export async function repositoryAuthorDetail(
 }
 /**
  * One contribution report view from its registry values, in a lens: `lens` names the Reviewers
- * lens of /reviewers, whose route is the lens; elsewhere `values.lens` decides. Show all (`all`)
- * belongs to a Reviewers-lens overview's table; a snapshot pin must be the sample's as-of.
+ * lens of /reviewers, whose route is the lens; elsewhere `values.lens` decides, Reviewers or
+ * Companies (`all`). Show all (the `all` flag) belongs to a Reviewers-lens overview's table; a
+ * snapshot pin must be the sample's as-of.
  */
 export async function contributions(
   area: ContributionArea,
   values: UrlValues = {},
   focus: ContributionFocus = { kind: 'overview' },
-  lens: ContributionLens = values.lens === 'reviewers' ? 'reviewers' : 'contributors',
+  lens: ContributionLens = isContributionLens(values.lens) ? values.lens : 'contributors',
 ) {
   const loaded = await loadContributionValues(area, values, focus);
   if (loaded.status === 'invalid') return loaded;

@@ -9,6 +9,7 @@ import {
 } from '@/models/contribution-page';
 import type { ContributionFocus } from '@/models/contributions';
 import type { ContributionLens } from '@/models/contribution-lens';
+import { contributionOverviewPath } from './contribution-lens';
 import { contributionUrlFits } from './contribution-return';
 import { urlHref } from './url/codec';
 import { viewHref, type UrlView } from './url/back';
@@ -25,13 +26,15 @@ import {
   type SavedContributionTables,
 } from './contribution-url';
 
-/** A target's path; the people overview's is /reviewers in the Reviewers lens. */
+/**
+ * A target's path; the people overview's is /reviewers in the Reviewers lens, and /companies in the
+ * Companies lens, which has no people overview.
+ */
 export function contributionPath(
   target: ContributionTarget,
   lens: ContributionLens = 'contributors',
 ): string {
-  if (typeof target === 'string')
-    return target === 'contributors' && lens === 'reviewers' ? '/reviewers' : '/' + target;
+  if (typeof target === 'string') return contributionOverviewPath(target, lens);
   if (target.kind === 'contributor') return '/contributors/' + encodeURIComponent(target.accountId);
   return target.companyId === null
     ? '/companies/unmapped'

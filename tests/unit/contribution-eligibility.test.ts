@@ -347,3 +347,41 @@ describe('the Reviewers lens population', () => {
     expect(members('reviewers')).toEqual(['account-carol']);
   });
 });
+
+describe('the Companies lens population', () => {
+  const companyIds = (view: object, scenario: Parameters<typeof contributionSample>[0]) =>
+    reportRows(
+      selectContributions(contributionSample(scenario), undefined, undefined, {
+        area: 'companies',
+        ...view,
+      }),
+      'companies',
+    ).map((row) => [row.company?.id ?? null, row.memberCount]);
+  it.each(['reference', 'large', 'coverage-gap', 'empty'] as const)(
+    'lists the %s sample’s companies with any activity, as the Contributors lens does',
+    (scenario) => {
+      const companies = companyIds({ lens: 'all' }, { scenario });
+      expect(companies).toEqual(companyIds({}, { scenario }));
+      const report = selectContributions(contributionSample({ scenario }), undefined, undefined, {
+        area: 'companies',
+        lens: 'all',
+      });
+      // No population role, so no Show all switch.
+      expect(report).not.toHaveProperty('population');
+    },
+  );
+  it('exports any activity, and hides only members with no credit at all', () => {
+    const reference = contributionSample();
+    const selection = defaultContributionSelection(reference);
+    expect(
+      selectContributionExport(reference, selection, { ...request, lens: 'all' }).rows,
+    ).toEqual(selectContributionExport(reference, selection, request).rows);
+    const members = selectContributionExport(reference, selection, {
+      ...request,
+      lens: 'all',
+      focus: { kind: 'company', companyId: 'company-beacon' },
+      hideZeroMembers: true,
+    }).rows.map((row) => row.entityId);
+    expect(members).toEqual(['account-carol', 'account-finn']);
+  });
+});

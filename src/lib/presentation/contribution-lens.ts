@@ -1,5 +1,6 @@
-// The Contributors and Reviewers lenses in presentation: which lens a location shows, the cookie
-// sections each lens saves into, the Column set choice and its lead sorts, and the lens-named crumb.
+// The Contributors, Reviewers and Companies lenses in presentation: which lens a location shows,
+// the cookie sections each lens saves into, the Column set choice and its lead sorts, and the
+// lens-named crumb.
 import type { ColumnSetChoice, ColumnSetOption } from '@/models/column-selection';
 import {
   columnSetIds,
@@ -20,30 +21,36 @@ import { screenOf } from './url/registry';
 
 /**
  * The lens a location shows: `/reviewers`, or `lens=reviewers` on another contribution route, is
- * the Reviewers lens; anything else is Contributors. `search` is a page's query, or null where no
- * query is known (Storybook without a router).
+ * the Reviewers lens; `lens=all` on a contribution route, /reviewers included, is the Companies
+ * lens, as the invalid view and its title read it; anything else is Contributors. `search` is a
+ * page's query, or null where no query is known (Storybook without a router).
  */
 export function contributionLensForLocation(
   pathname: string,
   search: Pick<URLSearchParams, 'get'> | null,
 ): ContributionLens {
-  if (pathname === '/reviewers' || pathname.startsWith('/reviewers/')) return 'reviewers';
-  return /^\/(?:contributors|companies)(?:\/|$)/.test(pathname) &&
-    search?.get('lens') === 'reviewers'
-    ? 'reviewers'
-    : 'contributors';
+  const lens = search?.get('lens');
+  if (pathname === '/reviewers' || pathname.startsWith('/reviewers/'))
+    return lens === 'all' ? 'all' : 'reviewers';
+  if (!/^\/(?:contributors|companies)(?:\/|$)/.test(pathname)) return 'contributors';
+  return lens === 'reviewers' || lens === 'all' ? lens : 'contributors';
 }
-/** An area overview's path in a lens: the people overview is /reviewers in the Reviewers lens. */
+/**
+ * An area overview's path in a lens: the people overview is /reviewers in the Reviewers lens. The
+ * Companies lens has no people overview; both areas open /companies, which carries `lens=all`.
+ */
 export function contributionOverviewPath(
   area: ContributionArea,
   lens: ContributionLens = 'contributors',
 ): '/contributors' | '/reviewers' | '/companies' {
-  return area === 'companies'
+  return area === 'companies' || lens === 'all'
     ? '/companies'
     : lens === 'reviewers'
       ? '/reviewers'
       : '/contributors';
 }
+/** A lens's prefix in its own cookie section keys; the Contributors lens has none. */
+const lensSectionPrefix = (lens: ContributionLens) => (lens === 'contributors' ? '' : lens + '.');
 /**
  * The cookie sections a table's columns and sort are saved in. Each lens saves its own; supporting
  * records (`details`) are shared, because their columns do not depend on the lens.
@@ -52,8 +59,7 @@ export function contributionTableSections(
   lens: ContributionLens,
   table: ContributionTableKind,
 ): { columns: PreferenceSectionKey; sort: PreferenceSectionKey } {
-  const prefix =
-    lens === 'reviewers' && table !== 'details' ? 'contributions.reviewers.' : 'contributions.';
+  const prefix = 'contributions.' + (table === 'details' ? '' : lensSectionPrefix(lens));
   return {
     columns: (prefix + table + '.columns') as PreferenceSectionKey,
     sort: (prefix + table + '.sort') as PreferenceSectionKey,
@@ -65,11 +71,7 @@ export function contributionTimelineSection(
   area: ContributionArea,
   focus: 'overview' | 'contributor' | 'company',
 ): PreferenceSectionKey {
-  return ('timeline.' +
-    (lens === 'reviewers' ? 'reviewers.' : '') +
-    area +
-    '.' +
-    focus) as PreferenceSectionKey;
+  return ('timeline.' + lensSectionPrefix(lens) + area + '.' + focus) as PreferenceSectionKey;
 }
 
 /** The Column set choices for a table whose hideable columns are `hideableIds`. */
@@ -146,8 +148,9 @@ const overviewLabels = {
 } as const;
 /**
  * A crumb's label (decision D12): an overview report without a metric or Over time is named,
- * "Back to Contributors", "Back to Reviewers" or "Back to Companies"; any other parent, and an
- * unavailable one (null), is "Back to report".
+ * "Back to Contributors", "Back to Reviewers" or "Back to Companies" (in any lens, the Companies
+ * lens's /companies?lens=all included); any other parent, and an unavailable one (null), is
+ * "Back to report".
  */
 export function contributionBackLabel(parent: UrlView | null | undefined): string {
   if (

@@ -32,15 +32,15 @@ const thisMonth = 'period=this-month&at=2026-10-24T12:00Z';
 const thisYear = 'period=this-year&at=2026-10-24T12:00Z';
 
 describe('view inventory', () => {
-  it('lists four sign-in pages and thirty-seven report views under unique, well-formed ids and paths', () => {
+  it('lists four sign-in pages and forty-one report views under unique, well-formed ids and paths', () => {
     expect(signInPages.map((view) => view.path)).toEqual([
       '/auth/login',
       '/auth/error',
       '/auth/setup',
       '/auth/change-password',
     ]);
-    expect(reportViews).toHaveLength(37);
-    expect(inventory).toHaveLength(41);
+    expect(reportViews).toHaveLength(41);
+    expect(inventory).toHaveLength(45);
     expect(new Set(ids(inventory)).size).toBe(inventory.length);
     expect(new Set(paths(inventory)).size).toBe(inventory.length);
     for (const view of inventory) {
@@ -64,7 +64,7 @@ describe('view inventory', () => {
   it('keeps each page group on one pathname and shares groups only between repeat views', () => {
     const groups = new Map<string, InventoryView[]>();
     for (const view of inventory) groups.set(view.page, [...(groups.get(view.page) ?? []), view]);
-    expect(groups.size).toBe(32);
+    expect(groups.size).toBe(36);
     for (const [page, views] of groups) {
       expect(page).toMatch(kebab);
       const pathnames = new Set(views.map((view) => new URL(view.path, origin).pathname));
@@ -104,7 +104,7 @@ describe('view inventory', () => {
       'reviewers-large',
     ]);
   });
-  it('selects the views each browser spec covers, with the Reviewers-lens views', () => {
+  it('selects the views each browser spec covers, with the Reviewers- and Companies-lens views', () => {
     expect(ids(viewsFor('visual-review'))).toEqual([
       'repos-comparison',
       'repo-docs-open-issues',
@@ -117,6 +117,7 @@ describe('view inventory', () => {
       'reviewers-large',
       'contributor-detail-reviewers',
       'contributor-no-reviewer-activity',
+      'contributor-detail-all',
     ]);
     expect(paths(viewsFor('visual-review'))).toEqual(
       [
@@ -131,6 +132,7 @@ describe('view inventory', () => {
         '/reviewers?sample=large',
         '/contributors/account-alice?lens=reviewers',
         '/contributors/account-finn?lens=reviewers',
+        '/contributors/account-alice?lens=all',
       ].sort(),
     );
     expect(ids(viewsFor('reflow'))).toEqual([
@@ -160,6 +162,10 @@ describe('view inventory', () => {
         '/companies?lens=reviewers',
         '/contributors/account-alice?lens=reviewers',
         '/companies/id/company-acme?lens=reviewers',
+        '/companies?lens=all',
+        '/companies?timeline&lens=all',
+        '/companies/id/company-acme?lens=all',
+        '/contributors/account-alice?lens=all',
       ].sort(),
     );
     expect(ids(viewsFor('activity-region'))).toEqual(['repos-comparison']);

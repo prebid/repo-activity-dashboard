@@ -57,7 +57,7 @@ async function measure(page: Page) {
     };
   });
 }
-/** Overview, Repositories, Contributors and Reviewers, in masthead order. */
+/** Overview, Repositories, Contributors, Reviewers and Companies, in masthead order. */
 function mainDestinations(page: Page) {
   const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
   return [
@@ -65,6 +65,7 @@ function mainDestinations(page: Page) {
     main.getByRole('button', { name: 'Repositories', exact: true }),
     main.getByRole('link', { name: 'Contributors', exact: true }),
     main.getByRole('link', { name: 'Reviewers', exact: true }),
+    main.getByRole('link', { name: 'Companies', exact: true }),
   ];
 }
 async function serverWidth(page: Page) {
@@ -194,18 +195,28 @@ test('Accounts sits beside the width and theme buttons for administrators', asyn
   for (const button of [w, t, m, s])
     expect(button.y + button.height / 2).toBeCloseTo(a.y + a.height / 2, 0);
 
-  // At 390px the four main navigation destinations share one row without scrolling it.
+  // At 390px the five main navigation destinations keep their order on one row, which scrolls
+  // sideways because they do not fit it; each can be scrolled into view, and the page itself does
+  // not scroll sideways.
   await page.setViewportSize({ width: 390, height: 844 });
   const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
   const destinations = await Promise.all(
     mainDestinations(page).map(async (item) => (await item.boundingBox())!),
   );
-  for (const box of destinations) {
-    expect(box.x).toBeGreaterThanOrEqual(0);
-    expect(box.x + box.width).toBeLessThanOrEqual(390);
+  for (const [index, box] of destinations.entries()) {
     expect(box.y + box.height / 2).toBeCloseTo(destinations[0].y + destinations[0].height / 2, 0);
+    if (index > 0)
+      expect(box.x, 'destination ' + index).toBeGreaterThanOrEqual(
+        destinations[index - 1].x + destinations[index - 1].width - 0.5,
+      );
   }
-  expect(await main.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+  expect(await main.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+  for (const [index, item] of mainDestinations(page).entries()) {
+    await item.scrollIntoViewIfNeeded();
+    expect(await inside(item, main), 'destination ' + index).toBe(true);
+    expect(await inside(item, { x: 0, width: 390 }), 'destination ' + index).toBe(true);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 
   await page.setViewportSize({ width: 375, height: 800 });
   await expect(width).toBeHidden();
@@ -228,7 +239,7 @@ test('Accounts sits beside the width and theme buttons for administrators', asyn
   }
 });
 
-test("an administrator's masthead keeps one row down to 1121px and takes two rows from 1120px", async ({
+test("an administrator's masthead keeps one row down to 1280px and takes two rows from 1279px", async ({
   page,
 }) => {
   await page.goto(
@@ -251,12 +262,12 @@ test("an administrator's masthead keeps one row down to 1121px and takes two row
   const boxes = (controls: Locator[]) =>
     Promise.all(controls.map(async (control) => (await control.boundingBox())!));
 
-  // One 64px row: the brand, the four destinations and the account group, left to right inside
+  // One 64px row: the brand, the five destinations and the account group, left to right inside
   // the gutters, each clear of the one before it.
-  await page.setViewportSize({ width: 1121, height: 800 });
+  await page.setViewportSize({ width: 1280, height: 800 });
   expect((await header.boundingBox())!.height).toBe(64);
   const row = await boxes([brand, ...destinations, ...accountGroup]);
-  expect(row[0].x).toBeGreaterThanOrEqual(gutter(1121, 'wide') - 0.5);
+  expect(row[0].x).toBeGreaterThanOrEqual(gutter(1280, 'wide') - 0.5);
   for (let index = 1; index < row.length; index++)
     expect(row[index].x, 'control ' + index).toBeGreaterThanOrEqual(
       row[index - 1].x + row[index - 1].width - 0.5,
@@ -266,12 +277,30 @@ test("an administrator's masthead keeps one row down to 1121px and takes two row
     expect(box.y + box.height, 'control ' + index).toBeLessThanOrEqual(64);
   }
   const last = row[row.length - 1];
-  expect(last.x + last.width).toBeLessThanOrEqual(1121 - gutter(1121, 'wide') + 0.5);
+  expect(last.x + last.width).toBeLessThanOrEqual(1280 - gutter(1280, 'wide') + 0.5);
   expect(await header.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+  // The account name takes the shortage as an ellipsis and still shows six characters.
+  const shown = await accountGroup[3].evaluate((button) => {
+    const name = button.lastElementChild as HTMLElement;
+    const text = name.textContent ?? '';
+    const style = getComputedStyle(name);
+    const probe = document.createElement('span');
+    probe.style.cssText = `position:absolute;visibility:hidden;white-space:nowrap;font:${style.font};font-stretch:${style.fontStretch}`;
+    document.body.append(probe);
+    const fits = (value: string) => {
+      probe.textContent = value;
+      return probe.getBoundingClientRect().width <= name.clientWidth + 0.5;
+    };
+    let count = text.length;
+    if (!fits(text)) while (count > 0 && !fits(text.slice(0, count) + '…')) count--;
+    probe.remove();
+    return count;
+  });
+  expect(shown).toBeGreaterThanOrEqual(6);
 
   // Two rows: the brand and the account group, with the width switch still offered, over the
-  // four destinations.
-  await page.setViewportSize({ width: 1120, height: 800 });
+  // five destinations.
+  await page.setViewportSize({ width: 1279, height: 800 });
   expect((await header.boundingBox())!.height).toBe(100);
   await expect(width).toBeVisible();
   const navigation = (await page
@@ -288,7 +317,7 @@ test("an administrator's masthead keeps one row down to 1121px and takes two row
         second[index - 1].x + second[index - 1].width - 0.5,
       );
   }
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1120);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1279);
 });
 
 test("an administrator's first masthead row fits from 320px without overlapping or cutting off the avatar", async ({
@@ -379,23 +408,34 @@ for (const [id, modes, subjects] of [
     }
   });
 
-test('at 320px the masthead scrolls its current destination into view', async ({ page }) => {
-  await login(page);
-  await page.setViewportSize({ width: 320, height: 800 });
-  const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
-  const [, , contributors, reviewers] = mainDestinations(page);
-  for (const [id, current] of [
-    ['reviewers', reviewers],
-    ['companies-reviewers', reviewers],
-    ['contributor-detail-reviewers', reviewers],
-    ['contributors', contributors],
-  ] satisfies [InventoryId, Locator][]) {
-    await page.goto(pathOf(id));
-    // The four destinations do not fit this width, so the row scrolls sideways.
-    expect(await main.evaluate((nav) => nav.scrollWidth > nav.clientWidth), id).toBe(true);
-    await expect.poll(() => inside(current, main), id).toBe(true);
-  }
-});
+for (const width of [320, 390])
+  test(`at ${width}px the masthead scrolls its current destination into view`, async ({ page }) => {
+    await login(page);
+    await page.setViewportSize({ width, height: 800 });
+    const main = page.getByRole('navigation', { name: 'Main navigation', exact: true });
+    const [, , contributors, reviewers, companies] = mainDestinations(page);
+    for (const [id, current] of [
+      ['companies-all', companies],
+      ['companies-timeline-all', companies],
+      ['company-detail-all', companies],
+      ['contributor-detail-all', companies],
+      ['reviewers', reviewers],
+      ['companies-reviewers', reviewers],
+      ['contributor-detail-reviewers', reviewers],
+      ['contributors', contributors],
+      ['companies', contributors],
+    ] satisfies [InventoryId, Locator][]) {
+      await page.goto(pathOf(id));
+      // The five destinations do not fit this width, so the row scrolls sideways.
+      expect(await main.evaluate((nav) => nav.scrollWidth > nav.clientWidth), id).toBe(true);
+      await expect.poll(() => inside(current, main), id).toBe(true);
+      expect(await inside(current, { x: 0, width }), id).toBe(true);
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth),
+        id,
+      ).toBeLessThanOrEqual(width);
+    }
+  });
 
 test('at phone widths the current crumb ends inside the breadcrumb row', async ({ page }) => {
   await login(page);
