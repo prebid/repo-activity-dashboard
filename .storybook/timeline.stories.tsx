@@ -10,6 +10,7 @@ import { repositoryPageNavigationSample } from '../src/mocks/repository-page';
 import { selectRepositoryTimeline } from '../src/lib/presentation/repository-timeline';
 import { selectContributionTimeline } from '../src/lib/presentation/contribution-timeline';
 import type { ContributionSampleScenario } from '../src/models/contribution-page';
+import type { ContributionLens } from '../src/models/contribution-lens';
 import type { TimelineGrouping } from '../src/models/reporting-timeline';
 function Preview({
   area = 'repository',
@@ -21,6 +22,7 @@ function Preview({
   dense = false,
   emptySelection = false,
   state = 'ready',
+  lens = 'contributors',
 }: {
   area?: 'repository' | 'contributors' | 'companies' | 'person' | 'company';
   sample?: ContributionSampleScenario;
@@ -31,6 +33,8 @@ function Preview({
   dense?: boolean;
   emptySelection?: boolean;
   state?: 'ready' | 'loading' | 'error';
+  /** The lens contribution Over time is read in. */
+  lens?: ContributionLens;
 }) {
   const [recovered, recover] = useState(false);
   const contributions = contributionTimelineSample(sample, gap);
@@ -97,10 +101,11 @@ function Preview({
         <ContributionTimelineView
           report={report}
           area={area === 'companies' || area === 'company' ? 'companies' : 'contributors'}
-          href="/contributors?timeline=1"
-          reportHref="/contributors"
-          // The header links the screens supply: area tabs on an overview, otherwise Back to
-          // report and, for a contributor, the company's report.
+          lens={lens}
+          href={lens === 'all' ? '/companies?timeline&lens=all' : '/contributors?timeline=1'}
+          reportHref={lens === 'all' ? '/companies?lens=all' : '/contributors'}
+          // The header links the screens supply: area tabs on an overview outside the Companies
+          // lens, otherwise Back to report and, for a contributor, the company's report.
           navigation={
             area === 'person'
               ? {
@@ -109,12 +114,14 @@ function Preview({
                 }
               : area === 'company'
                 ? { returnTo: '/companies' }
-                : {
-                    areas: {
-                      contributors: '/contributors?timeline=1',
-                      companies: '/companies?timeline=1',
-                    },
-                  }
+                : lens === 'all'
+                  ? {}
+                  : {
+                      areas: {
+                        contributors: '/contributors?timeline=1',
+                        companies: '/companies?timeline=1',
+                      },
+                    }
           }
         />
       )}
@@ -134,6 +141,7 @@ export const WeeklyIssues: Story = { args: { kind: 'issues', grouping: 'week' } 
 export const HistoricalSnapshots: Story = { args: { family: 'snapshot' } };
 export const Contributors: Story = { args: { area: 'contributors' } };
 export const Companies: Story = { args: { area: 'companies' } };
+export const CompaniesLens: Story = { args: { area: 'companies', lens: 'all' } };
 export const Person: Story = { args: { area: 'person' } };
 export const Company: Story = { args: { area: 'company' } };
 export const Partial: Story = { args: { gap: true, grouping: 'quarter' } };

@@ -277,16 +277,19 @@ export function ContributionTimelineScreen({
       reportHref={reportHref}
       navigation={
         focus.kind === 'overview'
-          ? {
-              areas: {
-                contributors:
-                  area === 'contributors'
-                    ? href
-                    : contributionTimelineAreaHref(href, 'contributors'),
-                companies:
-                  area === 'companies' ? href : contributionTimelineAreaHref(href, 'companies'),
-              },
-            }
+          ? // The Companies lens lists companies only: its overview has no area tabs.
+            lens === 'all'
+            ? {}
+            : {
+                areas: {
+                  contributors:
+                    area === 'contributors'
+                      ? href
+                      : contributionTimelineAreaHref(href, 'contributors'),
+                  companies:
+                    area === 'companies' ? href : contributionTimelineAreaHref(href, 'companies'),
+                },
+              }
           : {
               returnTo: entry ?? returnTo,
               returnLabel,
