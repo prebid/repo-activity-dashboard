@@ -17,7 +17,7 @@ Status: decisions approved 2026-10-31. P0 checkpoints approved 2026-11-01 (see `
 | --- | --- | --- |
 | PR base | Redesign pull requests branch from and target `main`. `codex/frontend-rebuild` (`d5a7020`) is contained in `main` and receives no new work. | `docs/product/README.md:36`, `:101` (this change) |
 | Masthead | Navy `#17232e` in both themes with a 3px Prebid-blue top rule; logo only, no product name beside it. | — (P4) |
-| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. At 600px and below the top navigation uses the 13px body size at 100% width (P6). Its five destinations do not fit one row there: at 390px the navigation row's scroll width is 445px in Chromium and WebKit on macOS and 468px in Chromium on Linux against its 390px width, so the row scrolls sideways and keeps the current destination in view. From 1260px down the masthead takes two rows, and the navigation row scrolls wherever its destinations do not fit; above 1260px it is one row, where an administrator's account name keeps at least six characters before its ellipsis (P7, amended). | `foundation-contracts.md` `## What visually locked means` (P1) |
+| Typography | Mona Sans at 112% width for every header-level element: page titles 800, panel titles 700, top navigation, tabs and section chips 14px/600 (tabs 700 when active). Inter for text and numbers. At 600px and below the top navigation uses the 13px body size at 100% width (P6). Its five destinations do not fit one row there: at 390px the navigation row's scroll width is 445px in Chromium and WebKit on macOS and 468px in Chromium on Linux against its 390px width, so the row scrolls sideways and keeps the current destination in view. From 1280px down the masthead takes two rows, and the navigation row scrolls wherever its destinations do not fit; above 1280px it is one row, where an administrator's account name keeps at least six characters before its ellipsis (P7, amended). | `foundation-contracts.md` `## What visually locked means` (P1) |
 | Colour roles | Orange `#ffad32` means act and "you are here" (primary action; nav, tab and sort underline). Blue means links, selection, group rules, the row-hover bar and charts. The amber "Data as of" chip is the one other warm accent. | `login.md:50` already requires orange primary actions (P1, P2) |
 | Page header | Title flush left on every page with one meta line beneath; amber "Data as of" chip on the right; tabs and "On this page" section chips centred in a sticky view bar. Contribution pages drop the eyebrow and subtitle. | `all-repositories.md:232`, `repository-detail.md:32`, `all-repositories-plan.md:55` (its "new navigation system" clause only) (P4, amended) |
 | Sample-data notice | A "Sample data" chip in each page header's Data source, beside "Data as of", while reports read prepared samples (`reportingDataIsSample` in `src/config/reporting.ts`); the frame row stays removed. Re-added 2026-11-02 at the maintainer's request. | `all-repositories-plan.md:38`, `acceptance-matrix.md:26` (amended) |
@@ -168,7 +168,7 @@ Tests most likely affected: accessible names that include the typed sort glyph (
 
 ### P4 — Shell, page header and in-page navigation
 
-- Masthead: `--shell-height` 64px, sticky at the top (at 1000px and below, a 56px row plus a 44px navigation row; 1120px and below from P6, when a fourth destination joined the row; 1260px and below from P7, when a fifth did); navigation labels in Mona Sans; header icon buttons 36×36 with a visible pressed state; an account menu (28px avatar, name, email, role, Change password outside preview builds, Sign out).
+- Masthead: `--shell-height` 64px, sticky at the top (at 1000px and below, a 56px row plus a 44px navigation row; 1120px and below from P6, when a fourth destination joined the row; 1280px and below from P7, when a fifth did); navigation labels in Mona Sans; header icon buttons 36×36 with a visible pressed state; an account menu (28px avatar, name, email, role, Change password outside preview builds, Sign out).
 - `PageHeader`: back link and title flush left, one meta line, the "Data as of" chip on the right inside `aside aria-label="Data source"`. Header rows have fixed heights so sibling tabs never move the toolbar; existing h1, region, tab-navigation and button accessible names are kept; the `ReportToolbar` summary row is the one place each page states its scope.
 - `ViewBar`: a fixed 44px bar holding the tabs and, on pages with two or more sections, `SectionNav` chips with scroll-spy; sticky at `top: var(--shell-height)`; `scroll-padding-top` equals the masthead height plus 44px plus 12px; a jump moves focus to the section heading and updates the fragment with `history.replaceState`, adding no Back entry. A "Sections" menu replaces the chips at 600px and below, and above 600px wherever the chips do not fit beside the tabs, as `SectionNav` measures (from the final visual inspection; 600px alone before it). P4 sets `--sticky-offset` for P3's sticky table headers.
 - Remove the frame's sample-data row. Merge the two contribution tab rows into the view bar.
@@ -1486,7 +1486,7 @@ No file changes under `src/lib/auth`, `src/middleware.ts`, `src/app/auth`, `src/
 
 ## P7 evidence
 
-Measured at `f0cd2a8` on `p7/integration`, cut from `feature/companies-lens` at `db47f39`: the core step `8fff1c7`; the server, views, shell and company-mapping steps (`3b55133`, `dc8b5d2`, `fcfed20`, `9c9e669`), each merged with a merge commit; `db47f39`, which reads `lens=all` on `/reviewers` as the Companies lens in the masthead and the document title; then the integration commits (inventory, the 1260px masthead with its specs, the lens and canonical-URL specs, the golden re-record). `bcd55ed` then added one browser test. No file under `src/` or `.storybook/` changed after the builds below.
+Measured at `f0cd2a8` on `p7/integration`, cut from `feature/companies-lens` at `db47f39`: the core step `8fff1c7`; the server, views, shell and company-mapping steps (`3b55133`, `dc8b5d2`, `fcfed20`, `9c9e669`), each merged with a merge commit; `db47f39`, which reads `lens=all` on `/reviewers` as the Companies lens in the masthead and the document title; then the integration commits (inventory, the two-row masthead from 1260px with its specs, the lens and canonical-URL specs, the golden re-record). `bcd55ed` then added one browser test. No file under `src/` or `.storybook/` changed after the builds below, except the breakpoint move from 1260px to 1280px recorded under Masthead width, whose specs were rerun.
 
 ### Checks
 
@@ -1505,8 +1505,8 @@ The three new stories (`contributions-pages--companies-lens`, `timelines-layouts
 
 Specs changed to follow the product before the full runs, which then had no failure:
 
-- `layout-width.spec.ts`: the masthead has five destinations. At 390px they keep their order on one row that scrolls sideways, each can be scrolled into view, and the page does not scroll. At 320px and 390px the current destination is inside the row and the viewport on the four Companies-lens views, three Reviewers-lens views, `/contributors` and `/companies`. An administrator's masthead is one 64px row at 1261px, with at least six characters of the account name before its ellipsis, and two rows at 1260px.
-- `view-bar.spec.ts`: the view bar sits under a 64px masthead at 1280px and 1261px and under a 100px one at 1260px.
+- `layout-width.spec.ts`: the masthead has five destinations. At 390px they keep their order on one row that scrolls sideways, each can be scrolled into view, and the page does not scroll. At 320px and 390px the current destination is inside the row and the viewport on the four Companies-lens views, three Reviewers-lens views, `/contributors` and `/companies`. An administrator's masthead is one 64px row at 1281px, with at least six characters of the account name before its ellipsis, and two rows at 1280px.
+- `view-bar.spec.ts`: the view bar sits under a 64px masthead at 1300px and 1281px and under a 100px one at 1280px.
 - `contribution-lenses.spec.ts`: without JavaScript exactly one masthead destination is marked on eight routes, Companies on `/companies?lens=all`, `/companies/id/company-acme?lens=all` and `/contributors/account-alice?lens=all`; the masthead's Companies link is followed with no document request and no hydration error; the Companies overview shows the six credits sorted by Authored PRs merged, "Columns · All credits" and Report and Over time without subject tabs; a company link keeps `lens=all`, and its "Back to Companies" crumb returns to the lens. After the full runs: its Columns menu locks only "Company (required)", and All columns shows all 39 metrics.
 - `canonical-urls.spec.ts`: a bare `/companies?lens=all` with a saved scope and Companies-lens sort answers 307 to `/companies?lens=all&period=last-month&sort=-mergesPerformed`, ignoring a saved Companies-tab sort; without a saved view it renders at its own address.
 
@@ -1531,7 +1531,7 @@ With the two-row masthead at 1120px and below, the administrator's one row did n
 | 1260 | clear; name 10 of 14 | clear; name 10 of 14 | clear; name 6 of 14 |
 | 1280 | clear; name 14 of 14 | clear; name 14 of 14 | clear; name 9 of 14 |
 
-A 1px scan from 1121 to 1400px put every control clear from 1152px on macOS and 1185px on Linux, six characters of the name from 1228px on macOS and 1260px on Linux, and the whole name from 1271px and 1304px. The two-row breakpoint therefore moved to 1260px in `dashboard.module.css` and `prebid.css`. At that breakpoint:
+A 1px scan from 1121 to 1400px put every control clear from 1152px on macOS and 1185px on Linux, six characters of the name from 1228px on macOS and 1260px on Linux, and the whole name from 1271px and 1304px. The two-row breakpoint first moved to 1260px in `dashboard.module.css` and `prebid.css`, the smallest width that met the rule on Linux. At that breakpoint:
 
 | Width | Chromium, macOS | WebKit, macOS | Chromium, Linux |
 | --- | --- | --- | --- |
@@ -1542,6 +1542,8 @@ A 1px scan from 1121 to 1400px put every control clear from 1152px on macOS and 
 | 1280 | one row, clear; name 14 of 14 | one row, clear; name 14 of 14 | one row, clear; name 9 of 14 |
 
 A signed-in viewer, without the Accounts link, has a one-row masthead at 1261px and 1280px with the whole name in all three. The page never scrolled sideways at any measured width.
+
+At 1261px Linux kept exactly the six characters the rule requires, and CI's x86_64 Linux was not measured, so the breakpoint then moved to 1280px in both files: one row from 1281px, where the one-row layout is the one measured at 1280px above (nine characters on Linux, the whole name on macOS). `layout-width.spec.ts` and `view-bar.spec.ts` assert 1281px and 1280px; their results after the move are under Checks.
 
 ### Golden URL set
 
@@ -1568,8 +1570,8 @@ The code is connected: database sources read `src/server/company-mapping.json` t
 
 ### Not run
 
-- Checkpoints A and B: no visual sign-off of the new stories, the Companies-lens pages, or the two-row masthead now used from 1121 to 1260px.
-- Chromium on CI's x86_64 Linux: the masthead was measured on aarch64; at 1261px the administrator's name keeps exactly six characters there.
+- Checkpoints A and B: no visual sign-off of the new stories, the Companies-lens pages, or the two-row masthead now used from 1121 to 1280px.
+- Chromium on CI's x86_64 Linux: the masthead was measured on aarch64, where the administrator's name keeps nine characters at the 1281px one-row width.
 - Before-captures on the base worktree.
 - A non-empty company mapping in any build: no page was rendered with `current-mapping` from a database source.
 - Amplify and CloudFront limits for the 41-section contributions cookie (the P5b premise remains open).

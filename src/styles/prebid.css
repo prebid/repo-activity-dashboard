@@ -84,7 +84,7 @@
   --prebid-row-hover-bar: inset 3px 0 0 var(--prebid-brand-blue);
   --prebid-sort-underline: inset 0 -2px 0 var(--prebid-accent);
 
-  /* Shell. The masthead is one 64px row, or a 56px row over a 44px navigation row at 1260px and
+  /* Shell. The masthead is one 64px row, or a 56px row over a 44px navigation row at 1280px and
      below, and the view bar sticks under it. --sticky-offset is the sticky chrome above the
      content: the masthead, plus the view bar on a page that has one (below). Table scroll areas
      and the root scroll padding read it. */
@@ -183,7 +183,7 @@
   --prebid-trailing-shadow: inset -6px 0 8px -6px var(--prebid-scroll-shadow);
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1280px) {
   :root {
     --shell-height: 100px;
     --shell-row-height: 56px;

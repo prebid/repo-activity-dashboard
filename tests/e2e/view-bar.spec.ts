@@ -95,9 +95,9 @@ test('the masthead and the 44px view bar stay stuck at the top to the end of the
   const bar = page.locator('[data-view-bar]');
   // The bar sits under the one-row masthead, and under both rows once the masthead takes two.
   for (const [width, shell] of [
-    [1280, 64],
-    [1261, 64],
-    [1260, 100],
+    [1300, 64],
+    [1281, 64],
+    [1280, 100],
   ] as const) {
     await page.setViewportSize({ width, height: 800 });
     for (const share of [0.5, 1]) {
