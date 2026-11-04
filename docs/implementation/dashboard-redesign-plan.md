@@ -1500,6 +1500,7 @@ Measured at `f0cd2a8` on `p7/integration`, cut from `feature/companies-lens` at 
 | Full browser suite, Chromium | 854 passed in 19.5 minutes; `check-test-results.mjs playwright` verified 854 |
 | Full browser suite, WebKit | 853 passed in 25.6 minutes (the golden URL record runs in Chromium only); the checker verified 853 |
 | `contribution-lenses.spec.ts` after the full runs, Chromium and WebKit | 12 passed in each; the checker verified 12 each |
+| After the move to 1280px (`7a142b8`): `npm run check`, `build:preview`, `build:storybook`, then `layout-width.spec.ts` and `view-bar.spec.ts` in Chromium and WebKit | exit 0; 3,138 unit and component tests; 66 browser tests passed, and the checker verified 66 |
 
 The three new stories (`contributions-pages--companies-lens`, `timelines-layouts--companies-lens`, `navigation-click-feedback--companies-active`) passed the story-coverage spec with axe in Light and Dark, and the four new inventory views passed the document-title and inventory-design (Light and Dark) specs and the inventory-wide URL-budget spec, in both engines. The one test added after the full runs, that every metric stays addable in the Companies lens, changed only that spec file.
 
