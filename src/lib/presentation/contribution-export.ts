@@ -15,6 +15,7 @@ import type {
   ContributionExportRow,
 } from '@/models/contribution-export';
 import type { ContributionArea, ContributionPage } from '@/models/contribution-page';
+import { isContributionLens } from '@/models/contribution-lens';
 import {
   contributorValues,
   companyValues,
@@ -122,10 +123,12 @@ function canonicalExport(
         : { kind },
   );
   const requested = typeof values.columns === 'object' ? values.columns : [];
-  const lens = values.lens === 'reviewers' ? 'reviewers' : 'contributors';
+  const lens = isContributionLens(values.lens) ? values.lens : 'contributors';
   if (
     !focus.success ||
     (kind === 'overview' && id !== undefined) ||
+    // The Companies lens has no people overview.
+    (lens === 'all' && area === 'contributors' && kind === 'overview') ||
     // Show all is a Reviewers-lens overview's population.
     (values.all === true && (lens !== 'reviewers' || kind !== 'overview')) ||
     !requested.length ||
@@ -224,7 +227,7 @@ export function contributionExportHref(
     ...(focus.kind === 'company' && { id: focus.companyId ?? 'unmapped' }),
     layout,
     columns: exportColumnOrder.filter((column) => metrics.includes(column)),
-    ...(page.lens === 'reviewers' && { lens: 'reviewers' }),
+    ...((page.lens === 'reviewers' || page.lens === 'all') && { lens: page.lens }),
     ...(page.hideZeroMembers && { zero: 'hide' }),
     ...(page.lens === 'reviewers' &&
       page.allAccounts &&

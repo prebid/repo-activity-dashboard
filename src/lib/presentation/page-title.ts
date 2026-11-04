@@ -26,7 +26,8 @@ const titleFrom = (...parts: string[]) => parts.join(' · ');
 
 /**
  * A contribution report's subject: its area, a contributor or a company. The people overview is
- * "Reviewers" in the Reviewers lens.
+ * "Reviewers" in the Reviewers lens. The Companies lens has no people overview, so its overview is
+ * "Companies" in either area.
  */
 export function contributionSubjectTitle(
   area: ContributionArea,
@@ -34,7 +35,11 @@ export function contributionSubjectTitle(
   lens: ContributionLens = 'contributors',
 ): string {
   if (subject === 'overview')
-    return area === 'companies' ? 'Companies' : lens === 'reviewers' ? 'Reviewers' : 'Contributors';
+    return area === 'companies' || lens === 'all'
+      ? 'Companies'
+      : lens === 'reviewers'
+        ? 'Reviewers'
+        : 'Contributors';
   return subject?.name ?? 'Unmapped company';
 }
 
@@ -106,12 +111,14 @@ export function repositoryAuthorPageTitle(
  * the document title and the invalid view use it, so all three agree on a rejected address.
  */
 export function contributionQueryLens(params: Pick<URLSearchParams, 'get'>): ContributionLens {
-  return params.get('lens') === 'reviewers' ? 'reviewers' : 'contributors';
+  const lens = params.get('lens');
+  return lens === 'reviewers' || lens === 'all' ? lens : 'contributors';
 }
 /**
  * Names the view first, then its subject; only the default view of a focused report adds its
  * area. In the Reviewers lens (`lens`, else the query's `lens`) a title that does not already end
- * with "Reviewers" gains " · Reviewers" (decision D13).
+ * with "Reviewers" gains " · Reviewers" (decision D13); every Companies-lens title gains
+ * " · All activity", so it differs from the Contributors-lens Companies title.
  */
 export function contributionPageTitle(
   area: ContributionArea,
@@ -120,6 +127,7 @@ export function contributionPageTitle(
   lens: ContributionLens = contributionQueryLens(params),
 ): string {
   const title = contributionViewTitle(area, subject, params, lens);
+  if (lens === 'all') return titleFrom(title, 'All activity');
   return lens === 'reviewers' && !title.endsWith('Reviewers')
     ? titleFrom(title, 'Reviewers')
     : title;

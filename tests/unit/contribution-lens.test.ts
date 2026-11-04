@@ -87,11 +87,20 @@ describe('population roles', () => {
     for (const lens of contributionLenses) {
       const { sort, descending } = lensDefaultSort[lens];
       expect((descending ? '-' : '') + sort).toBe(urlDefaultsV1.contributions.sort[lens]);
-      expect(roleMetrics[lensRole[lens]]).toContain(sort);
+      const role = lensRole[lens];
+      // The Companies lens lists any activity: no role; its sort is one of the six credits.
+      expect(role === null ? columnSetMetrics.credits : roleMetrics[role]).toContain(sort);
     }
+    expect(lensRole.all).toBeNull();
+    expect(lensDefaultSort.all).toEqual(lensDefaultSort.contributors);
+    expect(urlDefaultsV1.contributions.lensMetricColumns.all).toEqual(columnSetMetrics.credits);
   });
   it('names the lenses and their column sets', () => {
-    expect(contributionLenses.filter(isContributionLens)).toEqual(['contributors', 'reviewers']);
+    expect(contributionLenses.filter(isContributionLens)).toEqual([
+      'contributors',
+      'reviewers',
+      'all',
+    ]);
     expect(isContributionLens('companies')).toBe(false);
     expect(columnSetIds.map((id) => columnSetLabels[id])).toEqual([
       'Contributor',
@@ -99,7 +108,11 @@ describe('population roles', () => {
       'All credits',
       'All columns',
     ]);
-    expect(lensColumnSet).toEqual({ contributors: 'contributor', reviewers: 'reviewer' });
+    expect(lensColumnSet).toEqual({
+      contributors: 'contributor',
+      reviewers: 'reviewer',
+      all: 'credits',
+    });
     expect(columnSetMetrics.credits).toEqual(reportMetricIds.slice(0, 6));
     expect(columnSetMetrics.reviewer).toBe(roleMetrics.reviewer);
   });
@@ -118,6 +131,15 @@ describe('lens presentation', () => {
       ['/contributors', null, 'contributors'],
       ['/repos', query('lens=reviewers'), 'contributors'],
       ['/companiesx', query('lens=reviewers'), 'contributors'],
+      ['/companies', query('lens=all'), 'all'],
+      ['/companies', query('timeline&lens=all'), 'all'],
+      ['/companies/id/company-acme', query('lens=all'), 'all'],
+      ['/contributors/account-alice', query('lens=all'), 'all'],
+      // The invalid /contributors?lens=all view reads Companies, as its title and heading do.
+      ['/contributors', query('lens=all'), 'all'],
+      ['/reviewers', query('lens=all'), 'reviewers'],
+      ['/repos', query('lens=all'), 'contributors'],
+      ['/companies', query('lens=companies'), 'contributors'],
     ] as const)
       expect(contributionLensForLocation(path, search), path).toBe(lens);
   });
@@ -125,6 +147,9 @@ describe('lens presentation', () => {
     expect(contributionOverviewPath('contributors')).toBe('/contributors');
     expect(contributionOverviewPath('contributors', 'reviewers')).toBe('/reviewers');
     expect(contributionOverviewPath('companies', 'reviewers')).toBe('/companies');
+    // The Companies lens has no people overview: both areas open /companies.
+    expect(contributionOverviewPath('companies', 'all')).toBe('/companies');
+    expect(contributionOverviewPath('contributors', 'all')).toBe('/companies');
     expect(contributionTableSections('contributors', 'members')).toEqual({
       columns: 'contributions.members.columns',
       sort: 'contributions.members.sort',
@@ -143,17 +168,47 @@ describe('lens presentation', () => {
     expect(contributionTimelineSection('reviewers', 'contributors', 'overview')).toBe(
       'timeline.reviewers.contributors.overview',
     );
-    const known: readonly string[] = preferenceSectionKeys.contributions;
+    expect(contributionTableSections('all', 'members')).toEqual({
+      columns: 'contributions.all.members.columns',
+      sort: 'contributions.all.members.sort',
+    });
+    expect(contributionTableSections('all', 'details').columns).toBe(
+      'contributions.details.columns',
+    );
+    expect(contributionTimelineSection('all', 'companies', 'overview')).toBe(
+      'timeline.all.companies.overview',
+    );
+  });
+  it('registers every cookie section a reachable view of each lens saves into', () => {
+    // `lens` is refused on /contributors and /reviewers, so the Companies lens never shows the
+    // people table, and its Over time views are the overview, a company and a person.
     const tables = ['details', 'contributors', 'companies', 'members', 'repositories'] as const;
+    const views = (['contributors', 'companies'] as const).flatMap((area) =>
+      (['overview', 'contributor', 'company'] as const).map((focus) => [area, focus] as const),
+    );
+    const reachable = {
+      contributors: { tables, views },
+      reviewers: { tables, views },
+      all: {
+        tables: tables.filter((table) => table !== 'contributors'),
+        views: [
+          ['companies', 'overview'],
+          ['companies', 'company'],
+          ['contributors', 'contributor'],
+        ] as const,
+      },
+    };
+    const sections = new Set<string>(['contributions.scope', 'timeline-support.contribution.sort']);
     for (const lens of contributionLenses) {
-      for (const table of tables)
+      for (const table of reachable[lens].tables)
         for (const section of Object.values(contributionTableSections(lens, table)))
-          expect(known).toContain(section);
-      for (const area of ['contributors', 'companies'] as const)
-        for (const focus of ['overview', 'contributor', 'company'] as const)
-          expect(known).toContain(contributionTimelineSection(lens, area, focus));
+          sections.add(section);
+      for (const [area, focus] of reachable[lens].views)
+        sections.add(contributionTimelineSection(lens, area, focus));
     }
-    expect(known).toHaveLength(32);
+    // Exactly the registered sections: every reachable one, and no unreachable one.
+    expect([...sections].sort()).toEqual([...preferenceSectionKeys.contributions].sort());
+    expect(preferenceSectionKeys.contributions).toHaveLength(41);
   });
   it('offers the Column set choice over a table’s metric columns', () => {
     const hideable = ['actorType', 'company', ...reportMetricIds];
@@ -205,6 +260,9 @@ describe('lens presentation', () => {
     expect(change('credits', 'contributors', by('prComments')).sort).toEqual(
       by('authoredPrsMerged'),
     );
+    // All credits is the Companies lens's own set: its lead sort is that lens's default.
+    expect(change('credits', 'all', by('prComments')).sort).toEqual(by('authoredPrsMerged'));
+    expect(change('reviewer', 'all', by('prComments')).sort).toEqual(by('reviewerContributions'));
     const all = change('all', 'reviewers', by('prComments'));
     expect(Object.values(all.visible).every(Boolean)).toBe(true);
     expect(all).not.toHaveProperty('sort');
@@ -245,9 +303,13 @@ describe('lens presentation', () => {
     expect(contributionBackLabel(at('/companies', { lens: 'reviewers' }))).toBe(
       'Back to Companies',
     );
+    expect(contributionBackLabel(at('/companies', { lens: 'all', period: 'last-month' }))).toBe(
+      'Back to Companies',
+    );
     for (const parent of [
       at('/reviewers', { metric: 'mergesPerformed' }),
       at('/companies', { timeline: true }),
+      at('/companies', { lens: 'all', timeline: true }),
       { route: '/companies/[...identity]', segments: { identity: ['unmapped'] }, values: {} },
       null,
       undefined,

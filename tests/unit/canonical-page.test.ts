@@ -118,6 +118,28 @@ describe('canonicalPage', () => {
     ).toEqual({ redirect: '/companies?lens=reviewers&all' });
   });
 
+  it('serves the Companies lens as an entry on /companies only', async () => {
+    expect(await answer('/companies', {}, { lens: 'all' })).toEqual({
+      status: 'canonical',
+      screen: 'contributionOverview',
+      values: { lens: 'all' },
+      entry: true,
+    });
+    expect(await answer('/companies', {}, { lens: 'all', sort: '-authoredPrsMerged' })).toEqual({
+      redirect: '/companies?lens=all',
+    });
+    expect(await answer('/companies', {}, { timeline: '', lens: 'all' })).toEqual({
+      status: 'canonical',
+      screen: 'contributionTimeline',
+      values: { timeline: true, lens: 'all' },
+      entry: true,
+    });
+    for (const route of ['/contributors', '/reviewers'] as const)
+      expect(await answer(route, {}, { lens: 'all' }), route).toMatchObject({
+        status: 'invalid',
+      });
+  });
+
   it('answers an old contribution link on /reviewers as /contributors does, in the Reviewers lens', async () => {
     const old = { scope: '1', period: 'last-month' };
     expect(await answer('/contributors', {}, old)).toEqual({

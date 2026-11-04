@@ -12,7 +12,7 @@ import type {
   TimelinePreferences,
 } from '@/models/timeline-controls';
 import type { ContributionDirectory, ContributionSettings } from '@/models/contribution-settings';
-import type { SavedPreference } from '@/models/preferences';
+import { preferenceSectionKeys, type SavedPreference } from '@/models/preferences';
 import {
   repositoryTimelineSample,
   repositoryTimelineMatrixSample,
@@ -29,7 +29,10 @@ import {
 } from '@/lib/presentation/contribution-settings';
 import { contributionUrlFits } from '@/lib/presentation/contribution-return';
 import { companyFocus, contributionPath } from '@/lib/presentation/contribution-navigation';
-import { contributionBackLabel } from '@/lib/presentation/contribution-lens';
+import {
+  contributionBackLabel,
+  contributionTimelineSection,
+} from '@/lib/presentation/contribution-lens';
 import {
   backFrames,
   resolveBack,
@@ -79,6 +82,15 @@ const repositories = repositoryCatalog
     name: row.displayName,
     primaryBranch: row.primaryBranch === 'main' ? ('main' as const) : ('master' as const),
   }));
+/**
+ * The lens a contribution Timeline query names, Reviewers or Companies, each with its own Over time
+ * presentation; the Contributors lens is the query without `lens`, so null for any other value.
+ */
+function timelineLens(params: URLSearchParams): ContributionLens | null {
+  if (!params.has('lens')) return 'contributors';
+  const named = params.get('lens');
+  return named === 'reviewers' || named === 'all' ? named : null;
+}
 /** Each Timeline reads the clock of the records it shows. */
 function timelineClock(area: TimelineArea): string {
   return area === 'contribution' ? contributionRecords().asOf : repositoryRecords().asOf;
@@ -123,8 +135,8 @@ function options(params: URLSearchParams, area: TimelineArea, path: string) {
   if (
     !source ||
     params.has('metric') ||
-    (params.has('lens') &&
-      (params.getAll('lens').length > 1 || params.get('lens') !== 'reviewers')) ||
+    params.getAll('lens').length > 1 ||
+    timelineLens(params) === null ||
     (params.has('timeline.omitted') && params.get('timeline.omitted') !== 'current')
   )
     return invalid();
@@ -238,11 +250,14 @@ export async function contributionTimelinePreview(
   previewOptions: TimelinePreviewOptions = {},
 ) {
   const viewer = await requireViewer();
-  // The Timeline query names the Reviewers lens, which keeps its own Over time presentation.
-  const lens: ContributionLens = params.get('lens') === 'reviewers' ? 'reviewers' : 'contributors';
+  const lens = timelineLens(params) ?? 'contributors';
   const path = contributionPath(focus.kind === 'overview' ? area : focus, lens),
     parsed = options(params, 'contribution', path);
   if (parsed.status === 'invalid') return parsed;
+  // The Companies lens has no people overview, so only the views it reaches save a presentation.
+  const section = contributionTimelineSection(lens, area, focus.kind);
+  if (!(preferenceSectionKeys.contributions as readonly string[]).includes(section))
+    return invalid();
   if (parsed.sample === 'mixed') return invalid();
   const sample = contributionRecords().timeline(parsed.sample, parsed.gap);
   const settings = readContributionSettings(
@@ -268,7 +283,7 @@ export async function contributionTimelinePreview(
       'contribution',
       path,
       parsed,
-      (lens === 'reviewers' ? 'reviewers.' : '') + area + ':' + focus.kind,
+      (lens === 'contributors' ? '' : lens + '.') + area + ':' + focus.kind,
     ),
     contribution: settings,
     lens,

@@ -364,6 +364,76 @@ it('exports in the Reviewers lens and records the lens and the listed accounts',
   expect(person[0]).not.toContain('Listed accounts');
   expect(person[1]).toContain('"reviewers"');
 });
+it('exports in the Companies lens: the lens on every link, the companies with any activity', () => {
+  const report = selectContributionPresentation(source, selection, overview, undefined, {
+    area: 'companies',
+    lens: 'all',
+  }).report;
+  const page: ContributionPage = {
+    area: 'companies',
+    sample: 'reference',
+    breakdown: 'members',
+    returnTo: null,
+    report,
+    lens: 'all',
+  };
+  const credits = ['prsAuthored', 'reviewerContributions'];
+  const href = contributionExportHref(page, base.query, 'summary', ['members', ...credits]);
+  // The lens's default sort, Authored PRs merged descending, is left out, as on the page.
+  expect(href).toBe(
+    '/companies/export?lens=all&entity=overview&layout=summary' +
+      '&columns=members,prsAuthored,reviewerContributions',
+  );
+  const csv = (link: string, area: ContributionArea) => {
+    const request = exportRequest(link, area)!;
+    const exported = selectContributionExport(source, selection, request);
+    return { request, lines: contributionCsv(exported.rows, request, exported.context) };
+  };
+  const companies = csv(href, 'companies');
+  expect(companies.request).toMatchObject({
+    lens: 'all',
+    query: { sort: 'authoredPrsMerged', descending: true },
+  });
+  const [header, ...rows] = companies.lines.split('\r\n');
+  expect(header).toContain('"Report lens","Listed accounts"');
+  for (const row of rows) expect(row).toContain('"all","All accounts with activity"');
+  // The same companies, in the same order, as the Contributors lens lists ("Entity ID").
+  const entityIds = (lines: string) =>
+    lines
+      .split('\r\n')
+      .slice(1)
+      .map((line) => line.split(',')[1]);
+  expect(rows.length).toBeGreaterThan(1);
+  expect(entityIds(companies.lines)).toEqual(
+    entityIds(csv(href.replace('lens=all&', ''), 'companies').lines),
+  );
+  // Company and person pages export in the lens; their files list no population.
+  for (const [focus, area, link] of [
+    [
+      { kind: 'company' as const, companyId: 'company-acme' },
+      'companies',
+      '/companies/export?lens=all&entity=company&id=company-acme&layout=summary&columns=prsAuthored,reviewerContributions',
+    ],
+    [
+      { kind: 'contributor' as const, accountId: 'account-alice' },
+      'contributors',
+      '/contributors/export?lens=all&entity=contributor&id=account-alice&layout=summary&columns=prsAuthored,reviewerContributions',
+    ],
+  ] as const) {
+    const subject = { ...page, area, report: { ...report, context: { ...report.context, focus } } };
+    expect(contributionExportHref(subject, base.query, 'summary', credits)).toBe(link);
+    const [subjectHeader, first] = csv(link, area).lines.split('\r\n');
+    expect(subjectHeader, link).not.toContain('Listed accounts');
+    expect(first, link).toContain('"all"');
+  }
+  // The lens has no people overview, and Show all is the Reviewers lens's population.
+  for (const [query, area] of [
+    ['lens=all&columns=prsAuthored', 'contributors'],
+    ['lens=all&entity=overview&columns=prsAuthored', 'contributors'],
+    ['lens=all&all&columns=prsAuthored', 'companies'],
+  ] as const)
+    expect(readContributionExportQuery(query, area), query).toBeNull();
+});
 it('validates export options, preserves complete scope and selects only requested metric columns', () => {
   const report = selectContributionPresentation(
     source,
