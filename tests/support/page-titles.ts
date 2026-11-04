@@ -36,5 +36,9 @@ export const pageTitles = {
   'contributor-reviewers': 'Alice · Reviewers',
   'contributor-no-reviewer-activity': 'Finn · Reviewers',
   'company-reviewers': 'Example Acme · Companies · Reviewers',
+  'companies-all': 'Companies · All activity',
+  'companies-timeline-all': 'Over time · Companies · All activity',
+  'company-all': 'Example Acme · Companies · All activity',
+  'contributor-all': 'Alice · Companies · All activity',
   foundation: 'Component foundation',
 } as const satisfies Record<PageGroup, string>;
